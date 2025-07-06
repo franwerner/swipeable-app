@@ -7,8 +7,8 @@ export default function NavigationBar() {
     const { navigate } = useRouter()
 
     return (
-        <View className="py-3 bg-transparent">
-            <View className="flex-row items-center justify-around bg-white rounded-3xl mx-5 py-2 shadow-md">
+        <View className="py-6">
+            <View className="flex-row items-center justify-around bg-[#f7f4f4] rounded-3xl mx-5 py-3 shadow-2xl">
                 <AnimatedTap onPress={() => navigate("/home")} >
                     <Home
                         strokeWidth={1}

@@ -1,12 +1,14 @@
+import CircleDecoration from "@/ui-components/CircleDecoration.ui-components";
 import { Bell } from "lucide-react-native";
 import { Image, Text, View } from "react-native";
 
-
 function Avatar() {
     return (
-        <Image
-            className="w-[60px] h-[60px] rounded-full"
-            source={{ uri: "https://randomuser.me/api/portraits/men/1.jpg" }} />
+        <CircleDecoration className="overflow-hidden">
+            <Image
+                className="w-full h-full"
+                source={{ uri: "https://randomuser.me/api/portraits/men/1.jpg" }} />
+        </CircleDecoration>
     )
 }
 
@@ -16,16 +18,16 @@ function Title() {
 
 function Notification() {
     return (
-        <View className="bg-primary-100 w-[60px] h-[60px] rounded-full justify-center  items-center">
+        <CircleDecoration className="justify-center  items-center">
             <Bell size={24} color={"#443976"} />
-        </View>
+        </CircleDecoration>
     )
 
 }
 export default function HeaderBar() {
 
     return (
-        <View className="mx-6  flex-row items-center  mt-8">
+        <View className="mx-6 flex-row items-center  mt-8">
             <Avatar />
             <Title />
             <Notification />

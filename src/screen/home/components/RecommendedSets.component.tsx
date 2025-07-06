@@ -63,13 +63,6 @@ const SetCardHeart = ({ likeStatus }: SetCardHeartProps) => {
     )
 }
 
-const LoadMoreButton = () => {
-    return (
-        <Button className="bg-secondary-900 items-center py-8">
-            <Text className="text-xl text-white font-semibold">Cargar más</Text>
-        </Button>
-    )
-}
 
 export default function RecommendedSets() {
 
@@ -101,7 +94,9 @@ export default function RecommendedSets() {
                     )
                 }
             </View>
-            <LoadMoreButton />
+            <Button>
+                <Text className="text-xl text-white font-semibold">Cargar más</Text>
+            </Button>
         </View>
     )
 }
