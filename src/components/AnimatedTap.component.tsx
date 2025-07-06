@@ -3,9 +3,10 @@ import Animated, { useAnimatedStyle, useSharedValue, withSpring, WithSpringConfi
 
 const animateConfig: WithSpringConfig = {
     damping: 10,
-    stiffness: 150,
-    mass: 0.8
+    stiffness: 80,
 }
+
+const AnimatedPresseable = Animated.createAnimatedComponent(Pressable)
 
 export default function AnimatedTap(props: PressableProps) {
     const scale = useSharedValue(1)
@@ -13,16 +14,15 @@ export default function AnimatedTap(props: PressableProps) {
         transform: [{ scale: scale.value }],
     }))
     return (
-        <Animated.View style={animatedStyle} >
-            <Pressable
-                {...props}
-                onPressIn={() =>
-                    (scale.value = withSpring(0.95, animateConfig))
-                }
-                onPressOut={() =>
-                    (scale.value = withSpring(1, animateConfig))
-                }
-            />
-        </Animated.View>
+        <AnimatedPresseable
+            {...props}
+            style={animatedStyle}
+            onPressIn={() =>
+                (scale.value = withSpring(0.95, animateConfig))
+            }
+            onPressOut={() =>
+                (scale.value = withSpring(1, animateConfig))
+            }
+        />
     )
 }

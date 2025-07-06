@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useCallback, useContext, useState } from "react"
+import { createContext, ReactNode, useContext, useState } from "react"
 
 type SelectedOptions = Partial<Record<string, Array<string>>>
 
@@ -25,9 +25,11 @@ export default function SetFilterProvider({ children }: SetFilterProviderProps) 
 
     const [selectedOptions, setOptions] = useState<SelectedOptions>({})
 
-    const handleSelectedOptions = useCallback((options: SelectedOptions) => {
+    const handleSelectedOptions = (options: SelectedOptions) => {
+        console.log("asdasd")
         setOptions(options)
-    }, [])
+    }
+
 
     return (
         <SetFilterContext.Provider value={{

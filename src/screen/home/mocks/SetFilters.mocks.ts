@@ -1,6 +1,6 @@
 import ISetFilter from "@/types/SetFilterInterface.type";
 
-const SetFilters: Array<ISetFilter> = [
+const setFilters: Array<ISetFilter> = [
     {
         type: "gender",
         label: "Por genero",
@@ -19,4 +19,4 @@ const SetFilters: Array<ISetFilter> = [
 ]
 
 
-export default SetFilters
+export default setFilters

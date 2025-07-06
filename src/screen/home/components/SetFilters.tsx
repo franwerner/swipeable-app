@@ -1,12 +1,12 @@
 import AnimatedTap from "@/components/AnimatedTap.component";
-import { useSetFilter } from "@/providers/SetFilter.provider";
+import { useSetFilter } from "@/screen/home/provider/SetFilter.provider";
 import ISetFilter from "@/types/SetFilterInterface.type";
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import clsx from "clsx";
-import { FilterIcon } from "lucide-react-native";
-import { useCallback, useRef, useState } from "react";
+import { Funnel, FunnelPlus } from "lucide-react-native";
+import { memo, useCallback, useRef, useState } from "react";
 import { Text, View } from "react-native";
-import SetFilters from "../../mocks/SetFilters.mocks";
+import setFilters from "../mocks/setFilters.mocks";
 
 
 interface FilterContainProps extends ISetFilter {
@@ -26,7 +26,7 @@ interface SheetBodyProps {
 
 const BackdropSheet = (props: any) => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />
 
-function FilterContain({ options, label, type, handleSelectedOptions, selectedOptions = [] }: FilterContainProps) {
+const FilterContain = memo(({ options, label, type, handleSelectedOptions, selectedOptions = [] }: FilterContainProps) => {
 
     const hasSelectedOption = (i: string) => selectedOptions.includes(i)
 
@@ -56,20 +56,19 @@ function FilterContain({ options, label, type, handleSelectedOptions, selectedOp
             </View>
         </View>
     )
-}
+})
 
-function ActionFilter({ applyFilters, clearFilters }: ActionFilterProps) {
+const ActionFilter = ({ applyFilters, clearFilters }: ActionFilterProps) => {
     return (
-        <View className="gap-5 py-3 flex-1">
-            <View className="h-[1px] bg-black/5 w-full " />
+        <View className="gap-5 py-5">
             <AnimatedTap
                 onPress={clearFilters}
-                className="bg-primary-100 py-6  items-center rounded-[50px]">
+                className="bg-primary-100 py-5  items-center rounded-[50px]">
                 <Text className="text-primary-800 text-xl font-bold"> Limpiar todos los filtros</Text>
             </AnimatedTap>
             <AnimatedTap
                 onPress={applyFilters}
-                className="bg-secondary-900 py-6  items-center rounded-[50px]">
+                className="bg-secondary-900 py-5  items-center rounded-[50px]">
                 <Text className="text-white text-xl font-bold">Aplicar filtros</Text>
             </AnimatedTap>
         </View>
@@ -77,7 +76,7 @@ function ActionFilter({ applyFilters, clearFilters }: ActionFilterProps) {
 }
 
 
-function SheetBody({ handleClose }: SheetBodyProps) {
+const SheetBody = ({ handleClose }: SheetBodyProps) => {
     const { selectedOptions, handleSelectedOptions } = useSetFilter()
 
     const [pendingOptions, setPendingOptions] = useState(selectedOptions)
@@ -102,10 +101,10 @@ function SheetBody({ handleClose }: SheetBodyProps) {
     }
 
     return (
-        <BottomSheetScrollView className="h-full px-5">
+        <BottomSheetScrollView className="h-full flex  px-5">
             <Text className="text-center text-2xl pt-2 font-bold">Filtrar sets</Text>
-            <View className="gap-5">
-                {SetFilters.map(i =>
+            <View className="gap-5 mb-5">
+                {setFilters.map(i =>
                     <FilterContain
                         key={i.type}
                         handleSelectedOptions={handleSelectedPendingOptions}
@@ -113,6 +112,7 @@ function SheetBody({ handleClose }: SheetBodyProps) {
                         {...i}
                     />)}
             </View>
+            <View className="h-[1px]  bg-black/5 w-full " />
             <ActionFilter
                 applyFilters={applyFilters}
                 clearFilters={clearFilters}
@@ -121,7 +121,19 @@ function SheetBody({ handleClose }: SheetBodyProps) {
     )
 }
 
-export default function SetFilter() {
+const FilterIcon = () => {
+
+    const { selectedOptions } = useSetFilter()
+
+    const hasFilters = Object.values(selectedOptions).flat().length > 0
+
+    return !hasFilters ? <Funnel
+        size={28}
+        color={"#443976"} /> :
+        <FunnelPlus size={28} color={"#735ccf"} />
+}
+
+export default function SetFilters() {
 
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
@@ -132,9 +144,7 @@ export default function SetFilter() {
         <>
             <View className=" h-full justify-center px-3">
                 <AnimatedTap onPress={() => handleOpen()}>
-                    <FilterIcon
-                        size={28}
-                        color={"#443976"} />
+                    <FilterIcon />
                 </AnimatedTap>
             </View>
             <BottomSheetModal
