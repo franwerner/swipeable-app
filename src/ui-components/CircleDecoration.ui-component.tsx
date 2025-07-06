@@ -12,7 +12,7 @@ export default function CircleDecoration({
     return (
         <View
             className={clsx(
-                "bg-primary-100 rounded-full w-[60px] h-[60px]",
+                "bg-primary-100 rounded-full items-center justify-center  w-[60px] h-[60px]",
                 className
             )}
             {...props}

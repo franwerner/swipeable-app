@@ -1,4 +1,4 @@
-import CircleDecoration from "@/ui-components/CircleDecoration.ui-components";
+import CircleDecoration from "@/ui-components/CircleDecoration.ui-component";
 import { Bell } from "lucide-react-native";
 import { Image, Text, View } from "react-native";
 
@@ -27,7 +27,7 @@ function Notification() {
 export default function HeaderBar() {
 
     return (
-        <View className="mx-6 flex-row items-center  mt-8">
+        <View className="mx-6 flex-row items-center  mt-6">
             <Avatar />
             <Title />
             <Notification />
