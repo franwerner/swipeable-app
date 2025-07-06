@@ -27,7 +27,7 @@ function Notification() {
 export default function HeaderBar() {
 
     return (
-        <View className="mx-6 flex-row items-center  mt-6">
+        <View className="mx-6 flex-row items-center">
             <Avatar />
             <Title />
             <Notification />
