@@ -64,12 +64,12 @@ const ActionFilter = ({ applyFilters, clearFilters }: ActionFilterProps) => {
             <AnimatedTap
                 onPress={clearFilters}
                 className="bg-primary-100 py-5  items-center rounded-[50px]">
-                <Text className="text-primary-800 text-xl font-bold"> Limpiar todos los filtros</Text>
+                <Text className="text-primary-800 text-xl font-semibold"> Limpiar todos los filtros</Text>
             </AnimatedTap>
             <AnimatedTap
                 onPress={applyFilters}
                 className="bg-secondary-900 py-5  items-center rounded-[50px]">
-                <Text className="text-white text-xl font-bold">Aplicar filtros</Text>
+                <Text className="text-white text-xl font-semibold">Aplicar filtros</Text>
             </AnimatedTap>
         </View>
     )

@@ -26,7 +26,6 @@ export default function SetFilterProvider({ children }: SetFilterProviderProps) 
     const [selectedOptions, setOptions] = useState<SelectedOptions>({})
 
     const handleSelectedOptions = (options: SelectedOptions) => {
-        console.log("asdasd")
         setOptions(options)
     }
 

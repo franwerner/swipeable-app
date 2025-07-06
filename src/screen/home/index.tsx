@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { ScrollView, View } from "react-native"
 import HeaderBar from "./components/HeaderBar.component"
 import InputSearch from "./components/InputSearch"
@@ -32,6 +33,12 @@ const Content = () => {
 }
 
 export default function HomeScreen() {
+
+    useEffect(() => {
+        console.log("HOMESCREEN MOUNT")
+        return () => console.log("HOMESCREEN DESMOUNT")
+    }, [])
+
     return (
         <SetFilterProvider>
             <BottomSheetProvider>

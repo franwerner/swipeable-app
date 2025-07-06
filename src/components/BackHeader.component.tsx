@@ -10,11 +10,11 @@ interface BackHeaderProps {
 
 export default function BackHeader({ path = "/home" }: BackHeaderProps) {
 
-    const { navigate } = useRouter()
+    const { back } = useRouter()
 
     return (
         <View className="mt-6 mx-6 flex-row items-center">
-            <AnimatedTap onPress={() => navigate(path)}>
+            <AnimatedTap onPress={() => back()}>
                 <CircleDecoration>
                     <ChevronLeftIcon color={"#443976"} />
                 </CircleDecoration>
