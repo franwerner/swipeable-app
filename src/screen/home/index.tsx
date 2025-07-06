@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { ScrollView, View } from "react-native"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 import HeaderBar from "./components/HeaderBar.component"
 import InputSearch from "./components/InputSearch"
 import NavigationBar from "./components/NavigationBar.component"
@@ -12,8 +13,10 @@ import SetFilterProvider from "./provider/SetFilter.provider"
 const Footer = () => <NavigationBar />
 
 const Header = () => {
+    const insets = useSafeAreaInsets();
+
     return (
-        <View className="gap-8 flex-auto">
+        <View className="gap-8 flex-auto" style={{ marginTop: insets.top }}>
             <HeaderBar />
             <View className="mx-6 items-center flex-row">
                 <InputSearch isLoading={false} />
