@@ -1,3 +1,4 @@
+import Button from "@/components/Button.component";
 import SetCard from "@/components/SetCard.component";
 import { Heart } from "lucide-react-native";
 import { useState } from "react";
@@ -62,6 +63,14 @@ const SetCardHeart = ({ likeStatus }: SetCardHeartProps) => {
     )
 }
 
+const LoadMoreButton = () => {
+    return (
+        <Button className="bg-secondary-900 items-center py-8">
+            <Text className="text-xl text-white font-semibold">Cargar más</Text>
+        </Button>
+    )
+}
+
 export default function RecommendedSets() {
 
     const slice = setList.slice(0, 20)
@@ -92,6 +101,7 @@ export default function RecommendedSets() {
                     )
                 }
             </View>
+            <LoadMoreButton />
         </View>
     )
 }

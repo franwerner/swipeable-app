@@ -50,15 +50,19 @@ export default function SetCard({
         >
             <SetCardGradient colors={colors}>
                 {title}
-                <View className="p-6 py-3 gap-1" {...bodyProps}>
-                    <Text className={clsx(
-                        `text-[${textColor}] text-xl font-bold`
-                    )}>
+                <View className="p-6  py-3 gap-1" {...bodyProps}>
+                    <Text
+                        style={{
+                            color: textColor
+                        }}
+                        className={"text-xl font-bold"}>
                         {subtitle}
                     </Text>
-                    <Text className={clsx(
-                        `text-[${textColor}] tracking-wide font-medium`
-                    )}>
+                    <Text
+                        style={{
+                            color: textColor
+                        }}
+                        className={"tracking-wide font-medium"}>
                         {userBy}
                     </Text>
                 </View>

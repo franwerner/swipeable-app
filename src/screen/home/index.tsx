@@ -36,10 +36,11 @@ export default function HomeScreen() {
         <SetFilterProvider>
             <BottomSheetProvider>
                 <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    className="overflow-visible"
                     contentContainerStyle={{
                         gap: 64
                     }} >
-
                     <Header />
                     <Content />
                 </ScrollView>

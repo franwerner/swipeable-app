@@ -142,7 +142,7 @@ export default function SetFilters() {
 
     return (
         <>
-            <View className=" h-full justify-center px-3">
+            <View className="justify-center p-3">
                 <AnimatedTap onPress={() => handleOpen()}>
                     <FilterIcon />
                 </AnimatedTap>
