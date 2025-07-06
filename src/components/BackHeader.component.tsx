@@ -1,14 +1,11 @@
 import AnimatedTap from "@/components/AnimatedTap.component";
-import { Href, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { ChevronLeftIcon } from "lucide-react-native";
 import { Text, View } from "react-native";
 import CircleDecoration from "../ui-components/CircleDecoration.ui-component";
 
-interface BackHeaderProps {
-    path?: Href
-}
 
-export default function BackHeader({ path = "/home" }: BackHeaderProps) {
+export default function BackHeader() {
 
     const { back } = useRouter()
 
