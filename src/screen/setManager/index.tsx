@@ -10,7 +10,7 @@ export default function SetManagerScreen() {
 
     useEffect(() => {
         console.log("SETMANAGERSCREEN MOUNT")
-        return () => console.log("SETMANAGERSCREEN MOUNT")
+        return () => console.log("SETMANAGERSCREEN DESMOUNT")
     }, [])
 
     return (
