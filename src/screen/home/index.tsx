@@ -16,7 +16,9 @@ const Header = () => {
     const insets = useSafeAreaInsets();
 
     return (
-        <View className="gap-8 flex-auto" style={{ marginTop: insets.top }}>
+        <View
+            className="gap-8 flex-auto "
+            style={{ marginTop: insets.top }}>
             <HeaderBar />
             <View className="mx-6 items-center flex-row">
                 <InputSearch isLoading={false} />
