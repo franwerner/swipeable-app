@@ -1,4 +1,5 @@
-import { ScrollView, View } from "react-native"
+import clsx from "clsx"
+import { Platform, ScrollView, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import HeaderBar from "./components/HeaderBar.Component"
 import InputSearch from "./components/InputSearch"
@@ -41,7 +42,10 @@ export default function HomeScreen() {
             <BottomSheetProvider>
                 <ScrollView
                     showsVerticalScrollIndicator={false}
-                    className="overflow-visible pt-6"
+                    className={clsx(
+                        "overflow-visible",
+                        Platform.OS === "android" && "mt-6"
+                    )}
                     contentContainerStyle={{
                         gap: 64
                     }} >

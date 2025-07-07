@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
-import { KeyboardAvoidingView, Platform } from "react-native"
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 interface SafeInputKeyboardProps {
     children: ReactNode
@@ -9,10 +10,19 @@ export default function SafeInputKeyboard({
 }: SafeInputKeyboardProps) {
 
     return (
-        <KeyboardAvoidingView
-            className="flex-1"
-            behavior={Platform.OS === 'ios' ? 'padding' : "height"}>
-            {children}
-        </KeyboardAvoidingView>
+        <SafeAreaView>
+            <ScrollView className="flex-1">
+                <TouchableWithoutFeedback
+                    className="flex-1"
+                    accessible={false}
+                    onPress={Keyboard.dismiss}>
+                    <KeyboardAvoidingView
+                        className="flex-1"
+                        behavior={Platform.OS === 'ios' ? 'padding' : "height"}>
+                        {children}
+                    </KeyboardAvoidingView>
+                </TouchableWithoutFeedback>
+            </ScrollView>
+        </SafeAreaView>
     )
 }

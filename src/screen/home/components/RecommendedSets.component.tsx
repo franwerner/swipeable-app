@@ -94,7 +94,7 @@ export default function RecommendedSets() {
                     )
                 }
             </View>
-            <Button>
+            <Button >
                 <Text className="text-xl text-white font-semibold">Cargar más</Text>
             </Button>
         </View>
