@@ -10,7 +10,7 @@ export default function BackHeader() {
     const { back } = useRouter()
 
     return (
-        <View className="mx-6 flex-row items-center">
+        <View className="mx-6 pt-6 flex-row items-center">
             <AnimatedTap onPress={() => back()}>
                 <CircleDecoration>
                     <ChevronLeftIcon color={"#443976"} />
