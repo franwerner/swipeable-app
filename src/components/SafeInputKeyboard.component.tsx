@@ -10,7 +10,6 @@ export default function SafeInputKeyboard({
 
     return (
         <KeyboardAvoidingView
-            className="flex-1"
             behavior={Platform.OS === 'ios' ? 'padding' : "height"}>
             {children}
         </KeyboardAvoidingView>

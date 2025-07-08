@@ -19,6 +19,8 @@
     "expo-env.d.ts",
     "expo-router.config.js",
     "nativewind-env.d.ts",
-    ".expo/types/**/*.ts"
+    ".expo/types/**/*.ts",
+    "src/screen/home/components",
+    "_layout.tsx"
   ]
 }

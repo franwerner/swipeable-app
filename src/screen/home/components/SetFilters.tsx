@@ -105,7 +105,7 @@ const SheetBody = ({ handleClose }: SheetBodyProps) => {
                     />)}
             </View>
             <View className="h-[1px]  bg-black/5 w-full " />
-            <View className="gap-5 py-5">
+            <View className="gap-5 mb-5 py-5">
                 <AnimatedTap
                     onPress={() => {
                         clearFilters()

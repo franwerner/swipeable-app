@@ -1,8 +1,8 @@
 import clsx from "clsx";
-import { ActivityIndicator, ActivityIndicatorProps, ViewProps } from "react-native";
+import { ActivityIndicator, ActivityIndicatorProps, PressableProps } from "react-native";
 import AnimatedTap from "./AnimatedTap.component";
 
-interface ButtonProps extends ViewProps {
+export interface ButtonProps extends PressableProps {
     isLoading?: boolean
     loadingProps?: ActivityIndicatorProps
 }
@@ -17,7 +17,7 @@ export default function Button({
     return (
         <AnimatedTap
             className={clsx(
-                "bg-secondary-900 rounded-xl py-6 items-center",
+                "bg-secondary-950 rounded-[50px] py-6 items-center",
                 className,
                 isLoading && "opacity-95"
             )}

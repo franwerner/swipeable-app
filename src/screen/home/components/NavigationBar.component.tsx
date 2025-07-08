@@ -16,8 +16,8 @@ export default function NavigationBar() {
                     <Text className="text-sm text-center">Inicio</Text>
                 </AnimatedTap>
                 <AnimatedTap
-                    className="bg-gray-800 p-2 rounded-full"
-                    onPress={() => navigate("/setManager")}>
+                    className="bg-secondary-950 p-2 rounded-full"
+                    onPress={() => navigate("/setCreation/SetTopic")}>
                     <Plus
                         color="white"
                         size={32} />
