@@ -1,4 +1,5 @@
-import { ScrollView, View } from "react-native"
+import clsx from "clsx"
+import { Platform, ScrollView, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import HeaderBar from "./components/HeaderBar.component"
 import InputSearch from "./components/InputSearch"
@@ -15,7 +16,9 @@ const Header = () => {
     const insets = useSafeAreaInsets();
 
     return (
-        <View className="gap-8 flex-auto" style={{ marginTop: insets.top }}>
+        <View
+            className="gap-8 flex-auto "
+            style={{ marginTop: insets.top }}>
             <HeaderBar />
             <View className="mx-6 items-center flex-row">
                 <InputSearch isLoading={false} />
@@ -41,7 +44,10 @@ export default function HomeScreen() {
             <BottomSheetProvider>
                 <ScrollView
                     showsVerticalScrollIndicator={false}
-                    className="overflow-visible pt-6"
+                    className={clsx(
+                        "overflow-visible",
+                        Platform.OS === "android" && "mt-6"
+                    )}
                     contentContainerStyle={{
                         gap: 64
                     }} >

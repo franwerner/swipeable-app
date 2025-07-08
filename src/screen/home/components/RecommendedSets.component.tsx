@@ -68,7 +68,7 @@ export default function RecommendedSets() {
 
     const slice = setList.slice(0, 20)
     return (
-        <View className="gap-8 mx-6  ">
+        <View className="gap-8 mx-6   ">
             <Text className="text-2xl font-semibold ">
                 En base a tus sets
             </Text>
@@ -94,8 +94,8 @@ export default function RecommendedSets() {
                     )
                 }
             </View>
-            <Button>
-                <Text className="text-xl text-white font-semibold">Cargar más</Text>
+            <Button className="" >
+                <Text className="text-xl  text-white font-semibold">Cargar más</Text>
             </Button>
         </View>
     )
