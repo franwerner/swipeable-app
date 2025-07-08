@@ -1,10 +1,10 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Keyboard, Text, TouchableWithoutFeedback, View } from "react-native";
+import { Text, View } from "react-native";
 import Checkbox from "./components/Checkbox.component";
 import NextButton from "./components/NextButton.component";
 import SetImageBackground from "./components/SetImageBackground.component";
 import SetInput from "./components/SetInput.component";
-import SetManagerWrapper from "./components/SetManagerWrapper.component";
+import { SetManagerWrapperWithSafeKeyboard } from "./components/SetManagerWrapper.component";
 import normalizeQueryParam from "./utils/normalizeQueryParam.util";
 
 
@@ -56,7 +56,6 @@ const PublicList = () => {
 
 const Button = () => {
     const {
-        visibility,
         name
     } = useLocalSearchParams()
 
@@ -81,14 +80,11 @@ export default function SetName() {
 
 
     return (
-        <TouchableWithoutFeedback
-            onPress={Keyboard.dismiss}>
-            <SetManagerWrapper>
-                <SetImageBackground
-                    className="h-[360px]"
-                    source={require("@/assets/images/setName.png")} />
-                <Content />
-            </SetManagerWrapper>
-        </TouchableWithoutFeedback>
+        <SetManagerWrapperWithSafeKeyboard>
+            <SetImageBackground
+                className="h-[360px]"
+                source={require("@/assets/images/setName.png")} />
+            <Content />
+        </SetManagerWrapperWithSafeKeyboard>
     )
 }

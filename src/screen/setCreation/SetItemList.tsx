@@ -7,7 +7,6 @@ import NextButton from "./components/NextButton.component";
 import SetImageBackground from "./components/SetImageBackground.component";
 import SetManagerWrapper from "./components/SetManagerWrapper.component";
 import itemList, { SetItem } from "./mocks/itemList.mock";
-
 interface SetItemProps extends SetItem {
     isActive?: Boolean
     setItem: (item: string) => void
@@ -21,15 +20,16 @@ const Item = memo(({
     setItem
 }: SetItemProps) => {
 
+    const onPress = () => setItem(id)
+    const borderColor = isActive ? "#000" : "#ced0f7"
+
     return (
         <AnimatedTap
-            onPress={() => {
-                setItem(id)
-            }}
+            onPress={onPress}
             style={{
-                borderColor: isActive ? "#000" : "#ced0f7"
+                borderColor
             }}
-            className="py-5 rounded-[16px]  flex-row justify-between px-6 items-center border">
+            className="h-[64px] rounded-[16px]  flex-row justify-between px-6 items-center border">
             <Text className="text-[16px]">{icon}</Text>
             <Text className="text-primary-800 font-medium text-[16px]">{title}</Text>
             <Checkbox
@@ -100,7 +100,7 @@ export default function ItemList() {
             <Content />
             <NextButton
                 nextStepAllowed={true}
-                href={"/setCreation/SetItemList"} />
+                href={"/setCreation/SetCustomItems"} />
         </SetManagerWrapper>
     )
 }

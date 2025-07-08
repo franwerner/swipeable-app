@@ -1,14 +1,14 @@
 import AnimatedTap from "@/components/AnimatedTap.component"
 import Input, { InputProps } from "@/components/Input.component"
 import { ChevronRight, X } from "lucide-react-native"
-import { Keyboard } from "react-native"
+import { Keyboard, View } from "react-native"
 
-
+type SetInputProps = Omit<InputProps, "endComponent">
 
 export default function SetInput({
     inputProps,
     ...props
-}: InputProps) {
+}: SetInputProps) {
     const value = inputProps?.value || ""
     const hasValue = value.length > 0
     const onChangeText = inputProps?.onChangeText
@@ -24,8 +24,8 @@ export default function SetInput({
             endComponent={
                 hasValue ?
                     <AnimatedTap
-                        className="h-full justify-center"
-                        onPress={() => {
+                        className="h-full px-2 justify-center"
+                        onPress={(e) => {
                             onChangeText && onChangeText("")
                             Keyboard.dismiss()
                         }}
@@ -33,7 +33,9 @@ export default function SetInput({
                         <X color={"#443976"} />
                     </AnimatedTap>
                     :
-                    <ChevronRight color={"#443976"} />
+                    <View className="px-2 " >
+                        <ChevronRight color={"#443976"} />
+                    </View>
 
             }
         />

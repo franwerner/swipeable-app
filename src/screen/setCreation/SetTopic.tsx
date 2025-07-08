@@ -1,10 +1,10 @@
 
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Keyboard, TouchableWithoutFeedback, View } from "react-native";
+import { View } from "react-native";
 import NextButton from "./components/NextButton.component";
 import SetImageBackground from "./components/SetImageBackground.component";
 import SetInput from "./components/SetInput.component";
-import SetManagerWrapper from "./components/SetManagerWrapper.component";
+import { SetManagerWrapperWithSafeKeyboard } from "./components/SetManagerWrapper.component";
 import normalizeQueryParam from "./utils/normalizeQueryParam.util";
 
 
@@ -41,14 +41,11 @@ const Content = () => {
 
 export default function SetTopic() {
     return (
-        <TouchableWithoutFeedback
-            onPress={Keyboard.dismiss}>
-            <SetManagerWrapper>
-                <SetImageBackground
-                    className="h-[360px]"
-                    source={require("@/assets/images/setTopic.png")} />
-                <Content />
-            </SetManagerWrapper>
-        </TouchableWithoutFeedback>
+        <SetManagerWrapperWithSafeKeyboard>
+            <SetImageBackground
+                className="h-[360px]"
+                source={require("@/assets/images/setTopic.png")} />
+            <Content />
+        </SetManagerWrapperWithSafeKeyboard>
     )
 }
