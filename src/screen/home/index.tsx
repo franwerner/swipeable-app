@@ -1,6 +1,6 @@
 import { ScrollView, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import HeaderBar from "./components/HeaderBar.Component"
+import HeaderBar from "./components/HeaderBar.component"
 import InputSearch from "./components/InputSearch"
 import NavigationBar from "./components/NavigationBar.component"
 import NewSets from "./components/NewSets.components"
