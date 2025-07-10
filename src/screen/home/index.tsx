@@ -8,12 +8,10 @@ import NewSets from "./components/NewSets.components"
 import RecommendedSets from "./components/RecommendedSets.component"
 import SetFilters from "./components/SetFilters"
 import BottomSheetProvider from "./provider/BottomSheet.provider"
-import SetFilterProvider from "./provider/SetFilter.provider"
 
-const Footer = () => <NavigationBar />
 
 const Header = () => {
-    const insets = useSafeAreaInsets();
+    const insets = useSafeAreaInsets()
 
     return (
         <View
@@ -40,22 +38,20 @@ const Content = () => {
 export default function HomeScreen() {
 
     return (
-        <SetFilterProvider>
-            <BottomSheetProvider>
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    className={clsx(
-                        "overflow-visible",
-                        Platform.OS === "android" && "mt-6"
-                    )}
-                    contentContainerStyle={{
-                        gap: 64
-                    }} >
-                    <Header />
-                    <Content />
-                </ScrollView>
-                <Footer />
-            </BottomSheetProvider>
-        </SetFilterProvider>
+        <BottomSheetProvider>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                className={clsx(
+                    "overflow-visible",
+                    Platform.OS === "android" && "mt-6"
+                )}
+                contentContainerStyle={{
+                    gap: 64
+                }} >
+                <Header />
+                <Content />
+            </ScrollView>
+            <NavigationBar />
+        </BottomSheetProvider>
     )
 }

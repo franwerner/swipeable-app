@@ -12,10 +12,10 @@ export default function InputSearch({ isLoading }: InputSearchProps) {
 
     return (
         <View className="border items-center flex-1 gap-3 px-5 flex-row py-4  relative border-primary-200 rounded-[50px] ">
-            <Search size={24} color={"#443976"} />
+            <Search size={24} color={"#514093"} />
             <TextInput
                 className="flex-1"
-                placeholderTextColor={"#443976"}
+                placeholderTextColor={"#514093"}
                 placeholder="Busca ideas, temas o creadores"
                 onChangeText={setValue}
                 value={value} />

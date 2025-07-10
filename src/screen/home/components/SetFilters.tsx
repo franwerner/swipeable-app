@@ -1,67 +1,38 @@
 import AnimatedTap from "@/components/AnimatedTap.component";
-import { useSetFilter } from "@/screen/home/provider/SetFilter.provider";
 import ISetFilter from "@/types/SetFilterInterface.type";
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
 import clsx from "clsx";
-import { Funnel, FunnelPlus } from "lucide-react-native";
-import { memo, useCallback, useRef, useState } from "react";
+import { router, UnknownOutputParams, useLocalSearchParams } from "expo-router";
+import { SlidersIcon } from "lucide-react-native";
+import { memo, useRef } from "react";
 import { Text, View } from "react-native";
 import setFilters from "../mocks/setFilters.mocks";
 
-
-interface FilterContainProps extends ISetFilter {
+interface FilterOptionsProps extends ISetFilter {
     selectedOptions?: Array<string>,
-    handleSelectedOptions: (key: string, option: string) => void
 }
 
 interface SheetBodyProps {
     handleClose: () => void
 }
 
-const usePendingFilters = () => {
-    const { selectedOptions, handleSelectedOptions } = useSetFilter()
-    const [pendingOptions, setPendingOptions] = useState(selectedOptions)
+const FilterOptions = memo(({
+    options,
+    label,
+    type,
+    selectedOptions = []
+}: FilterOptionsProps) => {
 
-    const handleSelectedPendingOptions = useCallback<FilterContainProps["handleSelectedOptions"]>(
-        (type, option) => {
-            setPendingOptions(prev => {
-                const options = prev[type] || []
-                const filterRepeatOption =
-                    options.includes(option) ?
-                        options.filter(i => i !== option) :
-                        [...options, option]
-                return {
-                    ...prev,
-                    [type]: filterRepeatOption
-                }
-            })
-        }, [])
+    const hasSelectedOption = (option: string) => selectedOptions.includes(option)
 
-    const applyFilters = () => {
-        handleSelectedOptions(pendingOptions)
+    const onPress = (option: string) => {
+
+        const filterRepeated = hasSelectedOption(option) ? selectedOptions.filter(i => i !== option) : [...selectedOptions, option]
+
+        router.setParams({
+            [`filter_${type}`]: filterRepeated
+        })
     }
-    const clearFilters = () => {
-        setPendingOptions({})
-        handleSelectedOptions({})
-    }
-
-    return {
-        pendingOptions,
-        handleSelectedPendingOptions,
-        applyFilters,
-        clearFilters
-    }
-}
-
-
-const BackdropSheet = (props: BottomSheetDefaultBackdropProps) => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />
-
-const FilterContain = memo(({ options, label, type, handleSelectedOptions, selectedOptions = [] }: FilterContainProps) => {
-
-    const hasSelectedOption = (i: string) => selectedOptions.includes(i)
-
-    const onPress = (option: string) => handleSelectedOptions(type, option)
 
     return (
         <View className="gap-5">
@@ -83,32 +54,39 @@ const FilterContain = memo(({ options, label, type, handleSelectedOptions, selec
     )
 })
 
-const SheetBody = ({ handleClose }: SheetBodyProps) => {
+const FilterContain = () => {
 
-    const {
-        handleSelectedPendingOptions,
-        pendingOptions,
-        applyFilters,
-        clearFilters
-    } = usePendingFilters()
+    const filters = useLocalSearchParams()
+
+    const asFilterArray = (filter: UnknownOutputParams[keyof UnknownOutputParams]) => {
+        if (Array.isArray(filter)) return filter
+    }
+
+    return (
+        <View className="gap-5 mb-5">
+            {setFilters.map(i =>
+                <FilterOptions
+                    key={i.type}
+                    {...i}
+                    selectedOptions={asFilterArray(filters[`filter_${i.type}`])}
+                />)}
+        </View>
+    )
+}
+
+
+const SheetBody = ({
+    handleClose
+}: SheetBodyProps) => {
 
     return (
         <BottomSheetScrollView className="h-full flex  px-5">
             <Text className="text-center text-2xl pt-2 font-bold">Filtrar sets</Text>
-            <View className="gap-5 mb-5">
-                {setFilters.map(i =>
-                    <FilterContain
-                        key={i.type}
-                        handleSelectedOptions={handleSelectedPendingOptions}
-                        selectedOptions={pendingOptions[i.type]}
-                        {...i}
-                    />)}
-            </View>
+            <FilterContain />
             <View className="h-[1px]  bg-black/5 w-full " />
             <View className="gap-5 mb-5 py-5">
                 <AnimatedTap
                     onPress={() => {
-                        clearFilters()
                         handleClose()
                     }}
                     className="bg-primary-100 py-5  items-center rounded-[50px]">
@@ -116,7 +94,6 @@ const SheetBody = ({ handleClose }: SheetBodyProps) => {
                 </AnimatedTap>
                 <AnimatedTap
                     onPress={() => {
-                        applyFilters()
                         handleClose()
                     }}
                     className="bg-secondary-900 py-5  items-center rounded-[50px]">
@@ -127,24 +104,10 @@ const SheetBody = ({ handleClose }: SheetBodyProps) => {
     )
 }
 
-const FilterIcon = () => {
-
-    const { selectedOptions } = useSetFilter()
-
-    const hasFilters = Object.values(selectedOptions).flat().length > 0
-
-    return !hasFilters ?
-        <Funnel
-            size={28}
-            color={"#443976"} /> :
-        <FunnelPlus
-            size={28}
-            color={"#735ccf"} />
-}
 
 export default function SetFilters() {
 
-    const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+    const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
     const handleOpen = () => bottomSheetModalRef.current?.present()
     const handleClose = () => bottomSheetModalRef.current?.close()
@@ -152,12 +115,15 @@ export default function SetFilters() {
     return (
         <>
             <View className="justify-center p-3">
-                <AnimatedTap onPress={() => handleOpen()}>
-                    <FilterIcon />
+                <AnimatedTap onPress={handleOpen}>
+                    <SlidersIcon
+                        color={"#514093"}
+                        size={28}
+                    />
                 </AnimatedTap>
             </View>
             <BottomSheetModal
-                backdropComponent={BackdropSheet}
+                backdropComponent={(props) => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />}
                 index={0}
                 ref={bottomSheetModalRef}>
 
