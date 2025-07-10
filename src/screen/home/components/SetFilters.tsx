@@ -1,15 +1,17 @@
 import AnimatedTap from "@/components/AnimatedTap.component";
+import Button from "@/components/Button.component";
 import ISetFilter from "@/types/SetFilterInterface.type";
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import clsx from "clsx";
-import { router, UnknownOutputParams, useLocalSearchParams } from "expo-router";
 import { SlidersIcon } from "lucide-react-native";
 import { memo, useRef } from "react";
 import { Text, View } from "react-native";
+import useFilter from "../hooks/useFilter.hook";
 import setFilters from "../mocks/setFilters.mocks";
 
 interface FilterOptionsProps extends ISetFilter {
     selectedOptions?: Array<string>,
+    handleSelectedOptions: (type: string, option: string) => void
 }
 
 interface SheetBodyProps {
@@ -20,19 +22,13 @@ const FilterOptions = memo(({
     options,
     label,
     type,
+    handleSelectedOptions,
     selectedOptions = []
 }: FilterOptionsProps) => {
 
     const hasSelectedOption = (option: string) => selectedOptions.includes(option)
 
-    const onPress = (option: string) => {
-
-        const filterRepeated = hasSelectedOption(option) ? selectedOptions.filter(i => i !== option) : [...selectedOptions, option]
-
-        router.setParams({
-            [`filter_${type}`]: filterRepeated
-        })
-    }
+    const onPress = (option: string) => handleSelectedOptions(type, option)
 
     return (
         <View className="gap-5">
@@ -54,51 +50,50 @@ const FilterOptions = memo(({
     )
 })
 
-const FilterContain = () => {
-
-    const filters = useLocalSearchParams()
-
-    const asFilterArray = (filter: UnknownOutputParams[keyof UnknownOutputParams]) => {
-        if (Array.isArray(filter)) return filter
-    }
-
-    return (
-        <View className="gap-5 mb-5">
-            {setFilters.map(i =>
-                <FilterOptions
-                    key={i.type}
-                    {...i}
-                    selectedOptions={asFilterArray(filters[`filter_${i.type}`])}
-                />)}
-        </View>
-    )
-}
-
 
 const SheetBody = ({
     handleClose
 }: SheetBodyProps) => {
 
+    const {
+        clearSelectedOptions,
+        commitPedingOptions,
+        handlePendingOptions,
+        pendingOptions,
+        getPedingOption
+    } = useFilter(setFilters)
+
     return (
         <BottomSheetScrollView className="h-full flex  px-5">
             <Text className="text-center text-2xl pt-2 font-bold">Filtrar sets</Text>
-            <FilterContain />
+            <View className="gap-5 mb-5">
+                {setFilters.map(i =>
+                    <FilterOptions
+                        handleSelectedOptions={handlePendingOptions}
+                        key={i.type}
+
+                        {...i}
+                        selectedOptions={pendingOptions[getPedingOption(i.type)]}
+                    />)}
+            </View>
             <View className="h-[1px]  bg-black/5 w-full " />
             <View className="gap-5 mb-5 py-5">
-                <AnimatedTap
+                <Button
                     onPress={() => {
                         handleClose()
+                        clearSelectedOptions()
                     }}
-                    className="bg-primary-100 py-5  items-center rounded-[50px]">
+                    className="!bg-primary-100 !py-5  rounded-[50px]">
                     <Text className="text-primary-800 text-xl font-semibold"> Limpiar todos los filtros</Text>
-                </AnimatedTap>
-                <AnimatedTap
+                </Button>
+                <Button
                     onPress={() => {
                         handleClose()
+                        commitPedingOptions()
                     }}
-                    className="bg-secondary-900 py-5  items-center rounded-[50px]">
+                    className=" !py-5  rounded-[50px]">
                     <Text className="text-white text-xl font-semibold">Aplicar filtros</Text>
-                </AnimatedTap>
+                </Button>
             </View>
         </BottomSheetScrollView>
     )
