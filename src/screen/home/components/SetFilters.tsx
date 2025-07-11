@@ -1,5 +1,6 @@
 import AnimatedTap from "@/components/AnimatedTap.component";
 import Button from "@/components/Button.component";
+import colorPalette from "@/constant/colorPalette.constant";
 import ISetFilter from "@/types/SetFilterInterface.type";
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import clsx from "clsx";
@@ -112,7 +113,7 @@ export default function SetFilters() {
             <View className="justify-center p-3">
                 <AnimatedTap onPress={handleOpen}>
                     <SlidersIcon
-                        color={"#514093"}
+                        color={colorPalette.primary[800]}
                         size={28}
                     />
                 </AnimatedTap>

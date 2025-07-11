@@ -6,7 +6,6 @@ interface ISet {
     subtitle: string
     userBy: string
     colors: Array<ColorValue>
-    textColor: string
     likeStatus?: boolean
 }
 

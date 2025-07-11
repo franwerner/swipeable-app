@@ -1,0 +1,1 @@
+//Aca va todo el tema de la store global que se utiliza en toda la APP.

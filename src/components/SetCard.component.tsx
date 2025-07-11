@@ -1,27 +1,29 @@
 import ISet from "@/types/SetInterface.type"
 import clsx from "clsx"
 import { BlurView } from "expo-blur"
-import { LinearGradient } from "expo-linear-gradient"
+import { LinearGradient, LinearGradientProps } from "expo-linear-gradient"
 import { ReactNode } from "react"
 import { Text, View, ViewProps } from "react-native"
 
 interface SetCardProps extends Omit<ViewProps, "id">, Omit<ISet, "title"> {
-    title: ReactNode
+    title?: ReactNode
     bodyProps?: ViewProps
 }
 
-type SetCardGradientProps = Pick<ISet, "colors"> & { children: ReactNode }
+type SetCardGradientProps = Omit<LinearGradientProps, "colors"> & Pick<ISet, "colors"> & { children?: ReactNode }
 
-const SetCardGradient = ({ colors, children }: SetCardGradientProps) => {
+export const SetCardGradient = ({ colors, children, ...props }: SetCardGradientProps) => {
     return (
         <LinearGradient
             start={{ x: 0, y: 1 }}
             end={{ x: 1, y: 0 }}
-            style={{ flex: 1 }}
+            className="flex-1"
+            {...props}
             colors={[...colors] as any}>
             <BlurView
                 intensity={100}
-                style={{ flex: 1 }}>
+                className="flex-1"
+            >
                 {children}
             </BlurView>
         </LinearGradient>
@@ -36,7 +38,6 @@ export default function SetCard({
     subtitle,
     bodyProps,
     userBy,
-    textColor = "#000",
     id,
     ...props
 }: SetCardProps) {
@@ -49,19 +50,14 @@ export default function SetCard({
             {...props}
         >
             <SetCardGradient colors={colors}>
-                {title}
+                {title && title}
                 <View className="p-6  py-3 gap-1" {...bodyProps}>
                     <Text
-                        style={{
-                            color: textColor
-                        }}
                         className={"text-xl font-bold"}>
                         {subtitle}
                     </Text>
                     <Text
-                        style={{
-                            color: textColor
-                        }}
+
                         className={"tracking-wide font-medium"}>
                         {userBy}
                     </Text>

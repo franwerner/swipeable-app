@@ -1,3 +1,4 @@
+import colorPalette from "@/constant/colorPalette.constant";
 import CircleDecoration from "@/ui-components/CircleDecoration.ui-component";
 import { Bell } from "lucide-react-native";
 import { Image, Text, View } from "react-native";
@@ -19,7 +20,7 @@ function Title() {
 function Notification() {
     return (
         <CircleDecoration className="justify-center  items-center">
-            <Bell size={24} color={"#443976"} />
+            <Bell size={24} color={colorPalette.primary[800]} />
         </CircleDecoration>
     )
 
@@ -27,7 +28,7 @@ function Notification() {
 export default function HeaderBar() {
 
     return (
-        <View className="mx-6 flex-row items-center">
+        <View className="mx-6 py-2 flex-row items-center">
             <Avatar />
             <Title />
             <Notification />

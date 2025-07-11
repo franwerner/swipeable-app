@@ -3,8 +3,6 @@ import clsx from "clsx";
 import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, ScrollViewProps, TouchableWithoutFeedback, View, ViewProps } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const classNameShared = "gap-8 m-6 flex-1"
-
 export function SetManagerWrapperWithSafeKeyboard({
     contentContainerClassName,
     ...props
@@ -18,9 +16,10 @@ export function SetManagerWrapperWithSafeKeyboard({
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <ScrollView
+                        showsVerticalScrollIndicator={false}
                         className="flex-1"
                         contentContainerClassName={clsx(
-                            classNameShared,
+                            "gap-8 p-6",
                             contentContainerClassName
                         )}
                         {...props} />
@@ -41,7 +40,7 @@ export default function SetManagerWrapper({
             <BackHeader />
             <View
                 className={clsx(
-                    classNameShared,
+                    "gap-8 flex-1 p-6",
                     className
                 )}
                 {...props}

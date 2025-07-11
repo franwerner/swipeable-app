@@ -1,9 +1,10 @@
+import colorPalette from "@/constant/colorPalette.constant";
 import clsx from "clsx";
 import { ReactNode } from "react";
-import { TextInput, TextInputProps, View, ViewProps } from "react-native";
+import { TextInput, TextInputProps } from "react-native";
+import Container, { ContainerProps } from "./Container.component";
 
-
-export interface InputProps extends ViewProps {
+export interface InputProps extends ContainerProps {
     inputProps?: TextInputProps
     endComponent?: ReactNode
     startCompoent?: ReactNode
@@ -11,29 +12,24 @@ export interface InputProps extends ViewProps {
 
 export default function Input({
     inputProps = {},
-    className,
     endComponent,
     startCompoent,
     ...props
 }: InputProps) {
     return (
-        <View className={clsx(
-            "border pr-6 rounded-[16px] h-[64px] border-primary-200 items-center flex-row",
-            className,
-        )}
-            {...props}
-        >
+        <Container
+            {...props}>
             {startCompoent}
             <TextInput
-                placeholderTextColor={"#514093"}
+                placeholderTextColor={colorPalette.primary[800]}
                 {...inputProps}
                 className={clsx(
-                    "flex-1 pl-6 text-[16px] font-medium h-full",
+                    "flex-1 text-[16px] font-semibold h-full",
                     inputProps.className
                 )}
             />
             {endComponent}
-        </View>
+        </Container>
     )
 }
 

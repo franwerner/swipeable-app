@@ -1,5 +1,6 @@
 import AnimatedTap from "@/components/AnimatedTap.component"
 import Input, { InputProps } from "@/components/Input.component"
+import colorPalette from "@/constant/colorPalette.constant"
 import { ChevronRight, X } from "lucide-react-native"
 import { Keyboard, View } from "react-native"
 
@@ -14,9 +15,7 @@ export default function SetInput({
     const onChangeText = inputProps?.onChangeText
     return (
         <Input
-            style={{
-                borderColor: hasValue ? "#000" : "#ced0f7"
-            }}
+            isActive={hasValue}
             inputProps={{
                 ...inputProps,
             }}
@@ -24,17 +23,17 @@ export default function SetInput({
             endComponent={
                 hasValue ?
                     <AnimatedTap
-                        className="h-full px-2 justify-center"
-                        onPress={(e) => {
+                        className="h-full px-2  justify-center"
+                        onPress={() => {
                             onChangeText && onChangeText("")
                             Keyboard.dismiss()
                         }}
                     >
-                        <X color={"#443976"} />
+                        <X color={colorPalette.primary[800]} />
                     </AnimatedTap>
                     :
                     <View className="px-2 " >
-                        <ChevronRight color={"#443976"} />
+                        <ChevronRight color={colorPalette.primary[800]} />
                     </View>
 
             }

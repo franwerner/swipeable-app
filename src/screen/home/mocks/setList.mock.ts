@@ -7,7 +7,6 @@ const setListBase: Array<ISet> = [
         subtitle: "Plot Twist Eterno",
         userBy: "Cinefiloco",
         colors: ['#ff7e5f', '#feb47b', '#ffe5b4'],
-        textColor: '#1E1E23',
         likeStatus: true
     },
     {
@@ -16,7 +15,6 @@ const setListBase: Array<ISet> = [
         subtitle: "Viaje Intergaláctico",
         userBy: "AstroFan",
         colors: ['#6a11cb', '#2575fc', '#3a8dde'],
-        textColor: '#FFFFFF',
     },
     {
         id: 3,
@@ -24,7 +22,6 @@ const setListBase: Array<ISet> = [
         subtitle: "Noches Gamer",
         userBy: "PixelMaster",
         colors: ['#ff6a00', '#ee0979', '#ffb347'],
-        textColor: '#1E1E23',
     },
     {
         id: 4,
@@ -32,7 +29,6 @@ const setListBase: Array<ISet> = [
         subtitle: "Tardes de Lectura",
         userBy: "BookLover",
         colors: ['#56ab2f', '#a8e063', '#d4f4a2'],
-        textColor: '#1E1E23',
     },
     {
         id: 5,
@@ -40,7 +36,6 @@ const setListBase: Array<ISet> = [
         subtitle: "Vacaciones de Ensueño",
         userBy: "TravelBug",
         colors: ['#614385', '#516395', '#8fa1d0'],
-        textColor: '#FFFFFF',
     },
     {
         id: 6,
@@ -48,7 +43,6 @@ const setListBase: Array<ISet> = [
         subtitle: "Arte y Creatividad",
         userBy: "ColorSplash",
         colors: ['#f7971e', '#ffd200', '#fff0b3'],
-        textColor: '#1E1E23',
         likeStatus: true
     },
 ]

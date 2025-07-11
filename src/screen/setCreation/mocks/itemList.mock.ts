@@ -1,12 +1,9 @@
-export interface SetItem {
-    id: string
-    icon: string
-    title: string
-}
 
 //No tengo bien en claro que es esto.
 
-const itemList: SetItem[] = [
+import { SetItem } from "@/types/SetItemInteface.type"
+
+const setItemsMock: SetItem[] = [
     { id: "item-1", icon: "🏁", title: "Inicio de carrera" },
     { id: "item-2", icon: "📘", title: "Plan de estudios" },
     { id: "item-3", icon: "📚", title: "Material de lectura" },
@@ -29,4 +26,4 @@ const itemList: SetItem[] = [
     { id: "item-20", icon: "⚙️", title: "Preferencias de usuario" },
 ]
 
-export default itemList
+export default setItemsMock

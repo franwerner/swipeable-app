@@ -1,3 +1,4 @@
+import colorPalette from "@/constant/colorPalette.constant"
 import { Search } from "lucide-react-native"
 import { useState } from "react"
 import { ActivityIndicator, TextInput, View } from "react-native"
@@ -12,10 +13,10 @@ export default function InputSearch({ isLoading }: InputSearchProps) {
 
     return (
         <View className="border items-center flex-1 gap-3 px-5 flex-row py-4  relative border-primary-200 rounded-[50px] ">
-            <Search size={24} color={"#514093"} />
+            <Search size={24} color={colorPalette.primary[800]} />
             <TextInput
                 className="flex-1"
-                placeholderTextColor={"#514093"}
+                placeholderTextColor={colorPalette.primary[800]}
                 placeholder="Busca ideas, temas o creadores"
                 onChangeText={setValue}
                 value={value} />

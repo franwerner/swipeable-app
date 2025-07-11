@@ -1,4 +1,5 @@
 import AnimatedTap from "@/components/AnimatedTap.component";
+import colorPalette from "@/constant/colorPalette.constant";
 import clsx from "clsx";
 import { useRouter } from "expo-router";
 import { ChevronLeftIcon } from "lucide-react-native";
@@ -16,12 +17,12 @@ export default function BackHeader() {
         <AnimatedView
             entering={FadeIn.duration(500)}
             className={clsx(
-                "mx-6 flex-row items-center",
+                "mx-6 py-2 flex-row items-center",
                 Platform.OS === "android" && "mt-6"
             )}>
             <AnimatedTap onPress={() => back()}>
                 <CircleDecoration>
-                    <ChevronLeftIcon color={"#443976"} />
+                    <ChevronLeftIcon color={colorPalette.primary[800]} />
                 </CircleDecoration>
             </AnimatedTap>
             <Text className="text-center text-2xl flex-1 font-bold mr-[60px]">Swipeable</Text>
