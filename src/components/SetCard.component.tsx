@@ -10,8 +10,8 @@ export interface SetCardProps extends ViewProps {
 }
 
 interface SetCardBodyProps extends ViewProps {
-    title: string
-    userBy: string
+    title: ISet["title"]
+    userBy: ISet["userBy"]
 }
 
 
@@ -64,10 +64,7 @@ const SetCardHeader = ({
 }: ViewProps) => {
     return (
         <View
-            className={clsx(
-                "p-5",
-                className
-            )}
+            className={"p-5"}
             {...props}
         />
     )
