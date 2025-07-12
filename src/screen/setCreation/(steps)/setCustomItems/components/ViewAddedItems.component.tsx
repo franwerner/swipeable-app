@@ -7,7 +7,7 @@ import clsx from "clsx"
 import { ChevronDown } from "lucide-react-native"
 import { Text, View } from "react-native"
 import { FlatList, Gesture, GestureDetector } from "react-native-gesture-handler"
-import Animated, { LinearTransition, runOnJS, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated"
+import Animated, { FadeOut, LinearTransition, runOnJS, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated"
 
 
 const SetItemCard = (item: SetItem) => {
@@ -45,6 +45,7 @@ const SetItemCard = (item: SetItem) => {
     return (
         <GestureDetector gesture={panGesture}>
             <Animated.View
+                exiting={FadeOut.duration(300)}
                 layout={LinearTransition.duration(300)}
                 style={animatedStyles}
                 className={clsx(

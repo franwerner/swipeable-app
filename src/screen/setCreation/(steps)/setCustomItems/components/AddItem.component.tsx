@@ -13,7 +13,7 @@ const emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[
 const AddItemButton = memo(() => {
     return (
         <Container>
-            <Text className="color-primary-800  font-semibold text-[16px]">
+            <Text className="color-primary-800 font-semibold text-[16px]">
                 Añadir item personalizado
             </Text>
             <Plus
@@ -56,8 +56,6 @@ export default function AddItem() {
         setEmoji("")
         Keyboard.dismiss()
     }
-
-
 
     return (
         <View className="gap-3">
