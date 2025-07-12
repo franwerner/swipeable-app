@@ -11,7 +11,7 @@ const Button = () => {
     const itemsLength = useSetCreationStore(state => state.items.length)
     return <NextButton
         nextStepAllowed={itemsLength > 0}
-        href={"/home"}
+        href={"/profile"}
         text="Finalizar" />
 }
 

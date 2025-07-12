@@ -93,7 +93,8 @@ const DescriptionInput = () => {
                 numberOfLines: 4,
                 maxLength: 255,
                 onChangeText: addDescription,
-                placeholder: "Describe el set"
+                placeholder: "Describe el set",
+                className: "h-full"
             }}
         />
     )
