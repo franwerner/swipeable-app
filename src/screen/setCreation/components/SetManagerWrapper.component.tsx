@@ -10,7 +10,7 @@ export function SetManagerWrapperWithSafeKeyboard({
 
     return (
         <SafeAreaView className="flex-1">
-            <BackHeader />
+            <BackHeader titleClassName="mr-[60px]" />
             <KeyboardAvoidingView
                 className="flex-1"
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
@@ -37,7 +37,7 @@ export default function SetManagerWrapper({
     return (
         <View
             className="flex-1">
-            <BackHeader />
+            <BackHeader titleClassName="mr-[60px]" />
             <View
                 className={clsx(
                     "gap-8 flex-1 p-6",

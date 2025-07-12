@@ -12,7 +12,7 @@ const Button = () => {
     const itemsLength = useSetCreationStore(state => state.items.length)
     return <NextButton
         nextStepAllowed={itemsLength > 0}
-        onPress={() => router.dismissTo("/profile")}
+        onPress={() => router.dismissTo("/setInfo")}
         text="Finalizar" />
 }
 
