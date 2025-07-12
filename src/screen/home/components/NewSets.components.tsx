@@ -18,9 +18,16 @@ export default function NewSets() {
                 renderItem={({ item }) => (
                     <SetCard
                         className="h-[175px] w-[300px]"
-                        {...item}
-                        title={<Text className="text-3xl p-6" >{item.title}</Text>}
-                    />
+                        colors={item.colors}
+                    >
+                        <SetCard.Header>
+                            <Text className="text-3xl" >{item.icon}</Text>
+                        </SetCard.Header>
+                        <SetCard.Body
+                            title={item.title}
+                            userBy={item.userBy}
+                        />
+                    </SetCard>
                 )}
             />
         </View>

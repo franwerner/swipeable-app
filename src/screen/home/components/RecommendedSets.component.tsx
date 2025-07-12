@@ -74,27 +74,21 @@ export default function RecommendedSets() {
             </Text>
             <View className="items-center  gap-6">
                 {
-                    slice.map(({ likeStatus, ...props }) =>
+                    slice.map(({ id, likeStatus, colors, icon, title, userBy }) =>
                         <SetCard
-                            key={props.id}
-                            {...props}
-                            bodyProps={{
-                                className: "h-full p-6 justify-center",
-                                style: {
-                                    marginTop: 20
-                                }
-                            }}
-                            style={{
-                                maxHeight: 200,
-                                height: 140
-                            }}
-                            className="min-w-full "
-                            title={<SetCardHeart likeStatus={!!likeStatus} />}
-                        />
+                            key={id}
+                            colors={colors}
+                            className="min-w-full h-[140px]"
+                        >
+                            <SetCard.Header>
+                                <SetCardHeart likeStatus={!!likeStatus} />
+                            </SetCard.Header>
+                            <SetCard.Body title={title + " " + icon} userBy={userBy} />
+                        </SetCard>
                     )
                 }
             </View>
-            <Button className="" >
+            <Button>
                 <Text className="text-xl  text-white font-semibold">Cargar más</Text>
             </Button>
         </View>

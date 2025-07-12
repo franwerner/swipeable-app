@@ -5,10 +5,15 @@ import { LinearGradient, LinearGradientProps } from "expo-linear-gradient"
 import { ReactNode } from "react"
 import { Text, View, ViewProps } from "react-native"
 
-interface SetCardProps extends Omit<ViewProps, "id">, Omit<ISet, "title"> {
-    title?: ReactNode
-    bodyProps?: ViewProps
+export interface SetCardProps extends ViewProps {
+    colors: ISet["colors"]
 }
+
+interface SetCardBodyProps extends ViewProps {
+    title: string
+    userBy: string
+}
+
 
 type SetCardGradientProps = Omit<LinearGradientProps, "colors"> & Pick<ISet, "colors"> & { children?: ReactNode }
 
@@ -32,13 +37,9 @@ export const SetCardGradient = ({ colors, children, ...props }: SetCardGradientP
 }
 
 export default function SetCard({
-    title,
     className,
     colors,
-    subtitle,
-    bodyProps,
-    userBy,
-    id,
+    children,
     ...props
 }: SetCardProps) {
     return (
@@ -50,19 +51,46 @@ export default function SetCard({
             {...props}
         >
             <SetCardGradient colors={colors}>
-                {title && title}
-                <View className="p-6  py-3 gap-1" {...bodyProps}>
-                    <Text
-                        className={"text-xl font-bold"}>
-                        {subtitle}
-                    </Text>
-                    <Text
-
-                        className={"tracking-wide font-medium"}>
-                        {userBy}
-                    </Text>
-                </View>
+                {children}
             </SetCardGradient>
         </View>
     )
 }
+
+
+const SetCardHeader = ({
+    className,
+    ...props
+}: ViewProps) => {
+    return (
+        <View
+            className={clsx(
+                "p-5",
+                className
+            )}
+            {...props}
+        />
+    )
+}
+
+const SetCardBody = ({
+    title,
+    userBy,
+    ...props
+}: SetCardBodyProps) => {
+    return (
+        <View className="p-6 gap-1" {...props}>
+            <Text
+                className={"text-xl font-bold"}>
+                {title}
+            </Text>
+            <Text
+                className={"tracking-wide  text-[16px] font-medium"}>
+                {userBy}
+            </Text>
+        </View>
+    )
+}
+
+SetCard.Header = SetCardHeader
+SetCard.Body = SetCardBody
