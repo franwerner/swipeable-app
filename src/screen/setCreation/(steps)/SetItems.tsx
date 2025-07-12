@@ -1,31 +1,30 @@
 import AnimatedTap from "@/components/AnimatedTap.component";
+import Checkbox from "@/components/Checkbox.component";
 import Container from "@/components/Container.component";
 import { SetItem } from "@/types/SetItemInteface.type";
 import { FlatList, Text } from "react-native";
-import Checkbox from "../components/Checkbox.component";
 import NextButton from "../components/NextButton.component";
 import SetImageBackground from "../components/SetImageBackground.component";
 import SetManagerWrapper from "../components/SetManagerWrapper.component";
 import setItemsMock from "../mocks/itemList.mock";
 import useSetCreationStore from "../store/SetCreation.store";
+
 const SetItemCard = (item: SetItem) => {
     const {
-        icon,
+        emoji,
         title,
         id
     } = item
 
     const setItem = useSetCreationStore(store => store.addItem)
-
     const isActive = useSetCreationStore(store => store.items.some(i => i.id == id))
-
 
     return (
         <AnimatedTap
             onPress={() => setItem(item)}>
-            <Container isActive={isActive}>
-                <Text className="text-[16px]">{icon}</Text>
-                <Text className="text-primary-800 font-semibold text-[16px]">{title}</Text>
+            <Container isActive={isActive} className="gap-x-2">
+                <Text className="text-[16px]">{emoji}</Text>
+                <Text className="text-primary-800 font-semibold text-center flex-auto text-[16px]" numberOfLines={1} ellipsizeMode="tail">{title}</Text>
                 <Checkbox
                     pointerEvents="none"
                     isActive={isActive} />
@@ -62,7 +61,7 @@ export default function SetItems() {
             <Content />
             <NextButton
                 nextStepAllowed={true}
-                href={"/setCreation/SetCustomItems"} />
+                href={"/setCreation/setCustomItems"} />
         </SetManagerWrapper>
     )
 }

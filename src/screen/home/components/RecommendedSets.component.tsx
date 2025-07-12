@@ -74,7 +74,7 @@ export default function RecommendedSets() {
             </Text>
             <View className="items-center  gap-6">
                 {
-                    slice.map(({ id, likeStatus, colors, icon, name, userBy }) =>
+                    slice.map(({ id, likeStatus, colors, emoji, name, userBy }) =>
                         <SetCard
                             key={id}
                             colors={colors}
@@ -83,7 +83,7 @@ export default function RecommendedSets() {
                             <SetCard.Header>
                                 <SetCardHeart likeStatus={!!likeStatus} />
                             </SetCard.Header>
-                            <SetCard.Body name={name + " " + icon} userBy={userBy} />
+                            <SetCard.Body name={name + " " + emoji} userBy={userBy} />
                         </SetCard>
                     )
                 }

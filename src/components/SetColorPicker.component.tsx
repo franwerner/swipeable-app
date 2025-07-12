@@ -18,7 +18,7 @@ interface ForwardRefWithBody
     extends React.ForwardRefExoticComponent<
         BottomSheetModalProps & React.RefAttributes<BottomSheetModalMethods>
     > {
-    Body: typeof SetColorPickerBody;
+    Body: typeof SetColorPickerBody
 }
 
 const _SetColorPicker = forwardRef<BottomSheetModalMethods, BottomSheetModalProps>((props, ref) => {
@@ -26,6 +26,7 @@ const _SetColorPicker = forwardRef<BottomSheetModalMethods, BottomSheetModalProp
         <BottomSheetModal
             ref={ref}
             snapPoints={["75%"]}
+            enableContentPanningGesture={false}
             backdropComponent={(p) => (
                 <BottomSheetBackdrop
                     {...p}
@@ -141,8 +142,7 @@ function SetColorPickerBody({
                 onColorChangeComplete={(e) => {
                     onChangeColor(colors)
                 }}
-
-                thumbSize={5}
+                thumbSize={50}
                 sliderSize={30}
                 onColorChange={handleSetColor}
                 swatches={false}

@@ -1,5 +1,5 @@
 export interface SetItem {
     id: string
-    icon: string
+    emoji: string
     title: string
 }

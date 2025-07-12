@@ -12,6 +12,5 @@ export default function SetCreationLayout() {
                 backgroundColor: "white"
             }
         }}
-
     />
 }

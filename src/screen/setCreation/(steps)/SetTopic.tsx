@@ -8,7 +8,6 @@ import useSetCreationStore from "../store/SetCreation.store";
 
 
 const Content = () => {
-
     const topic = useSetCreationStore((store) => store.topic)
     const setTopic = useSetCreationStore((store) => store.addTopic)
 

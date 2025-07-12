@@ -7,8 +7,7 @@ import { BottomSheetModal, BottomSheetModalProvider } from "@gorhom/bottom-sheet
 import { ChevronRight } from "lucide-react-native";
 import { useRef } from "react";
 import { Text, View } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Checkbox from "../components/Checkbox.component";
+import Checkbox from "../../../components/Checkbox.component";
 import NextButton from "../components/NextButton.component";
 import SetImageBackground from "../components/SetImageBackground.component";
 import SetInput from "../components/SetInput.component";
@@ -38,16 +37,15 @@ const ColorInput = () => {
     const currentUserLogged = "test123" //Se debe modifcar posteriomente por la store global del usuario.
     const addColors = useSetCreationStore((store) => store.addColors)
     const bottomSheetModalRef = useRef<BottomSheetModal>(null)
-
     const handleOpen = () => {
         bottomSheetModalRef.current?.present()
     }
+
     return (
         <>
             <AnimatedTap
                 onPress={handleOpen} >
-                <Container
-                    isActive>
+                <Container isActive >
                     <Text className="text-primary-800 font-semibold text-[16px]">Colores del set</Text>
                     <View className="px-2 flex-row items-center gap-5">
                         <View className="h-[52px] w-[52px] rounded-full overflow-hidden flex-row">
@@ -68,7 +66,7 @@ const ColorInput = () => {
             <SetColorPicker ref={bottomSheetModalRef}>
                 <SetColorPicker.Body
                     cardProps={{
-                        icon: "💩",
+                        icon: "",
                         userBy: currentUserLogged,
                         name,
                     }}
@@ -76,8 +74,8 @@ const ColorInput = () => {
                     onChangeColor={addColors}
                 />
             </SetColorPicker>
-        </ >
-    );
+        </>
+    )
 }
 
 const DescriptionInput = () => {
@@ -93,6 +91,7 @@ const DescriptionInput = () => {
                 multiline: true,
                 textAlignVertical: 'top',
                 numberOfLines: 4,
+                maxLength: 255,
                 onChangeText: addDescription,
                 placeholder: "Describe el set"
             }}
@@ -101,6 +100,7 @@ const DescriptionInput = () => {
 }
 
 const SetVisilibity = () => {
+
     const visibility = useSetCreationStore((store) => store.visibility)
     const toggleVisibility = useSetCreationStore((store) => store.toggleVisibility)
     const isPublic = visibility == "public"
@@ -119,7 +119,6 @@ const Btn = () => {
 
     const name = useSetCreationStore((store) => store.name)
     const description = useSetCreationStore((store) => store.description)
-
     const nextStepAllowed = !!name && !!description
 
     return <NextButton
@@ -129,8 +128,7 @@ const Btn = () => {
 
 const Content = () => {
     return (
-        <View
-            className="gap-4 flex-1 justify-between">
+        <View className="gap-4 flex-1 justify-between">
             <NameInput />
             <ColorInput />
             <DescriptionInput />
@@ -141,18 +139,15 @@ const Content = () => {
 
 export default function SetDetails() {
 
-
     return (
-        <GestureHandlerRootView>
-            <BottomSheetModalProvider>
-                <SetManagerWrapperWithSafeKeyboard>
-                    <SetImageBackground
-                        className="h-[360px]"
-                        source={require("@/assets/images/setName.png")} />
-                    <Content />
-                    <Btn />
-                </SetManagerWrapperWithSafeKeyboard>
-            </BottomSheetModalProvider>
-        </GestureHandlerRootView>
+        <BottomSheetModalProvider>
+            <SetManagerWrapperWithSafeKeyboard>
+                <SetImageBackground
+                    className="h-[360px]"
+                    source={require("@/assets/images/setName.png")} />
+                <Content />
+                <Btn />
+            </SetManagerWrapperWithSafeKeyboard>
+        </BottomSheetModalProvider>
     )
 }

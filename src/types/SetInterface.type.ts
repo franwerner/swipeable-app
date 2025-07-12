@@ -2,7 +2,7 @@ import { ColorValue } from "react-native"
 
 interface ISet {
     id: string | number,
-    icon: string
+    emoji: string
     name: string
     userBy: string
     colors: Array<ColorValue>

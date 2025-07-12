@@ -21,7 +21,7 @@ export default function NewSets() {
                         colors={item.colors}
                     >
                         <SetCard.Header>
-                            <Text className="text-3xl" >{item.icon}</Text>
+                            <Text className="text-3xl" >{item.emoji}</Text>
                         </SetCard.Header>
                         <SetCard.Body
                             name={item.name}

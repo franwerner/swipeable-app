@@ -1,9 +1,8 @@
-import colorPalette from "@/constant/colorPalette.constant"
-import { SetItem } from "@/types/SetItemInteface.type"
-import { useEffect } from "react"
-import { create } from "zustand"
-import itemList from "../mocks/itemList.mock"
-
+import colorPalette from "@/constant/colorPalette.constant";
+import { SetItem } from "@/types/SetItemInteface.type";
+import { useEffect } from "react";
+import { create } from "zustand";
+import itemList from "../mocks/itemList.mock";
 
 type Visibility = "public" | "private"
 
@@ -20,6 +19,7 @@ interface Methods {
     addTopic: (topic: string) => void
     addName: (name: string) => void
     addItem: (item: SetItem) => void
+    removeItem: (itemID: string) => void
     addColors: (colors: Array<string>) => void
     addDescription: (description: string) => void
     toggleVisibility: () => void
@@ -27,7 +27,7 @@ interface Methods {
 
 type Store = State & Methods
 const initialState: State = {
-    items: itemList.slice(0, 3),
+    items: itemList.slice(0, 7),
     name: "",
     topic: "",
     visibility: "private",
@@ -49,13 +49,18 @@ const useSetCreationStore = create<Store>((set, get) => ({
         const filterRepeted = isIncludes ? items.filter(i => i.id !== item.id) : [...items, item]
         set({ items: filterRepeted })
     },
+    removeItem(itemID) {
+        const items = get().items
+        const filteredItems = items.filter(i => i.id !== itemID)
+        set({ items: filteredItems })
+    },
     toggleVisibility() {
         const currentVisibility = get().visibility
         const toggle = currentVisibility === "public" ? "private" : "public"
         set({ visibility: toggle })
     },
     addColors: (colors) => set({ colors }),
-    addDescription: (description) => set({ description: description.slice(0, 225) }),
+    addDescription: (description) => set({ description: description.slice(0, 255) }),
     reset: () => set(initialState)
 }))
 

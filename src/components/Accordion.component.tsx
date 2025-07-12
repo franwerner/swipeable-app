@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { Pressable, PressableProps, View, ViewProps } from "react-native";
+import { Pressable, PressableProps, ViewProps } from "react-native";
 import Animated, { Easing, LinearTransition, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 
 
@@ -11,7 +11,7 @@ interface AccordionHeaderProps extends Omit<PressableProps, "onPress"> {
 
 interface AccordionContex {
     isOpen: boolean
-    setOpen: () => void
+    setOpen: (b?: boolean) => void
 }
 
 const AccordionContext = createContext<AccordionContex>({
@@ -21,11 +21,14 @@ const AccordionContext = createContext<AccordionContex>({
 
 export const useAccordion = () => useContext(AccordionContext)
 
-export default function Accordion(props: ViewProps) {
+export default function Accordion({
+    defaultOpen = false,
+    ...props
+}: { children: ReactNode, defaultOpen?: boolean }) {
 
-    const [isOpen, setOpen] = useState(false)
+    const [isOpen, setOpen] = useState(defaultOpen)
 
-    const handleOpen = () => setOpen(prev => !prev)
+    const handleOpen = (b?: boolean) => setOpen(prev => b ?? !prev)
 
 
     return (
@@ -34,11 +37,8 @@ export default function Accordion(props: ViewProps) {
                 isOpen,
                 setOpen: handleOpen
             }}
-        >
-            <View
-                {...props}
-            />
-        </AccordionContext.Provider>
+            {...props}
+        />
     )
 }
 
@@ -91,7 +91,7 @@ const AccordionHeader = ({
     return (
         <PresseableAnimated
             layout={LinearTransition.duration(300).easing(Easing.inOut(Easing.ease))}
-            onPress={setOpen}
+            onPress={() => setOpen()}
             {...props}>
             {children}
             <Animated.View style={animatedStyle}>

@@ -1,7 +1,6 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet"
 import clsx from "clsx"
 import { Platform, ScrollView, View } from "react-native"
-import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import HeaderBar from "./components/HeaderBar.component"
 import InputSearch from "./components/InputSearch"
@@ -40,23 +39,21 @@ export default function HomeScreen() {
 
     return (
         <>
-            <GestureHandlerRootView>
-                <BottomSheetModalProvider>
-                    <ScrollView
-                        showsVerticalScrollIndicator={false}
-                        className={clsx(
-                            "overflow-visible",
-                            Platform.OS === "android" && "mt-6"
-                        )}
-                        contentContainerStyle={{
-                            gap: 64
-                        }} >
-                        <Header />
-                        <Content />
-                    </ScrollView>
-                    <NavigationBar />
-                </BottomSheetModalProvider>
-            </GestureHandlerRootView>
+            <BottomSheetModalProvider>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    className={clsx(
+                        "overflow-visible",
+                        Platform.OS === "android" && "mt-6"
+                    )}
+                    contentContainerStyle={{
+                        gap: 64
+                    }} >
+                    <Header />
+                    <Content />
+                </ScrollView>
+                <NavigationBar />
+            </BottomSheetModalProvider>
         </>
     )
 }
