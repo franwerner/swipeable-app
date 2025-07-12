@@ -2,6 +2,7 @@ import AnimatedTap from "@/components/AnimatedTap.component";
 import Checkbox from "@/components/Checkbox.component";
 import Container from "@/components/Container.component";
 import { SetItem } from "@/types/SetItemInteface.type";
+import { router } from "expo-router";
 import { FlatList, Text } from "react-native";
 import NextButton from "../components/NextButton.component";
 import SetImageBackground from "../components/SetImageBackground.component";
@@ -52,7 +53,6 @@ const Content = () => {
 }
 
 export default function SetItems() {
-
     return (
         <SetManagerWrapper className="!gap-4">
             <SetImageBackground
@@ -61,7 +61,8 @@ export default function SetItems() {
             <Content />
             <NextButton
                 nextStepAllowed={true}
-                href={"/setCreation/setCustomItems"} />
+                onPress={() => router.navigate("/setCreation/setCustomItems")}
+            />
         </SetManagerWrapper>
     )
 }

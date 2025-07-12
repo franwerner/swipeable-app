@@ -1,4 +1,5 @@
 import Accordion from "@/components/Accordion.component"
+import { router } from "expo-router"
 import { Keyboard, TouchableWithoutFeedback, View } from "react-native"
 import NextButton from "../../components/NextButton.component"
 import SetImageBackground from "../../components/SetImageBackground.component"
@@ -11,7 +12,7 @@ const Button = () => {
     const itemsLength = useSetCreationStore(state => state.items.length)
     return <NextButton
         nextStepAllowed={itemsLength > 0}
-        href={"/profile"}
+        onPress={() => router.dismissTo("/profile")}
         text="Finalizar" />
 }
 

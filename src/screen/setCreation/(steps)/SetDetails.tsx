@@ -4,6 +4,7 @@ import Input from "@/components/Input.component";
 import SetColorPicker from "@/components/SetColorPicker.component";
 import colorPalette from "@/constant/colorPalette.constant";
 import { BottomSheetModal, BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { router } from "expo-router";
 import { ChevronRight } from "lucide-react-native";
 import { useRef } from "react";
 import { Text, View } from "react-native";
@@ -124,7 +125,8 @@ const Btn = () => {
 
     return <NextButton
         nextStepAllowed={nextStepAllowed}
-        href={"/setCreation/SetItems"} />
+        onPress={() => router.navigate("/setCreation/SetItems")}
+    />
 }
 
 const Content = () => {
@@ -139,7 +141,6 @@ const Content = () => {
 }
 
 export default function SetDetails() {
-
     return (
         <BottomSheetModalProvider>
             <SetManagerWrapperWithSafeKeyboard>

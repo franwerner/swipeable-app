@@ -1,4 +1,5 @@
 
+import { router } from "expo-router";
 import { View } from "react-native";
 import NextButton from "../components/NextButton.component";
 import SetImageBackground from "../components/SetImageBackground.component";
@@ -21,7 +22,7 @@ const Content = () => {
                 }}
             />
             <NextButton
-                href={"/setCreation/SetDetails"}
+                onPress={() => router.navigate("/setCreation/SetDetails")}
                 text={"Empezar"}
                 nextStepAllowed={topic.length > 0}
             />
@@ -30,7 +31,6 @@ const Content = () => {
 }
 
 export default function SetTopic() {
-
     return (
         <SetManagerWrapperWithSafeKeyboard
             contentContainerClassName="flex-1"
