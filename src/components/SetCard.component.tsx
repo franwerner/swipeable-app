@@ -10,7 +10,7 @@ export interface SetCardProps extends ViewProps {
 }
 
 interface SetCardBodyProps extends ViewProps {
-    title: ISet["title"]
+    name: ISet["name"]
     userBy: ISet["userBy"]
 }
 
@@ -71,7 +71,7 @@ const SetCardHeader = ({
 }
 
 const SetCardBody = ({
-    title,
+    name,
     userBy,
     ...props
 }: SetCardBodyProps) => {
@@ -79,7 +79,7 @@ const SetCardBody = ({
         <View className="p-6 gap-1" {...props}>
             <Text
                 className={"text-xl font-bold"}>
-                {title}
+                {name}
             </Text>
             <Text
                 className={"tracking-wide  text-[16px] font-medium"}>

@@ -14,7 +14,6 @@ interface State {
     items: Array<SetItem>
     colors: Array<string>
     description: string
-    textColor: string
 }
 
 interface Methods {
@@ -22,7 +21,6 @@ interface Methods {
     addName: (name: string) => void
     addItem: (item: SetItem) => void
     addColors: (colors: Array<string>) => void
-    addTextColor: (textColor: string) => void
     addDescription: (description: string) => void
     toggleVisibility: () => void
 }
@@ -35,7 +33,6 @@ const initialState: State = {
     visibility: "private",
     colors: Array.from<string>({ length: 2 }).fill(colorPalette.secondary[200]),
     description: "asdasdsad asdasd asdasdasdasdassadsadasdasdasdasdasd asdsadasdasdasdasdsadasdasdasdsdasd",
-    textColor: ""
 }
 
 /**
@@ -59,7 +56,6 @@ const useSetCreationStore = create<Store>((set, get) => ({
     },
     addColors: (colors) => set({ colors }),
     addDescription: (description) => set({ description: description.slice(0, 225) }),
-    addTextColor: (textColor) => set({ textColor }),
     reset: () => set(initialState)
 }))
 

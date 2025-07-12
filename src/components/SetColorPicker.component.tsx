@@ -1,68 +1,103 @@
-import { X } from "lucide-react-native";
-import { createContext, useContext, useMemo, useState } from "react";
-import { Modal, ModalProps, SafeAreaView, View, ViewProps } from "react-native";
+import ISet from "@/types/SetInterface.type";
+import { BottomSheetBackdrop, BottomSheetModal, BottomSheetModalProps, BottomSheetView } from "@gorhom/bottom-sheet";
+import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+import { forwardRef, memo, useCallback, useEffect, useMemo, useState } from "react";
+import { Text, View, ViewProps } from "react-native";
+import { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 import ColorPicker from "react-native-wheel-color-picker";
 import AnimatedTap from "./AnimatedTap.component";
 import SetCard from "./SetCard.component";
 
-interface SetColorPickerModalContext {
-    isOpen: boolean
-    setOpen: () => void
-}
-
-interface SetColorPickerModalBodyProps extends ViewProps {
+interface SetColorPickerBodyProps extends ViewProps {
     colors: Array<string>
     onChangeColor: (colors: Array<string>) => void
+    cardProps: Pick<ISet, "name" | "userBy" | "icon">
 }
 
-interface SetColorPickerModalProps extends ModalProps, SetColorPickerModalContext { }
+interface ForwardRefWithBody
+    extends React.ForwardRefExoticComponent<
+        BottomSheetModalProps & React.RefAttributes<BottomSheetModalMethods>
+    > {
+    Body: typeof SetColorPickerBody;
+}
 
-const SetColorPickerModalContext = createContext<SetColorPickerModalContext>({
-    isOpen: false,
-    setOpen: () => { }
-})
-
-export const useSetColorPickerModal = () => useContext(SetColorPickerModalContext)
-
-
-//Esto se cambiara a un buttom shet
-export default function SetColorPickerModal({
-    isOpen,
-    setOpen,
-    ...props
-}: SetColorPickerModalProps) {
-
-    const [] = useState()
-
+const _SetColorPicker = forwardRef<BottomSheetModalMethods, BottomSheetModalProps>((props, ref) => {
     return (
-        <SetColorPickerModalContext.Provider
-            value={{
-                isOpen,
-                setOpen
-            }}>
-
-            <SafeAreaView>
-                <Modal
-                    visible={isOpen}
-                    animationType='slide'
-                    className="flex-1"
-                    {...props}
+        <BottomSheetModal
+            ref={ref}
+            snapPoints={["75%"]}
+            backdropComponent={(p) => (
+                <BottomSheetBackdrop
+                    {...p}
+                    disappearsOnIndex={-1}
+                    appearsOnIndex={0}
                 />
-            </SafeAreaView>
-        </SetColorPickerModalContext.Provider>
+            )}
+            index={0}
+            {...props}
+        />
     )
 }
+)
 
-const SetColorPickerModalBody = ({
+interface ToggleColorButton {
+    backgroundColor: string
+    isActive: boolean
+    id: number
+    setEditColor: (n: number) => void
+}
+
+const ToggleColorButton = memo(({
+    backgroundColor,
+    isActive,
+    setEditColor,
+    id
+}: ToggleColorButton) => {
+
+    const scale = useSharedValue(0.9)
+
+    useEffect(() => {
+        scale.value = withSpring(isActive ? 1.2 : 0.9, {
+            damping: 12,
+            stiffness: 120,
+            mass: 0.4,
+        })
+    }, [isActive])
+
+    const animatedStyle = useAnimatedStyle(() => ({
+        transform: [{ scale: scale.value }],
+    }))
+
+    return (
+        <AnimatedTap
+            onPress={() => setEditColor(id)}
+            style={[
+                {
+                    width: 40,
+                    height: 40,
+                    backgroundColor: backgroundColor,
+                },
+                animatedStyle
+            ]}
+            className="rounded-full">
+        </AnimatedTap>
+    )
+})
+
+function SetColorPickerBody({
     colors: defaultColors = [],
     onChangeColor,
+    cardProps,
     ...props
-}: SetColorPickerModalBodyProps) => {
+}: SetColorPickerBodyProps) {
 
     const [colors, setColor] = useState<Array<string>>(defaultColors)
+
     const [editColor, setEditColor] = useState(0)
 
-    const pickerInitial = useMemo(() => defaultColors[0], []) //Solo se debe color una sola vez al montar, ya que si no generaria render infinitos.
+    const pickerInitial = useMemo(() => colors[editColor], [editColor])
+
+    const handleEditColor = useCallback(setEditColor, [])
 
     const handleSetColor = (color: string) => {
         setColor((prev) => {
@@ -73,67 +108,52 @@ const SetColorPickerModalBody = ({
     }
 
     return (
-        <View
-            className="flex-1 overflow-hidden p-4 items-center"
-            {...props}>
-            <View className=" p-4 w-full gap-5">
-                <SetCard
-                    id={1}
-                    subtitle="asda"
-                    userBy="#ffffff"
-                    className="h-[200px] border border-black rounded-2xl overflow-hidden w-full"
-                    colors={colors}
+        <BottomSheetView
+            className="p-4 px-6 gap-4 h-full"
+            {...props}
+        >
+            <View className="gap-4 flex-row justify-start">
+                {
+                    defaultColors.map((i, index) =>
+                        <ToggleColorButton
+                            key={index}
+                            id={index}
+                            backgroundColor={i}
+                            isActive={editColor === index}
+                            setEditColor={handleEditColor}
+                        />
+                    )
+                }
+            </View>
+            <SetCard
+                className="h-[175px] rounded-2xl"
+                colors={colors}>
+                <SetCard.Header>
+                    <Text className="text-3xl" >{cardProps.icon || "✨"}</Text>
+                </SetCard.Header>
+                <SetCard.Body
+                    name={cardProps.name || "Nombre del set"}
+                    userBy={cardProps.userBy}
                 />
-                <View className="gap-10 flex-row justify-center">
-                    {
-                        colors.map((i, index) =>
-                            <AnimatedTap
-                                key={index}
-                                onPress={() => setEditColor(index)}
-                                style={{
-                                    width: 70,
-                                    height: 70,
-                                    backgroundColor: i,
-                                    transform: [{ scale: 1.5 }]
-                                }}
-                                className="rounded-md border ">
-                            </AnimatedTap>
-                        )
-                    }
-                </View>
-            </View>
-            <View className="relative items-center">
-                <View className="absolute">
-                    <ColorPicker
-                        color={pickerInitial}
-                        onColorChangeComplete={(e) => {
-                            onChangeColor(colors)
-                        }}
-                        sliderSize={30}
-                        onColorChange={handleSetColor}
-                        swatches={false}
-                    />
-                </View>
-            </View>
-        </View>
+            </SetCard>
+            <ColorPicker
+                color={pickerInitial}
+                onColorChangeComplete={(e) => {
+                    onChangeColor(colors)
+                }}
+
+                thumbSize={5}
+                sliderSize={30}
+                onColorChange={handleSetColor}
+                swatches={false}
+            />
+        </BottomSheetView>
     )
 }
 
-const SetColorPickerModalHeader = () => {
+const SetColorPicker = _SetColorPicker as ForwardRefWithBody
 
-    const { setOpen } = useSetColorPickerModal()
+SetColorPicker.Body = SetColorPickerBody
+SetColorPicker.displayName = "SetColorPicker"
 
-    return (
-        <View className="items-end border-b border-black/10 p-4">
-            <AnimatedTap
-                className=" py-2 "
-                onPress={setOpen}>
-                <X size={28} />
-            </AnimatedTap>
-        </View>
-    )
-}
-
-
-SetColorPickerModal.Header = SetColorPickerModalHeader
-SetColorPickerModal.Body = SetColorPickerModalBody
+export default SetColorPicker

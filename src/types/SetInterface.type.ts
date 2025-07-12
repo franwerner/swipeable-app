@@ -2,8 +2,8 @@ import { ColorValue } from "react-native"
 
 interface ISet {
     id: string | number,
-    title: string
-    subtitle: string
+    icon: string
+    name: string
     userBy: string
     colors: Array<ColorValue>
     likeStatus?: boolean
