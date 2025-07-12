@@ -36,7 +36,6 @@ const Content = () => {
 }
 
 export default function HomeScreen() {
-
     return (
         <>
             <BottomSheetModalProvider>

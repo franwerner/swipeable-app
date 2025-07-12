@@ -23,7 +23,7 @@ export default function InputSearch() {
                 placeholder: "Busca ideas, temas o cradores",
                 value,
                 onChangeText: setValue,
-                className: "text-[15px]",
+                className: "!text-[14px]",
             }}
         >
         </Input>

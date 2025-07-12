@@ -28,7 +28,7 @@ interface Methods {
 type Store = State & Methods
 const initialState: State = {
     items: itemList.slice(0, 7),
-    name: "",
+    name: "Test",
     topic: "",
     visibility: "private",
     colors: Array.from<string>({ length: 2 }).fill(colorPalette.secondary[200]),
