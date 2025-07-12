@@ -1,7 +1,7 @@
 import { Redirect } from "expo-router"
 
 const Index = () => {
-    return <Redirect href={"/setCreation/SetItems"} />
+    return <Redirect href={"/home"} />
 }
 
 

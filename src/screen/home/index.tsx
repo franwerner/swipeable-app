@@ -19,7 +19,7 @@ const Header = () => {
             style={{ marginTop: insets.top }}>
             <HeaderBar />
             <View className="mx-6 items-center flex-row">
-                <InputSearch isLoading={false} />
+                <InputSearch />
                 <SetFilters />
             </View>
         </View>
