@@ -24,7 +24,7 @@ export default function NewSets() {
                             <Text className="text-3xl" >{item.icon}</Text>
                         </SetCard.Header>
                         <SetCard.Body
-                            title={item.title}
+                            name={item.name}
                             userBy={item.userBy}
                         />
                     </SetCard>
