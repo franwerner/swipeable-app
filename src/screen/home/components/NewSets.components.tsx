@@ -5,7 +5,7 @@ import setList from "../mocks/setList.mock";
 
 export default function NewSets() {
     return (
-        <View className="gap-8 " >
+        <View className="gap-8" >
             <Text className="text-2xl ml-6 font-semibold ">
                 Nuevos sets ✨
             </Text>

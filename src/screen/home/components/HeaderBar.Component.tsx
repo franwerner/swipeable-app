@@ -28,7 +28,7 @@ function Notification() {
 export default function HeaderBar() {
 
     return (
-        <View className="mx-6 py-2 flex-row items-center">
+        <View className="flex-row items-center">
             <Avatar />
             <Title />
             <Notification />

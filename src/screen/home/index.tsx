@@ -15,10 +15,10 @@ const Header = () => {
 
     return (
         <View
-            className="gap-8 flex-auto "
+            className="gap-12 pb-0 p-6 flex-auto "
             style={{ marginTop: insets.top }}>
             <HeaderBar />
-            <View className="mx-6 items-center flex-row">
+            <View className="items-center flex-row">
                 <InputSearch />
                 <SetFilters />
             </View>
@@ -43,7 +43,7 @@ export default function HomeScreen() {
                     showsVerticalScrollIndicator={false}
                     className={clsx(
                         "overflow-visible",
-                        Platform.OS === "android" && "mt-6"
+                        Platform.OS === "android" && ""
                     )}
                     contentContainerStyle={{
                         gap: 64
