@@ -8,7 +8,7 @@ export function SetManagerWrapperWithSafeKeyboard({
 }: ScrollViewProps) {
 
     return (
-        <View className="flex-1 gap-4 p-6">
+        <View className="flex-1 gap-4 p-6 pb-3">
             <BackHeader titleClassName="mr-[60px] " />
             <KeyboardAvoidingView
                 className="flex-1"
@@ -34,7 +34,7 @@ export default function SetManagerWrapper({
 
     return (
         <View
-            className="flex-1 p-6 gap-4">
+            className="flex-1 p-6 pb-3 gap-4">
             <BackHeader titleClassName="mr-[60px]" />
             <View
                 className={clsx(

@@ -37,19 +37,21 @@ const SetItemCard = (item: SetItem) => {
 const Content = () => {
 
     return (
-        <View className="flex-1">
-            <FlatList
-                showsVerticalScrollIndicator={false}
-                contentContainerClassName="gap-6 pt-2"
-                className="flex-1"
-                data={setItemsMock}
-                keyExtractor={(i) => i.id.toString()}
-                renderItem={({ item }) => (
-                    <SetItemCard
-                        {...item}
-                    />
-                )}
-            />
+        <View className="flex-1 gap-3">
+            <View className="flex-1 ">
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    contentContainerClassName="gap-6 pt-2"
+                    className="flex-1"
+                    data={setItemsMock}
+                    keyExtractor={(i) => i.id.toString()}
+                    renderItem={({ item }) => (
+                        <SetItemCard
+                            {...item}
+                        />
+                    )}
+                />
+            </View>
             <NextButton
                 nextStepAllowed={true}
                 onPress={() => router.navigate("/setManager/setCustomItems")}
@@ -60,7 +62,7 @@ const Content = () => {
 
 export default function SetItems() {
     return (
-        <SetManagerWrapper className="!gap-4">
+        <SetManagerWrapper>
             <SetImageBackground
                 className="h-[100px] "
                 source={require("@/assets/images/itemList.png")} />

@@ -1,9 +1,9 @@
 import AnimatedTap from "@/components/AnimatedTap.component";
+import Avatar from "@/components/Avatar.component";
 import SetCard from "@/components/SetCard.component";
-import CircleDecoration from "@/ui-components/CircleDecoration.ui-component";
 import { Share2 } from "lucide-react-native";
 import { ReactNode } from "react";
-import { Image, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import useSetInfoStore from "../store/useSetInfo.store";
 
 const Header = () => {
@@ -26,11 +26,10 @@ const Body = () => {
     return (
         <View className="p-6 pt-2 flex-row items-center gap-3 justify-between">
             <View className="flex-row flex-1 items-center  gap-3">
-                <CircleDecoration className="overflow-hidden !w-[45px] !h-[45px]">
-                    <Image
-                        source={{ uri: avatarUrl }}
-                        className="w-full h-full" />
-                </CircleDecoration>
+                <Avatar
+                    className="!w-[45px] !h-[45px]"
+                    source={{ uri: avatarUrl }}
+                />
                 <Text
                     className="text-[16px] font-medium flex-shrink "
                     ellipsizeMode="tail"
