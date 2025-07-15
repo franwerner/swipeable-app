@@ -54,8 +54,8 @@ export default function SetActionBar() {
             />
             <Action
                 Icon={Award}
-                handler={() => router.navigate(`../setStatics/${setID}`)}
-                label="Estadística"
+                handler={() => router.navigate(`../setStatistics/${setID}`)}
+                label="Estadísticas"
             />
         </View>
     )
