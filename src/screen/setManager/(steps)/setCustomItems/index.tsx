@@ -21,9 +21,12 @@ const Button = () => {
 const Content = () => {
 
     return (
-        <View className="flex-1 gap-3 justify-between">
-            <AddItem />
-            <ViewAddedItems />
+        <View className="flex-1 gap-3">
+            <View className="gap-3 justify-between flex-1">
+                <AddItem />
+                <ViewAddedItems />
+            </View>
+            <Button />
         </View>
     )
 }
@@ -36,7 +39,6 @@ export default function SetCustomItem() {
                     className="h-[100px]"
                     source={require("@/assets/images/itemCustom.png")} />
                 <Content />
-                <Button />
             </SetManagerWrapper>
         </TouchableWithoutFeedback>
     )
