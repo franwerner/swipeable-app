@@ -1,7 +1,7 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet"
 import clsx from "clsx"
 import { Platform, ScrollView, View } from "react-native"
-import HeaderBar from "./components/HeaderBar.component"
+import HeaderBar from "./components/HeaderBar.Component"
 import InputSearch from "./components/InputSearch"
 import NavigationBar from "./components/NavigationBar.component"
 import NewSets from "./components/NewSets.components"
