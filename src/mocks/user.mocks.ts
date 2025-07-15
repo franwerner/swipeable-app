@@ -1,11 +1,12 @@
 import User from "@/types/UserInterface.type";
-import { nanoid } from "nanoid/non-secure";
 
 
 const userMock: User = {
-    id: nanoid(),
+    id: 1,
     name: "John",
-    lastname: "Doe"
+    lastname: "Doe",
+    avatarUrl: "",
+    nickname: "Johndoe123"
 
 }
 

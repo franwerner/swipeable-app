@@ -1,7 +1,9 @@
 interface User {
-    id: string
+    id: string | number,
     name: string
     lastname: string
+    avatarUrl: string
+    nickname: string
 }
 
 

@@ -115,7 +115,7 @@ const DropdownMenu = ({
             animationType="none"
         >
             <TouchableWithoutFeedback onPress={() => setOpen(false)}>
-                <View className="flex-1">
+                <View className="flex-1 ">
                     <Animated.View
                         entering={ZoomIn
                             .duration(80)
@@ -196,18 +196,21 @@ const DropdownTrigger = ({
 
 const DropdownItem = ({
     closeMenuOnInteract = true,
+    onPress,
     ...props
 }: DropdownItemProps) => {
     const { setOpen } = useDropdown()
     return (
         <Pressable
-            onPress={() => {
+            onPress={(e) => {
                 closeMenuOnInteract && setOpen(false)
+                onPress && onPress(e)
             }}
             {...props}
         />
     )
 }
+
 
 Dropdown.displayName = "Dropdown"
 Dropdown.Item = DropdownItem

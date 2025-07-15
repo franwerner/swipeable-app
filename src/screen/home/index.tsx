@@ -1,7 +1,6 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet"
 import clsx from "clsx"
 import { Platform, ScrollView, View } from "react-native"
-import { useSafeAreaInsets } from "react-native-safe-area-context"
 import HeaderBar from "./components/HeaderBar.component"
 import InputSearch from "./components/InputSearch"
 import NavigationBar from "./components/NavigationBar.component"
@@ -11,12 +10,9 @@ import SetFilters from "./components/SetFilters"
 
 
 const Header = () => {
-    const insets = useSafeAreaInsets()
 
     return (
-        <View
-            className="gap-12 pb-0 p-6 flex-auto "
-            style={{ marginTop: insets.top }}>
+        <View className="gap-12 pb-0 p-6 flex-auto ">
             <HeaderBar />
             <View className="items-center flex-row">
                 <InputSearch />

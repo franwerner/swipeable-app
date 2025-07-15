@@ -1,11 +1,14 @@
-import ISet from "@/types/SetInterface.type";
+import SetDisplay from "@/types/SetDisplayInterface.type";
 
-const setListBase: Array<ISet> = [
+const setListBase: Array<SetDisplay> = [
     {
         id: 1,
         emoji: "🧢😎🎶",
         name: "Plot Twist Eterno",
-        userBy: "Cinefiloco",
+        userBy: {
+            id: 1,
+            nickname: "Pepe argento"
+        },
         colors: ['#ff7e5f', '#feb47b'],
         likeStatus: true
     },
@@ -13,40 +16,54 @@ const setListBase: Array<ISet> = [
         id: 2,
         emoji: "🚀✨🌌",
         name: "Viaje Intergaláctico",
-        userBy: "AstroFan",
+        userBy: {
+            id: 2,
+            nickname: "AstroFan"
+        },
         colors: ['#6a11cb', '#2575fc'],
     },
     {
         id: 3,
         emoji: "🍕🎮🕹️",
         name: "Noches Gamer",
-        userBy: "PixelMaster",
+        userBy: {
+            id: 3,
+            nickname: "PixelMaster"
+        },
         colors: ['#ff6a00', '#ee0979'],
     },
     {
         id: 4,
         emoji: "📚☕📝",
         name: "Tardes de Lectura",
-        userBy: "BookLover",
+        userBy: {
+            id: 4,
+            nickname: "BookLover"
+        },
         colors: ['#56ab2f', '#a8e063'],
     },
     {
         id: 5,
         emoji: "🏖️🌞🌊",
         name: "Vacaciones de Ensueño",
-        userBy: "TravelBug",
+        userBy: {
+            id: 5,
+            nickname: "TravelBug"
+        },
         colors: ['#614385', '#516395'],
     },
     {
         id: 6,
         emoji: "🎨🖌️🖼️",
         name: "Arte y Creatividad",
-        userBy: "ColorSplash",
+        userBy: {
+            id: 6,
+            nickname: "ColorSplash"
+        },
         colors: ['#f7971e', '#ffd200'],
         likeStatus: true
     },
 ]
-
 const setList = [...setListBase]
 let idCount = setListBase.length
 for (const element of setListBase) {

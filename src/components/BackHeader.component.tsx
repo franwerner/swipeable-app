@@ -25,7 +25,7 @@ export default function BackHeader({
         <AnimatedView
             entering={FadeIn.duration(500)}
             className={clsx(
-                "flex-row p-6 items-center",
+                "flex-row items-center",
                 Platform.OS === "android" && "",
                 className
             )}
