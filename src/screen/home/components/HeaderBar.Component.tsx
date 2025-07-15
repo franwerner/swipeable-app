@@ -1,15 +1,21 @@
+import AnimatedTap from "@/components/AnimatedTap.component";
 import colorPalette from "@/constant/colorPalette.constant";
+import useUserStore from "@/store/useUser.store";
 import CircleDecoration from "@/ui-components/CircleDecoration.ui-component";
+import { router } from "expo-router";
 import { Bell } from "lucide-react-native";
 import { Image, Text, View } from "react-native";
 
 function Avatar() {
+    const userID = useUserStore(state => state.user.id)
     return (
-        <CircleDecoration className="overflow-hidden">
-            <Image
-                className="w-full h-full"
-                source={{ uri: "https://randomuser.me/api/portraits/men/1.jpg" }} />
-        </CircleDecoration>
+        <AnimatedTap onPress={() => router.navigate(`/user/${userID}/setInfo/1`)}>
+            <CircleDecoration className="overflow-hidden">
+                <Image
+                    className="w-full h-full"
+                    source={{ uri: "https://randomuser.me/api/portraits/men/1.jpg" }} />
+            </CircleDecoration>
+        </AnimatedTap>
     )
 }
 
@@ -25,10 +31,11 @@ function Notification() {
     )
 
 }
+
 export default function HeaderBar() {
 
     return (
-        <View className="mx-6 py-2 flex-row items-center">
+        <View className=" flex-row items-center">
             <Avatar />
             <Title />
             <Notification />

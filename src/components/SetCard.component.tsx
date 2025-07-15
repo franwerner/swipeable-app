@@ -1,4 +1,4 @@
-import ISet from "@/types/SetInterface.type"
+import SetDisplay from "@/types/SetDisplayInterface.type"
 import clsx from "clsx"
 import { BlurView } from "expo-blur"
 import { LinearGradient, LinearGradientProps } from "expo-linear-gradient"
@@ -6,16 +6,16 @@ import { ReactNode } from "react"
 import { Text, View, ViewProps } from "react-native"
 
 export interface SetCardProps extends ViewProps {
-    colors: ISet["colors"]
+    colors: SetDisplay["colors"]
 }
 
 interface SetCardBodyProps extends ViewProps {
-    name: ISet["name"]
-    userBy: ISet["userBy"]
+    name: SetDisplay["name"]
+    userBy: SetDisplay["userBy"]
 }
 
 
-type SetCardGradientProps = Omit<LinearGradientProps, "colors"> & Pick<ISet, "colors"> & { children?: ReactNode }
+type SetCardGradientProps = Omit<LinearGradientProps, "colors"> & Pick<SetDisplay, "colors"> & { children?: ReactNode }
 
 export const SetCardGradient = ({ colors, children, ...props }: SetCardGradientProps) => {
     return (
@@ -24,7 +24,7 @@ export const SetCardGradient = ({ colors, children, ...props }: SetCardGradientP
             end={{ x: 1, y: 0 }}
             className="flex-1"
             {...props}
-            colors={[...colors] as any}>
+            colors={[...colors,] as any}>
             <BlurView
                 intensity={100}
                 className="flex-1"
@@ -64,7 +64,10 @@ const SetCardHeader = ({
 }: ViewProps) => {
     return (
         <View
-            className={"p-5"}
+            className={clsx(
+                "p-5",
+                className
+            )}
             {...props}
         />
     )
@@ -83,7 +86,7 @@ const SetCardBody = ({
             </Text>
             <Text
                 className={"tracking-wide  text-[16px] font-medium"}>
-                {userBy}
+                Por {userBy.nickname}
             </Text>
         </View>
     )

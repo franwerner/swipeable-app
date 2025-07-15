@@ -20,10 +20,10 @@ export default function InputSearch() {
             }
             inputProps={{
                 placeholderTextColor: colorPalette.primary[800],
-                placeholder: "Busca ideas, temas o cradores",
+                placeholder: "Busca ideas, temas o creadores",
                 value,
                 onChangeText: setValue,
-                className: "text-[15px]",
+                className: "!text-[14px]",
             }}
         >
         </Input>
