@@ -2,7 +2,6 @@ import userMock from "@/mocks/user.mocks";
 import User from "@/types/UserInterface.type";
 import { create } from "zustand";
 
-
 interface Methods {
     setUser: (user: User) => void
     reset: () => void

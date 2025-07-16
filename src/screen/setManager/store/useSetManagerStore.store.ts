@@ -31,7 +31,7 @@ const initialState: State = {
     name: "Test",
     topic: "",
     visibility: "private",
-    colors: Array.from<string>({ length: 2 }).fill(colorPalette.secondary[200]),
+    colors: Array.from<string>({ length: 3 }).fill(colorPalette.secondary[200]),
     description: "",
 }
 

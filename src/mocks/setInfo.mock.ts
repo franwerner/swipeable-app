@@ -2,7 +2,7 @@ import SetInfo from "@/types/SetInfoInterface.type";
 
 const setInfoMock: SetInfo = {
     id: "1",
-    name: "Sample Set",
+    name: "Peliculas de disney",
     colors: ["#FF0000", "#0000FF"],
     emoji: "❤️",
     userBy: {
