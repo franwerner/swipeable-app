@@ -5,7 +5,6 @@ import Animated, { ZoomIn, ZoomOut } from "react-native-reanimated";
 
 interface DropdownMenuProps {
     children: React.ReactNode;
-    layoutDependencies?: Array<any>
 }
 
 interface DropdownItemProps extends PressableProps {
@@ -24,10 +23,10 @@ interface DropdownContext {
     position: Position
     setPosition: Dispatch<SetStateAction<DropdownContext["position"]>>
     isOpen?: boolean
-    layoutDependencies: Array<any>
     setOpen: Dispatch<SetStateAction<boolean>>
 
 }
+
 
 
 const DropdownContext = createContext<DropdownContext>({
@@ -40,14 +39,12 @@ const DropdownContext = createContext<DropdownContext>({
     setPosition: () => { },
     isOpen: false,
     setOpen: () => { },
-    layoutDependencies: []
 })
 
 export const useDropdown = () => useContext(DropdownContext)
 
 export default function Dropdown({
     children,
-    layoutDependencies = [],
 }: DropdownMenuProps) {
 
     const [position, setPosition] = useState<Position>({
@@ -66,7 +63,6 @@ export default function Dropdown({
                 setPosition,
                 isOpen,
                 setOpen,
-                layoutDependencies: [...layoutDependencies, isOpen]
             }}
         >
             {children}
@@ -81,32 +77,33 @@ const DropdownMenu = ({
     ...props
 }: ViewProps) => {
 
-    const { position, setOpen, layoutDependencies, isOpen } = useDropdown()
-
+    const { position, setOpen, isOpen } = useDropdown()
+    const menuRef = useRef<View>(null)
     const [containerDimesions, setWidthContainerDimesion] = useState({
         width: 0,
         height: 0
     })
 
-    const menuRef = useRef<View>(null)
     const screenHeight = Dimensions.get("window").height
+
     /**
      * `isExceedingScreenBottom` verifica si la dropdown sobrepasa el limite de la pantalla y lo reajusta.
      */
+
     const isExceedingScreenBottom = (position.y + position.height + containerDimesions.height) > screenHeight
     const top = isExceedingScreenBottom ? (position.y - containerDimesions.height) : (position.y + position.height)
     const left = (position.x + position.width) - containerDimesions.width
 
     useLayoutEffect(() => {
-        if (menuRef.current) {
-            menuRef.current.measure((_fx, _fy, width, height) => {
+        if (menuRef.current && isOpen) {
+            menuRef.current.measureInWindow((_fx, _fy, width, height) => {
                 setWidthContainerDimesion({
                     height,
                     width
                 })
             })
         }
-    }, [layoutDependencies])
+    }, [isOpen])
 
     return (
         <Modal
@@ -167,21 +164,21 @@ const DropdownTrigger = ({
 
     const triggerRef = useRef<View>(null)
 
-    const { setPosition, setOpen, layoutDependencies } = useDropdown()
+    const { setPosition, setOpen, isOpen } = useDropdown()
 
     useLayoutEffect(() => {
-        if (triggerRef.current) {
-            triggerRef.current.measure((_fx, _fy, width, height, px, py) => {
+        if (triggerRef.current && isOpen) {
+            triggerRef.current.measureInWindow((x, y, width, height) => {
                 setPosition({
-                    x: px,
-                    y: py,
+                    x,
+                    y,
                     height,
                     width
 
-                });
+                })
             })
         }
-    }, layoutDependencies)
+    }, [isOpen])
 
     return (
         <Pressable

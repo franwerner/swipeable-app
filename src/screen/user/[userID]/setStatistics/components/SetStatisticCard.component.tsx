@@ -1,7 +1,7 @@
 import Avatar from "@/components/Avatar.component"
 import SetCard from "@/components/SetCard.component"
 import { Text, View } from "react-native"
-import setInfoMock from "../../setInfo/mocks/setInfo.mock"
+import setInfoMock from "../../../../../mocks/setInfo.mock"
 
 
 export default function SetStatisticCard() {

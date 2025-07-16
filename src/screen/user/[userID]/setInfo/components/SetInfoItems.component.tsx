@@ -97,14 +97,8 @@ const Item = memo(({
                         {title}
                     </Text>
                     <DropdownSetItem>
-
                         <DropdownItemAction
-                            action={() => router.navigate({
-                                pathname: "/setManager/setCustomItems",
-                                params: {
-                                    customItemMode: "edit",
-                                }
-                            })}
+                            action={() => router.navigate("/setManager/setCustomItems")}
                             Icon={Pencil}
                             label="Editar" />
                         <DropdownItemAction

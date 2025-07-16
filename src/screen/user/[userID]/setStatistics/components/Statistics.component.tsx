@@ -8,7 +8,7 @@ interface StatisticProps {
     emoji: string
     data: Array<SetStatistic>
 }
-
+//Blur en bordes blanco, padding de los 2 lados
 const Statistic = ({ data, emoji }: StatisticProps) => {
     return (
         <View className="flex-row  gap-4 items-center">

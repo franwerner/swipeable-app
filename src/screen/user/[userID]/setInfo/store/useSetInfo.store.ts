@@ -1,6 +1,6 @@
 import SetInfo from "@/types/SetInfoInterface.type"
 import { create } from "zustand"
-import setInfoMock from "../mocks/setInfo.mock"
+import setInfoMock from "../../../../../mocks/setInfo.mock"
 
 
 interface State {

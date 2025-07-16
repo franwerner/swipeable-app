@@ -1,26 +1,27 @@
 import SetItem from "@/types/SetItemInteface.type";
 
 const setItemsMock: Array<SetItem> = [
-    { id: "item-1", emoji: "🏁", title: "Inicio de carrera", visibility: "public" },
-    { id: "item-2", emoji: "📘", title: "Plan de estudios", visibility: "public" },
-    { id: "item-3", emoji: "📚", title: "Material de lecturaasdsadasdasdasdasdsad asdasd", visibility: "private" },
-    { id: "item-4", emoji: "📝", title: "Evaluaciones", visibility: "public" },
-    { id: "item-5", emoji: "👨‍🏫", title: "Tutores asignados", visibility: "private" },
-    { id: "item-6", emoji: "📅", title: "Calendario académico", visibility: "public" },
-    { id: "item-7", emoji: "📈", title: "Progreso académico", visibility: "private" },
-    { id: "item-8", emoji: "💬", title: "Foro de estudiantes", visibility: "public" },
-    { id: "item-9", emoji: "🛠️", title: "Herramientas de estudio", visibility: "public" },
-    { id: "item-10", emoji: "🎓", title: "Requisitos de egreso", visibility: "public" },
-    { id: "item-11", emoji: "🏆", title: "Logros personales", visibility: "private" },
-    { id: "item-12", emoji: "💼", title: "Bolsa de trabajo", visibility: "public" },
-    { id: "item-13", emoji: "🧾", title: "Historial académico", visibility: "private" },
-    { id: "item-14", emoji: "📨", title: "Mensajes del campus", visibility: "public" },
-    { id: "item-15", emoji: "🔔", title: "Notificaciones", visibility: "public" },
-    { id: "item-16", emoji: "🧠", title: "Técnicas de estudio", visibility: "public" },
-    { id: "item-17", emoji: "🧭", title: "Orientación vocacional", visibility: "private" },
-    { id: "item-18", emoji: "💻", title: "Clases virtuales", visibility: "public" },
-    { id: "item-19", emoji: "🛎️", title: "Soporte académico", visibility: "public" },
-    { id: "item-20", emoji: "⚙️", title: "Preferencias de usuario", visibility: "private" },
-]
+    { id: "item-1", emoji: "🧞‍♂️", title: "Aladdín", visibility: "public" },
+    { id: "item-2", emoji: "🧊", title: "Frozen", visibility: "public" },
+    { id: "item-3", emoji: "🦁", title: "El Rey León", visibility: "private" },
+    { id: "item-4", emoji: "🐸", title: "La Princesa y el Sapo", visibility: "public" },
+    { id: "item-5", emoji: "🐘", title: "Dumbo", visibility: "private" },
+    { id: "item-6", emoji: "🐠", title: "Buscando a Nemo", visibility: "public" },
+    { id: "item-7", emoji: "🚀", title: "Lightyear", visibility: "private" },
+    { id: "item-8", emoji: "👸", title: "Enredados", visibility: "public" },
+    { id: "item-9", emoji: "🦸", title: "Los Increíbles", visibility: "public" },
+    { id: "item-10", emoji: "🎩", title: "El aprendiz de brujo", visibility: "public" },
+    { id: "item-11", emoji: "🐻", title: "Valiente", visibility: "private" },
+    { id: "item-12", emoji: "🕵️", title: "Zootopia", visibility: "public" },
+    { id: "item-13", emoji: "🚢", title: "Atlantis", visibility: "private" },
+    { id: "item-14", emoji: "🐭", title: "Ratatouille", visibility: "public" },
+    { id: "item-15", emoji: "⏰", title: "Alicia en el País de las Maravillas", visibility: "public" },
+    { id: "item-16", emoji: "🧙", title: "Encantada", visibility: "public" },
+    { id: "item-17", emoji: "🧜‍♀️", title: "La Sirenita", visibility: "private" },
+    { id: "item-18", emoji: "🐉", title: "Raya y el Último Dragón", visibility: "public" },
+    { id: "item-19", emoji: "🦆", title: "Patoaventuras", visibility: "public" },
+    { id: "item-20", emoji: "🔧", title: "Big Hero 6", visibility: "private" },
+];
+
 
 export default setItemsMock
