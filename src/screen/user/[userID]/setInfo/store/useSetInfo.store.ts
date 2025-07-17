@@ -1,10 +1,10 @@
-import SetInfo from "@/types/SetInfoInterface.type"
+import setListMock from "@/mocks/setList.mock"
+import { default as ISet, default as SetInfo } from "@/types/SetInfoInterface.type"
 import { create } from "zustand"
-import setInfoMock from "../../../../../mocks/setInfo.mock"
 
 
 interface State {
-    setInfo?: SetInfo
+    setData?: ISet
 }
 
 type PartialSetInfo = Partial<SetInfo>
@@ -18,18 +18,18 @@ interface Methods {
 type Store = State & Methods
 
 const initialState: State = {
-    setInfo: setInfoMock
+    setData: setListMock[0]
 }
 
 
 const useSetInfoStore = create<Store>((set, get) => ({
     ...initialState,
-    addSetInfo: (setInfo) => set({ setInfo }),
+    addSetInfo: (setData) => set({ setData }),
     updateSetInfo(info) {
-        const setInfo = get().setInfo
+        const setInfo = get().setData
         if (!setInfo) return
         const currentInfo = { ...setInfo, ...info }
-        set({ setInfo: currentInfo })
+        set({ setData: currentInfo })
     },
     reset: () => set(initialState),
 }))

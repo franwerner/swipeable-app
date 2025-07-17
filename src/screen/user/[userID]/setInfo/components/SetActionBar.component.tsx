@@ -28,27 +28,21 @@ const Action = ({
 export default function SetActionBar() {
 
 
-    const setID = useSetInfoStore(state => state.setInfo?.id)
+    const setID = useSetInfoStore(state => state.setData?.setID)
 
     return (
         <View className="flex-row justify-between">
             <Action
                 Icon={Plus}
                 handler={() => router.navigate({
-                    pathname: "/setManager/setCustomItems",
-                    params: {
-                        customItemMode: "create",
-                    }
+                    pathname: "/setCreation/setCustomItems",
                 })}
                 label="Añadir"
             />
             <Action
                 Icon={Pencil}
                 handler={() => router.navigate({
-                    pathname: "/setManager/setMoreDetails",
-                    params: {
-                        setManagerMode: "edit"
-                    }
+                    pathname: "/setCreation/setMoreDetails",
                 })}
                 label="Editar"
             />

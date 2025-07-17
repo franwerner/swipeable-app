@@ -1,8 +1,20 @@
-import SetDisplay from "./SetDisplayInterface.type";
 import User from "./UserInterface.type";
 
-type SetInfo = Omit<SetDisplay, "userBy">
-    & { userBy: Pick<User, "id" | "avatarUrl" | "nickname"> }
-    & { items_count: number, description: string }
+export interface ISetBase {
+    setID: number
+    name: string
+    emojis: Array<string>
+    colors: Array<string>
+}
 
-export default SetInfo
+interface ISet extends ISetBase {
+    topic: string
+    visibility: "public" | "private"
+    userBy: Pick<User, "userID" | "avatarUrl" | "nickname">
+    likeStatus?: boolean
+    items_count: number
+    description: string
+}
+
+
+export default ISet

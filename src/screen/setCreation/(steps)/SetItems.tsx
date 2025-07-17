@@ -8,25 +8,42 @@ import setItemsMock from "../../../mocks/itemList.mock";
 import NextButton from "../components/NextButton.component";
 import SetImageBackground from "../components/SetImageBackground.component";
 import SetManagerWrapper from "../components/SetManagerWrapper.component";
-import useSetCreationStore from "../store/useSetManagerStore.store";
+import useSetManagerStore from "../store/useSetManagerStore.store";
 
 const SetItemCard = (item: SetItem) => {
     const {
         emoji,
         title,
-        id
+        itemID
     } = item
 
-    const setItem = useSetCreationStore(store => store.addItem)
-    const isActive = useSetCreationStore(store => store.items.some(i => i.id == id))
+    const setItem = useSetManagerStore(store => store.addItem)
+    const removeItem = useSetManagerStore(store => store.removeItem)
+    const isActive = useSetManagerStore(store => store.setDraft.items.some(i => i.itemID == itemID))
 
     return (
         <AnimatedTap
-            onPress={() => setItem(item)}>
-            <Container isActive={isActive} className="gap-x-2">
-                <Text className="text-[16px]">{emoji}</Text>
-                <Text className="text-primary-800 font-semibold text-center flex-auto text-[16px]" numberOfLines={1} ellipsizeMode="tail">{title}</Text>
+            onPress={() => {
+                if (isActive) {
+                    removeItem(itemID)
+                } else {
+                    setItem(item)
+                }
+            }}>
+            <Container
+                isActive={isActive}
+                className="gap-x-2">
+                <Text className="text-[16px]">
+                    {emoji}
+                </Text>
+                <Text
+                    className="text-primary-800 font-semibold text-center flex-auto text-[16px]"
+                    numberOfLines={1}
+                    ellipsizeMode="tail">
+                    {title}
+                </Text>
                 <Checkbox
+                    activeClassName="bg-primary-500 border-primary-500"
                     pointerEvents="none"
                     isActive={isActive} />
             </Container>
@@ -44,7 +61,7 @@ const Content = () => {
                     contentContainerClassName="gap-6 pt-2"
                     className="flex-1"
                     data={setItemsMock}
-                    keyExtractor={(i) => i.id.toString()}
+                    keyExtractor={(i) => i.itemID.toString()}
                     renderItem={({ item }) => (
                         <SetItemCard
                             {...item}
@@ -54,7 +71,7 @@ const Content = () => {
             </View>
             <NextButton
                 nextStepAllowed={true}
-                onPress={() => router.navigate("/setManager/setCustomItems")}
+                onPress={() => router.navigate("./setCustomItems")}
             />
         </View>
     )

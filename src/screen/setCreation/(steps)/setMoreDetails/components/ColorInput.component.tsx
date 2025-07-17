@@ -1,7 +1,9 @@
 import AnimatedTap from "@/components/AnimatedTap.component"
 import Container from "@/components/Container.component"
 import colorPalette from "@/constant/colorPalette.constant"
-import useSetCreationStore from "@/screen/setManager/store/useSetManagerStore.store"
+import { useSafeStoreValue } from "@/hook/useSafeStoreValue.hook"
+import useSetCreationStore from "@/screen/setCreation/store/useSetManagerStore.store"
+import useUserStore from "@/store/useUser.store"
 import { BottomSheetModal } from "@gorhom/bottom-sheet"
 import { ChevronRight } from "lucide-react-native"
 import { useRef } from "react"
@@ -10,9 +12,17 @@ import SetColorPicker from "./SetColorPicker.component"
 
 
 export default function ColorInput() {
-    const colors = useSetCreationStore((store) => store.colors)
-    const name = useSetCreationStore((store) => store.name)
-    const addColors = useSetCreationStore((store) => store.addColors)
+    const {
+        colors,
+        emojis,
+        items,
+        name,
+    } = useSetCreationStore((store) => store.setDraft)
+
+    const updateSet = useSetCreationStore((store) => store.updateSet)
+
+    const { avatarUrl, nickname } = useSafeStoreValue(useUserStore, (state) => state.user)
+
     const bottomSheetModalRef = useRef<BottomSheetModal>(null)
     const handleOpen = () => {
         bottomSheetModalRef.current?.present()
@@ -43,15 +53,14 @@ export default function ColorInput() {
             <SetColorPicker ref={bottomSheetModalRef}>
                 <SetColorPicker.Body
                     cardProps={{
-                        emoji: "",
-                        userBy: {
-                            id: 1,
-                            nickname: "test123"
-                        },
+                        emojis,
+                        avatarUrl,
+                        nickname,
                         name,
+                        items_count: items.length
                     }}
                     colors={colors}
-                    onChangeColor={addColors}
+                    onChangeColor={(e) => updateSet({ colors: e })}
                 />
             </SetColorPicker>
         </>

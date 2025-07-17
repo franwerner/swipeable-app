@@ -1,8 +1,8 @@
 import Input from "@/components/Input.component"
-import useSetCreationStore from "@/screen/setManager/store/useSetManagerStore.store"
+import useSetCreationStore from "@/screen/setCreation/store/useSetManagerStore.store"
 
 export default function DescriptionInput() {
-    const description = useSetCreationStore((store) => store.description)
+    const description = useSetCreationStore((store) => store.setDraft.description)
     const addDescription = useSetCreationStore((store) => store.addDescription)
     const hasValue = description.length > 0
     return (

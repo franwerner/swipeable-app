@@ -1,40 +1,18 @@
-import SetDisplay from "@/types/SetDisplayInterface.type"
+import colorPalette from "@/constant/colorPalette.constant"
+import ISet, { ISetBase } from "@/types/SetInfoInterface.type"
+import User from "@/types/UserInterface.type"
 import clsx from "clsx"
-import { BlurView } from "expo-blur"
-import { LinearGradient, LinearGradientProps } from "expo-linear-gradient"
-import { ReactNode } from "react"
-import { Text, View, ViewProps } from "react-native"
+import { Share2 } from "lucide-react-native"
+import { Text, TextProps, View, ViewProps } from "react-native"
+import AnimatedTap from "./AnimatedTap.component"
+import Avatar from "./Avatar.component"
+import SetCardGradient from "./SetCardGradient.component"
 
-export interface SetCardProps extends ViewProps {
-    colors: SetDisplay["colors"]
-}
+type SetCardProps = Pick<ISet, "colors"> & ViewProps
 
-interface SetCardBodyProps extends ViewProps {
-    name: SetDisplay["name"]
-    userBy: SetDisplay["userBy"]
-}
+type SetCardBodyProps = Pick<ISet, "items_count"> & Pick<User, "avatarUrl" | "nickname"> & ViewProps
 
-
-type SetCardGradientProps = Omit<LinearGradientProps, "colors"> & Pick<SetDisplay, "colors"> & { children?: ReactNode }
-
-export const SetCardGradient = ({ colors, children, ...props }: SetCardGradientProps) => {
-    return (
-        <LinearGradient
-            start={{ x: 0, y: 1 }}
-            end={{ x: 1, y: 0 }}
-            className="flex-1"
-            {...props}
-            colors={[...colors,] as any}>
-            <BlurView
-                intensity={100}
-                className="flex-1"
-            >
-                {children}
-            </BlurView>
-        </LinearGradient>
-
-    )
-}
+type SetCardTitleProps = Pick<ISetBase, "name"> & TextProps
 
 export default function SetCard({
     className,
@@ -45,11 +23,10 @@ export default function SetCard({
     return (
         <View
             className={clsx(
-                "overflow-hidden rounded-2xl",
+                "overflow-hidden w-[360px] h-[150px] rounded-2xl",
                 className
             )}
-            {...props}
-        >
+            {...props}>
             <SetCardGradient colors={colors}>
                 {children}
             </SetCardGradient>
@@ -58,39 +35,70 @@ export default function SetCard({
 }
 
 
-const SetCardHeader = ({
-    className,
+
+const SetCardShared = ({
     ...props
 }: ViewProps) => {
     return (
-        <View
-            className={clsx(
-                "p-5",
-                className
-            )}
-            {...props}
-        />
+        <AnimatedTap
+            {...props}>
+            <Share2
+                size={28}
+                color={colorPalette.primary[800]} />
+        </AnimatedTap>
     )
 }
 
-const SetCardBody = ({
+const SetCardTitle = ({
+    className,
     name,
-    userBy,
+    ...props
+}: SetCardTitleProps) => {
+    return <Text
+        numberOfLines={1}
+        className={clsx(
+            "font-extrabold flex-shrink text-[20px]",
+            className
+        )}
+        {...props}
+    >
+        {name}
+    </Text>
+}
+
+const SetCardBody = ({
+    avatarUrl,
+    nickname,
+    items_count,
+    className,
     ...props
 }: SetCardBodyProps) => {
     return (
-        <View className="p-6 gap-1" {...props}>
-            <Text
-                className={"text-xl font-bold"}>
-                {name}
-            </Text>
-            <Text
-                className={"tracking-wide  text-[16px] font-medium"}>
-                Por {userBy.nickname}
-            </Text>
+        <View
+            className={clsx(
+                "p-5 flex-row items-center gap-3 justify-between",
+                className
+            )}
+            {...props}>
+            <View className="flex-row flex-1 items-center gap-3">
+                <Avatar
+                    className="!w-[45px] !h-[45px]"
+                    source={{ uri: avatarUrl }}
+                />
+                <Text
+                    className="text-[16px] font-medium flex-shrink "
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+
+                >
+                    Por {nickname}
+                </Text>
+            </View>
+            <Text className="text-[16px] font-medium">{items_count} items</Text>
         </View>
     )
 }
 
-SetCard.Header = SetCardHeader
+SetCard.Title = SetCardTitle
+SetCard.Shared = SetCardShared
 SetCard.Body = SetCardBody

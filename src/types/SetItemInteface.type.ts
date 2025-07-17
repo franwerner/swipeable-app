@@ -2,8 +2,9 @@
 
 
 export default interface SetItem {
-    id: string
+    itemID: number | string
     emoji: string
     title: string
     visibility: "public" | "private"
+    source: "AI" | "user"
 }

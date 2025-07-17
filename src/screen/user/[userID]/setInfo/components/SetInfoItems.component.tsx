@@ -31,7 +31,6 @@ interface DropdownItemAction {
     action: VoidFunction
 }
 
-
 const DropdownItemAction = ({
     Icon,
     label,
@@ -48,7 +47,7 @@ const DropdownItemAction = ({
 }
 
 interface ItemProps extends SetItem {
-    removeItem: (id: string) => void
+    removeItem: (id: string | number) => void
 }
 
 const Item = memo(({
@@ -56,7 +55,7 @@ const Item = memo(({
     ...defaultItem
 }: ItemProps) => {
 
-    const { emoji, title, id } = defaultItem
+    const { emoji, title, itemID } = defaultItem
 
     const [visibility, setVisibility] = useState(defaultItem.visibility)
 
@@ -98,7 +97,7 @@ const Item = memo(({
                     </Text>
                     <DropdownSetItem>
                         <DropdownItemAction
-                            action={() => router.navigate("/setManager/setCustomItems")}
+                            action={() => router.navigate("/setCreation/setCustomItems")}
                             Icon={Pencil}
                             label="Editar" />
                         <DropdownItemAction
@@ -106,7 +105,7 @@ const Item = memo(({
                             action={handleVisibility}
                             label={isPrivate ? "Mostrar" : "Ocultar"} />
                         <DropdownItemAction
-                            action={() => removeItem(id)}
+                            action={() => removeItem(itemID)}
                             Icon={Trash}
                             label="Eliminar" />
                     </DropdownSetItem>
@@ -130,8 +129,8 @@ export default function SetInfoItems() {
         setItems(prev => reorderItems(prev, from, to))
     }
 
-    const removeItem = useCallback((id: string) => {
-        setItems(prev => prev.filter(i => i.id !== id))
+    const removeItem = useCallback((id: string | number) => {
+        setItems(prev => prev.filter(i => i.itemID !== id))
     }, [])
 
     return (
@@ -140,7 +139,7 @@ export default function SetInfoItems() {
             autoscrollSpeedScale={2}
             itemLayoutAnimation={LinearTransition}
             showsVerticalScrollIndicator={false}
-            keyExtractor={i => i.id}
+            keyExtractor={i => i.itemID.toString()}
             onReorder={onReorder}
             cellAnimations={{
                 marginHorizontal: 6

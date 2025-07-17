@@ -8,17 +8,12 @@ interface Methods {
 }
 
 interface State {
-    user: Partial<User>
+    user?: User
 }
 
 type Store = State & Methods
 
 const initialState: State = {
-    user: {
-        id: undefined,
-        name: undefined,
-        lastname: undefined,
-    }
 }
 
 const useUserStore = create<Store>((set) => ({
