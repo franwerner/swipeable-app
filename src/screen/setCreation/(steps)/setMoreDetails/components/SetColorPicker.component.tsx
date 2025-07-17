@@ -1,18 +1,19 @@
 import AnimatedTap from "@/components/AnimatedTap.component";
 import SetCard from "@/components/SetCard.component";
-import ISet from "@/types/SetDisplayInterface.type";
+import ISet from "@/types/SetInfoInterface.type";
+import User from "@/types/UserInterface.type";
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetModalProps, BottomSheetView } from "@gorhom/bottom-sheet";
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import { forwardRef, memo, useCallback, useEffect, useMemo, useState } from "react";
-import { Text, View, ViewProps } from "react-native";
+import { View, ViewProps } from "react-native";
 import { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 import ColorPicker from "react-native-wheel-color-picker";
 
 
 interface SetColorPickerBodyProps extends ViewProps {
-    colors: Array<string>
+    colors: ISet["colors"]
     onChangeColor: (colors: Array<string>) => void
-    cardProps: Pick<ISet, "name" | "userBy" | "emoji">
+    cardProps: Pick<ISet, "name" | "emojis" | "items_count"> & Pick<User, "avatarUrl" | "nickname">
 }
 
 interface ForwardRefWithBody
@@ -95,6 +96,14 @@ function SetColorPickerBody({
 
     const [editColor, setEditColor] = useState(0)
 
+    const {
+        avatarUrl,
+        emojis,
+        items_count,
+        name,
+        nickname
+    } = cardProps
+
     const pickerInitial = useMemo(() => colors[editColor], [editColor])
 
     const handleEditColor = useCallback(setEditColor, [])
@@ -107,10 +116,10 @@ function SetColorPickerBody({
 
     return (
         <BottomSheetView
-            className="p-6 px-8 gap-4 h-full"
+            className="p-6 px-4 items-center gap-8 h-full"
             {...props}
         >
-            <View className="gap-4 flex-row justify-start">
+            <View className="gap-4  w-full px-4 flex-row justify-start">
                 {
                     colors.map((i, index) =>
                         <ToggleColorButton
@@ -124,17 +133,18 @@ function SetColorPickerBody({
                 }
             </View>
             <SetCard
-                className="h-[175px] rounded-2xl"
                 colors={colors}>
-                <SetCard.Header>
-                    <Text className="text-3xl" >{cardProps.emoji || "✨"}</Text>
-                </SetCard.Header>
+                <View className="p-5 flex-row justify-between gap-2">
+                    <SetCard.Title name={name + " " + emojis.join(" ")} />
+                    <SetCard.Shared />
+                </View>
                 <SetCard.Body
-                    name={cardProps.name || "Nombre del set"}
-                    userBy={cardProps.userBy}
+                    items_count={items_count}
+                    nickname={nickname}
+                    avatarUrl={avatarUrl}
                 />
             </SetCard>
-            <View className="flex-1 mb-2">
+            <View className="flex-1 mb-2 w-full">
                 <ColorPicker
                     color={pickerInitial}
                     thumbSize={50}

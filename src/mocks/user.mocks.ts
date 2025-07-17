@@ -2,10 +2,10 @@ import User from "@/types/UserInterface.type";
 
 
 const userMock: User = {
-    id: 1,
+    userID: 1,
     name: "John",
     lastname: "Doe",
-    avatarUrl: "",
+    avatarUrl: "https://randomuser.me/api/portraits/men/1.jpg",
     nickname: "Johndoe123"
 
 }

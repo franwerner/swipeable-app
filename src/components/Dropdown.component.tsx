@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import React, { createContext, Dispatch, SetStateAction, useContext, useLayoutEffect, useRef, useState } from "react";
-import { Dimensions, Modal, Pressable, PressableProps, TouchableWithoutFeedback, View, ViewProps } from "react-native";
+import { Dimensions, Modal, Pressable, PressableProps, SafeAreaView, TouchableWithoutFeedback, View, ViewProps } from "react-native";
 import Animated, { ZoomIn, ZoomOut } from "react-native-reanimated";
 
 interface DropdownMenuProps {
@@ -26,7 +26,6 @@ interface DropdownContext {
     setOpen: Dispatch<SetStateAction<boolean>>
 
 }
-
 
 
 const DropdownContext = createContext<DropdownContext>({
@@ -57,16 +56,18 @@ export default function Dropdown({
     const [isOpen, setOpen] = useState(false)
 
     return (
-        <DropdownContext.Provider
-            value={{
-                position,
-                setPosition,
-                isOpen,
-                setOpen,
-            }}
-        >
-            {children}
-        </DropdownContext.Provider >
+        <SafeAreaView>
+            <DropdownContext.Provider
+                value={{
+                    position,
+                    setPosition,
+                    isOpen,
+                    setOpen,
+                }}
+            >
+                {children}
+            </DropdownContext.Provider >
+        </SafeAreaView>
     )
 }
 
@@ -91,8 +92,10 @@ const DropdownMenu = ({
      */
 
     const isExceedingScreenBottom = (position.y + position.height + containerDimesions.height) > screenHeight
+    const isExceedingScreenWidth = (position.x + position.width - containerDimesions.width) < 0
     const top = isExceedingScreenBottom ? (position.y - containerDimesions.height) : (position.y + position.height)
-    const left = (position.x + position.width) - containerDimesions.width
+    const left = isExceedingScreenWidth ? (position.x + position.width) : (position.x - containerDimesions.width)
+
 
     useLayoutEffect(() => {
         if (menuRef.current && isOpen) {
@@ -106,13 +109,18 @@ const DropdownMenu = ({
     }, [isOpen])
 
     return (
+
         <Modal
             visible={isOpen}
             transparent
             animationType="none"
         >
-            <TouchableWithoutFeedback onPress={() => setOpen(false)}>
-                <View className="flex-1 ">
+            <TouchableWithoutFeedback
+                onPress={() => {
+                    setOpen(false)
+                }}>
+                <View
+                    className="flex-1">
                     <Animated.View
                         entering={ZoomIn
                             .duration(80)
@@ -131,7 +139,7 @@ const DropdownMenu = ({
                         style={[
                             {
                                 position: 'absolute',
-                                top: top,
+                                top,
                                 left,
                                 shadowColor: "#000",
                                 shadowOffset: {
@@ -145,7 +153,7 @@ const DropdownMenu = ({
                             style,
                         ]}
                         className={clsx(
-                            "rounded-2xl p-4 bg-white",
+                            "rounded-2xl bg-white",
                             className
                         )}
                         onStartShouldSetResponder={() => true}
@@ -174,7 +182,6 @@ const DropdownTrigger = ({
                     y,
                     height,
                     width
-
                 })
             })
         }
@@ -196,7 +203,9 @@ const DropdownItem = ({
     onPress,
     ...props
 }: DropdownItemProps) => {
+
     const { setOpen } = useDropdown()
+
     return (
         <Pressable
             onPress={(e) => {

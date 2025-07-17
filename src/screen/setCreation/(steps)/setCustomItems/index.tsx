@@ -4,18 +4,16 @@ import { Keyboard, TouchableWithoutFeedback, View } from "react-native"
 import NextButton from "../../components/NextButton.component"
 import SetImageBackground from "../../components/SetImageBackground.component"
 import SetManagerWrapper from "../../components/SetManagerWrapper.component"
-import useSetManagerMode from "../../hook/useSetManagerMode.hook"
 import useSetManagerStore from "../../store/useSetManagerStore.store"
 import AddItem from "./components/AddItem.component"
 import ViewAddedItems from "./components/ViewAddedItems.component"
 
 const Button = () => {
-    const itemsLength = useSetManagerStore(state => state.items.length)
-    const { setManagerMode } = useSetManagerMode()
+    const itemsLength = useSetManagerStore(state => state.setDraft.items.length)
     return <NextButton
         nextStepAllowed={itemsLength > 0}
         onPress={() => router.dismissTo("/user/1/setInfo/1")}
-        text={setManagerMode == "create" ? "Finalizar" : "Guardar cambios"} />
+        text={"Finalizar"} />
 }
 
 const Content = () => {

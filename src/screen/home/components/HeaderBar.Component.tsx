@@ -1,20 +1,21 @@
 import AnimatedTap from "@/components/AnimatedTap.component";
+import Avatar from "@/components/Avatar.component";
 import colorPalette from "@/constant/colorPalette.constant";
+import { useSafeStoreValue } from "@/hook/useSafeStoreValue.hook";
 import useUserStore from "@/store/useUser.store";
 import CircleDecoration from "@/ui-components/CircleDecoration.ui-component";
 import { router } from "expo-router";
 import { Bell } from "lucide-react-native";
-import { Image, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
-function Avatar() {
-    const userID = useUserStore(state => state.user.id)
+function PerfilAvatar() {
+    const {
+        avatarUrl,
+        userID
+    } = useSafeStoreValue(useUserStore, (state) => state.user)
     return (
         <AnimatedTap onPress={() => router.navigate(`/user/${userID}/setInfo/1`)}>
-            <CircleDecoration className="overflow-hidden">
-                <Image
-                    className="w-full h-full"
-                    source={{ uri: "https://randomuser.me/api/portraits/men/1.jpg" }} />
-            </CircleDecoration>
+            <Avatar source={{ uri: avatarUrl }} />
         </AnimatedTap>
     )
 }
@@ -36,7 +37,7 @@ export default function HeaderBar() {
 
     return (
         <View className=" flex-row items-center">
-            <Avatar />
+            <PerfilAvatar />
             <Title />
             <Notification />
         </View>

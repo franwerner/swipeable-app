@@ -9,20 +9,20 @@ import useSetCreationStore from "../store/useSetManagerStore.store";
 
 
 const Content = () => {
-    const topic = useSetCreationStore((store) => store.topic)
-    const setTopic = useSetCreationStore((store) => store.addTopic)
+    const topic = useSetCreationStore((store) => store.setDraft.topic)
+    const setTopic = useSetCreationStore((store) => store.updateSet)
 
     return (
         <View className="justify-between flex-1">
             <SetInput
                 inputProps={{
                     value: topic,
-                    onChangeText: setTopic,
+                    onChangeText: (e) => setTopic({ topic: e }),
                     placeholder: "¿De qué tópico quieres hablar?"
                 }}
             />
             <NextButton
-                onPress={() => router.navigate("/setManager/SetDetails")}
+                onPress={() => router.navigate("./SetDetails")}
                 text={"Empezar"}
                 nextStepAllowed={topic.length > 0}
             />
@@ -31,6 +31,7 @@ const Content = () => {
 }
 
 export default function SetTopic() {
+
     return (
         <SetManagerWrapperWithSafeKeyboard>
             <SetImageBackground

@@ -17,9 +17,7 @@ export default function NavigationBar() {
                 </AnimatedTap>
                 <AnimatedTap
                     className="bg-secondary-950 p-2 rounded-full"
-                    onPress={() => navigate({
-                        pathname: "/setManager/SetTopic",
-                    })}>
+                    onPress={() => navigate("/setCreation/SetTopic")}>
                     <Plus
                         color="white"
                         size={32} />
