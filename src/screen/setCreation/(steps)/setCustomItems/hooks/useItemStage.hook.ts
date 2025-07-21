@@ -49,7 +49,6 @@ export default function useItemStage() {
     const hasValues = !!(emoji && title)
 
     useEffect(() => {
-        console.log(itemInEdit)
         if (itemInEdit) {
             setStage("edit")
             onChangeEmoji(itemInEdit.emoji)

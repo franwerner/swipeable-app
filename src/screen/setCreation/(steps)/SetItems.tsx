@@ -17,21 +17,14 @@ const SetItemCard = (item: SetItem) => {
         itemID
     } = item
 
-    const setItem = useSetManagerStore(store => store.addItem)
-    const removeItem = useSetManagerStore(store => store.removeItem)
-    const isActive = useSetManagerStore(store => store.setDraft.items.some(i => i.itemID == itemID))
+    const toggleItem = useSetManagerStore(store => store.toggleItem)
+    const isSelected = useSetManagerStore(store => store.setDraft.items.some(i => i.itemID == itemID))
 
     return (
         <AnimatedTap
-            onPress={() => {
-                if (isActive) {
-                    removeItem(itemID)
-                } else {
-                    setItem(item)
-                }
-            }}>
+            onPress={() => toggleItem(item)}>
             <Container
-                isActive={isActive}
+                isActive={isSelected}
                 className="gap-x-2">
                 <Text className="text-[16px]">
                     {emoji}
@@ -45,7 +38,7 @@ const SetItemCard = (item: SetItem) => {
                 <Checkbox
                     activeClassName="bg-primary-500 border-primary-500"
                     pointerEvents="none"
-                    isActive={isActive} />
+                    isActive={isSelected} />
             </Container>
         </AnimatedTap>
     )

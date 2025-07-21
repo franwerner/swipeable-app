@@ -14,14 +14,15 @@ interface Methods {
     toggleVisibility: () => void
     reset: () => void
     updateSet: (v: Partial<SetDraft>) => void
-    changeItemToEdit: (i: SetItem) => void
+    toggleItemEdit: (i: SetItem) => void
     updateItem: (i: Partial<Omit<SetItem, "itemID">> & { itemID: SetItem["itemID"] }) => void
-    removeItemToEdit: (i: string | number) => void
+    clearEditIfMatch: (id: SetItem["itemID"]) => void
+    toggleItem: (item: SetItem) => void
 }
 
 type State = {
     setDraft: SetDraft
-    itemInEdit?: SetItem
+    itemInEdit: SetItem | null
 }
 
 type Store = State & Methods
@@ -35,7 +36,7 @@ const initialState: State = {
         description: "Description tesing",
         emojis: Array.from<string>({ length: 3 }).fill("🤮")
     },
-    itemInEdit: undefined
+    itemInEdit: null
 }
 
 /**
@@ -53,35 +54,44 @@ const useSetManagerStore = create<Store>((set, get) => ({
             }
         })
     },
-    changeItemToEdit: (itemInEdit) => set({ itemInEdit }),
-    removeItem(itemID) {
-        const { updateSet, setDraft, removeItemToEdit } = get()
-        const items = setDraft.items
-        const filteredItems = items.filter(i => i.itemID !== itemID)
-        removeItemToEdit(itemID)
-        updateSet({ items: filteredItems })
+    toggleItemEdit: (itemInEdit) => {
+        const { itemInEdit: currentItemInEdit } = get()
+        const isSame = currentItemInEdit?.itemID === itemInEdit.itemID
+        set({ itemInEdit: isSame ? null : itemInEdit })
     },
-    removeItemToEdit(itemID) {
+    clearEditIfMatch(itemID) {
         const { itemInEdit } = get()
-        if (itemInEdit && itemInEdit.itemID === itemID) {
-            set({ itemInEdit: undefined })
+        if (itemID === itemInEdit?.itemID) {
+            set({ itemInEdit: null })
         }
     },
     updateItem(payload) {
-        const { setDraft, updateSet, removeItemToEdit } = get()
+        const { setDraft, updateSet, clearEditIfMatch } = get()
         const items = setDraft.items
         const updateItems = items.map(i => (i.itemID === payload.itemID) ? { ...i, ...payload } : i)
-        removeItemToEdit(payload.itemID)
+        clearEditIfMatch(payload.itemID)
         updateSet({ items: updateItems })
-        set({ itemInEdit: undefined })
-
+    },
+    removeItem(itemID) {
+        const { updateSet, setDraft, clearEditIfMatch } = get()
+        const items = setDraft.items
+        clearEditIfMatch(itemID)
+        updateSet({ items: items.filter(i => i.itemID !== itemID) })
     },
     addItem(item) {
         const { setDraft, updateSet } = get()
         const items = setDraft.items
-        const findItem = items.findIndex(i => i.itemID == item.itemID)
-        if (findItem >= 0) return
         updateSet({ items: [...items, item] })
+    },
+    toggleItem(item) {
+        const { setDraft, addItem, removeItem } = get()
+        const { items } = setDraft
+        const some = items.some(i => i.itemID == item.itemID)
+        if (some) {
+            removeItem(item.itemID)
+        } else {
+            addItem(item)
+        }
     },
     toggleVisibility() {
         const { setDraft, updateSet } = get()

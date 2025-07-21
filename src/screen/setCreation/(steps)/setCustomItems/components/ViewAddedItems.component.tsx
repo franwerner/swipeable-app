@@ -24,7 +24,8 @@ const SetItemCard = (item: SetItem) => {
     const width = Dimensions.get("window").width
 
     const removeItem = useSetCreationStore(store => store.removeItem)
-    const changeItemToEdit = useSetCreationStore(store => store.changeItemToEdit)
+    const toggleItemEdit = useSetCreationStore(store => store.toggleItemEdit)
+    const isInEdit = useSetCreationStore(store => store.itemInEdit?.itemID === itemID)
     const offset = useSharedValue<number>(0)
 
     const panGesture = Gesture.Pan()
@@ -47,12 +48,13 @@ const SetItemCard = (item: SetItem) => {
         const progress = Math.min(Math.abs(offset.value) / THRESHOLD, 1)
         const backgroundColor = interpolateColor(progress, [0, 2], ['white', '#ff9ea2'])
         const scale = interpolate(progress, [0, 1], [1, 0.8])
+        const backgroundColorInEdit = isInEdit &&  Math.abs(offset.value) < (THRESHOLD / 2)
         return {
             transform: [
                 { translateX: offset.value },
                 { scale }
             ],
-            backgroundColor
+            backgroundColor : backgroundColorInEdit ? colorPalette.primary[50] : backgroundColor
         }
     })
 
@@ -60,14 +62,16 @@ const SetItemCard = (item: SetItem) => {
     return (
         <GestureDetector gesture={panGesture}>
             <AnimatedTap
-                onPress={() => changeItemToEdit(item)}
+                onPress={() => {
+                    toggleItemEdit(item)
+                }}
             >
                 <Animated.View
                     exiting={FadeOut.duration(300)}
                     layout={LinearTransition.duration(300)}
                     style={animatedStyles}
                     className={clsx(
-                        "h-[64px] gap-x-2 rounded-[16px] flex-row justify-between px-6 items-center"
+                        "h-[64px] gap-x-2 my-1 rounded-[16px] flex-row justify-between px-6 items-center"
                     )}>
                     <Text
                         className="text-[16px]">
