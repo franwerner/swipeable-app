@@ -9,7 +9,7 @@ const setList: ISet[] = [
         visibility: "public",
         userBy: {
             userID: 1,
-            avatarUrl: "https://example.com/avatars/1.png",
+            avatarUrl: "https://randomuser.me/api/portraits/men/1.jpg",
             nickname: "Pepe Argento",
         },
         colors: ["#ff7e5f", "#feb47b"],
@@ -25,7 +25,7 @@ const setList: ISet[] = [
         visibility: "public",
         userBy: {
             userID: 2,
-            avatarUrl: "https://example.com/avatars/2.png",
+            avatarUrl: "https://randomuser.me/api/portraits/men/1.jpg",
             nickname: "AstroFan",
         },
         colors: ["#6a11cb", "#2575fc"],
@@ -40,7 +40,7 @@ const setList: ISet[] = [
         visibility: "public",
         userBy: {
             userID: 3,
-            avatarUrl: "https://example.com/avatars/3.png",
+            avatarUrl: "https://randomuser.me/api/portraits/men/1.jpg",
             nickname: "PixelMaster",
         },
         colors: ["#ff6a00", "#ee0979"],
@@ -55,7 +55,7 @@ const setList: ISet[] = [
         visibility: "public",
         userBy: {
             userID: 4,
-            avatarUrl: "https://example.com/avatars/4.png",
+            avatarUrl: "https://randomuser.me/api/portraits/men/1.jpg",
             nickname: "BookLover",
         },
         colors: ["#56ab2f", "#a8e063"],
@@ -70,7 +70,7 @@ const setList: ISet[] = [
         visibility: "public",
         userBy: {
             userID: 5,
-            avatarUrl: "https://example.com/avatars/5.png",
+            avatarUrl: "https://randomuser.me/api/portraits/men/1.jpg",
             nickname: "TravelBug",
         },
         colors: ["#614385", "#516395"],
@@ -85,7 +85,7 @@ const setList: ISet[] = [
         visibility: "public",
         userBy: {
             userID: 6,
-            avatarUrl: "https://example.com/avatars/6.png",
+            avatarUrl: "https://randomuser.me/api/portraits/men/1.jpg",
             nickname: "ColorSplash",
         },
         colors: ["#f7971e", "#ffd200"],

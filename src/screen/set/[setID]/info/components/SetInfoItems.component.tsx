@@ -1,13 +1,13 @@
 import Dropdown from "@/components/Dropdown.component";
 import colorPalette from "@/constant/colorPalette.constant";
-import setItemsMock from "@/mocks/itemList.mock";
 import SetItem from "@/types/SetItemInteface.type";
 import { router } from "expo-router";
 import { EllipsisVertical, Eye, EyeOff, GripHorizontal, LucideIcon, Pencil, Trash } from "lucide-react-native";
-import { memo, ReactNode, useCallback, useState } from "react";
+import { memo, ReactNode, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { LinearTransition } from "react-native-reanimated";
 import ReorderableList, { ReorderableListReorderEvent, reorderItems, useIsActive, useReorderableDrag } from "react-native-reorderable-list";
+import useSetStore from "../store/useSet.store";
 
 const DropdownSetItem = ({ children }: { children: ReactNode }) => {
     return (
@@ -46,14 +46,11 @@ const DropdownItemAction = ({
     )
 }
 
-interface ItemProps extends SetItem {
-    removeItem: (id: string | number) => void
-}
+
 
 const Item = memo(({
-    removeItem,
     ...defaultItem
-}: ItemProps) => {
+}: SetItem) => {
 
     const { emoji, title, itemID } = defaultItem
 
@@ -76,10 +73,9 @@ const Item = memo(({
                     overflow: "hidden",
                 }}
                 className="flex-row gap-4 px-3 justify-between items-center">
-                {isDrag &&
-                    <GripHorizontal size={28} color={colorPalette.primary[800]}
-                    />
-                }
+                {isDrag && <GripHorizontal
+                    size={28}
+                    color={colorPalette.primary[800]} />}
                 <View className="flex-row flex-1 h-[64px] gap-4 items-center justify-between">
                     <Text
                         style={{
@@ -123,15 +119,14 @@ const ItemSeparator = () => {
 
 export default function SetInfoItems() {
 
-    const [items, setItems] = useState(setItemsMock)
+    const items = useSetStore(state => state.items)
+    const loadItems = useSetStore(state => state.loadItems)
+
 
     const onReorder = ({ from, to }: ReorderableListReorderEvent) => {
-        setItems(prev => reorderItems(prev, from, to))
+        loadItems(reorderItems(items, from, to))
     }
 
-    const removeItem = useCallback((id: string | number) => {
-        setItems(prev => prev.filter(i => i.itemID !== id))
-    }, [])
 
     return (
         <ReorderableList
@@ -148,7 +143,6 @@ export default function SetInfoItems() {
             ItemSeparatorComponent={ItemSeparator}
             renderItem={(props) => {
                 return <Item
-                    removeItem={removeItem}
                     {...props.item}
                 />
             }

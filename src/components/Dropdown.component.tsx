@@ -87,14 +87,14 @@ const DropdownMenu = ({
 
     const screenHeight = Dimensions.get("window").height
 
-    /**
-     * `isExceedingScreenBottom` verifica si la dropdown sobrepasa el limite de la pantalla y lo reajusta.
-     */
 
-    const isExceedingScreenBottom = (position.y + position.height + containerDimesions.height) > screenHeight
-    const isExceedingScreenWidth = (position.x + position.width - containerDimesions.width) < 0
-    const top = isExceedingScreenBottom ? (position.y - containerDimesions.height) : (position.y + position.height)
-    const left = isExceedingScreenWidth ? (position.x + position.width) : (position.x - containerDimesions.width)
+    const endX = position.x + position.width
+    const endY = position.y + position.height
+
+    const isExceedingScreenBottom = (endY + containerDimesions.height) > screenHeight
+    const isExceedingScreenWidth = (endX - containerDimesions.width) < 0
+    const top = isExceedingScreenBottom ? (position.y - containerDimesions.height) : endY
+    const left = isExceedingScreenWidth ? endX : (endX - containerDimesions.width)
 
 
     useLayoutEffect(() => {

@@ -8,35 +8,30 @@ interface StatisticProps {
     emoji: string
     data: Array<SetStatistic>
 }
-//Blur en bordes blanco, padding de los 2 lados
-const Statistic = ({ data, emoji }: StatisticProps) => {
+
+const Statistic = ({
+    data, emoji
+}: StatisticProps) => {
     return (
-        <View className="flex-row  gap-4 items-center">
+        <View className="relative gap-3 flex-row items-center pl-6">
+            <View className="bg-primary-100 h-[50px] w-[65px] items-center justify-center rounded-full z-10">
+                <Text className="text-3xl">{emoji}</Text>
+            </View>
             <FlatList
                 data={data}
-                horizontal={true}
-                ListHeaderComponent={() => {
-                    return (
-                        <View className="bg-primary-100 h-[50px] w-[65px] items-center justify-center rounded-[100px]">
-                            <Text className="text-3xl">{emoji}</Text>
-                        </View>
-                    )
-                }}
-                contentContainerClassName="mx-6 gap-4"
-                showsHorizontalScrollIndicator={false}
+                horizontal
                 keyExtractor={({ id }) => id.toString()}
-                renderItem={({ item }) => {
-                    const { avatarUrl, nickname } = item
-                    return (
-                        <View className="flex-row items-center gap-3 bg-primary-100 rounded-[100px] px-3 h-[50px]">
-                            <Avatar
-                                className="!w-[30px] !h-[30px]"
-                                source={{ uri: avatarUrl }}
-                            />
-                            <Text className="text-primary-800">{nickname}</Text>
-                        </View>
-                    )
-                }}
+                showsHorizontalScrollIndicator={false}
+                contentContainerClassName="gap-4 pr-[48px]"
+                renderItem={({ item }) => (
+                    <View className="flex-row items-center gap-3 bg-primary-100 rounded-full px-3 h-[50px]">
+                        <Avatar
+                            className="!w-[30px] !h-[30px]"
+                            source={{ uri: item.avatarUrl }}
+                        />
+                        <Text className="text-primary-800">{item.nickname}</Text>
+                    </View>
+                )}
             />
         </View>
     )
@@ -53,9 +48,7 @@ export default function Statistics() {
                             data={i.data}
                             emoji={emojiStatistic[i.type]}
                         />
-                        {index < setStatisticsMock.length - 1 && (
-                            <View className="h-[1px] mx-6  bg-primary-100" /> // Esto es el separador (espacio vertical)
-                        )}
+                        {index < setStatisticsMock.length - 1 && <View className="h-[1px] mx-6  bg-primary-100" />}
                     </View>
                 ))
             }

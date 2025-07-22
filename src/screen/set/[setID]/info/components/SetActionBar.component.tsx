@@ -3,7 +3,7 @@ import colorPalette from "@/constant/colorPalette.constant"
 import { router } from "expo-router"
 import { Award, LucideIcon, Pencil, Plus } from "lucide-react-native"
 import { Text, View } from "react-native"
-import useSetInfoStore from "../store/useSetInfo.store"
+import useSetStore from "../store/useSet.store"
 
 interface Action {
     label: string
@@ -28,7 +28,7 @@ const Action = ({
 export default function SetActionBar() {
 
 
-    const setID = useSetInfoStore(state => state.setData?.setID)
+    const setID = useSetStore(state => state.setData?.setID)
 
     return (
         <View className="flex-row justify-between">
@@ -48,7 +48,7 @@ export default function SetActionBar() {
             />
             <Action
                 Icon={Award}
-                handler={() => router.navigate(`../setStatistics/${setID}`)}
+                handler={() => router.navigate(`./statistics`)}
                 label="Estadísticas"
             />
         </View>

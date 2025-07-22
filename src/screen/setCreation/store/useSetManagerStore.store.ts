@@ -5,7 +5,7 @@ import SetItem from "@/types/SetItemInteface.type";
 import { create } from "zustand";
 
 
-type SetDraft = Pick<ISet, "colors" | "description" | "emojis" | "name" | "visibility" | "topic"> & { items: Array<SetItem> }
+type SetDetails = Pick<ISet, "colors" | "description" | "emojis" | "name" | "visibility" | "topic"> 
 
 interface Methods {
     addItem: (item: SetItem) => void
@@ -13,7 +13,7 @@ interface Methods {
     addDescription: (description: string) => void
     toggleVisibility: () => void
     reset: () => void
-    updateSet: (v: Partial<SetDraft>) => void
+    updateSet: (v: Partial<SetDetails>) => void
     toggleItemEdit: (i: SetItem) => void
     updateItem: (i: Partial<Omit<SetItem, "itemID">> & { itemID: SetItem["itemID"] }) => void
     clearEditIfMatch: (id: SetItem["itemID"]) => void
@@ -21,14 +21,14 @@ interface Methods {
 }
 
 type State = {
-    setDraft: SetDraft
+    setDetails: SetDetails
+    items : Array<SetItem>
     itemInEdit: SetItem | null
 }
 
 type Store = State & Methods
 const initialState: State = {
-    setDraft: {
-        items: setItemsMock.slice(0, 1),
+    setDetails: {
         topic: "Topico de test",
         name: "Peliculas de disney",
         visibility: "private",
@@ -36,6 +36,7 @@ const initialState: State = {
         description: "Description tesing",
         emojis: Array.from<string>({ length: 3 }).fill("🤮")
     },
+    items: setItemsMock.slice(0, 5),
     itemInEdit: null
 }
 

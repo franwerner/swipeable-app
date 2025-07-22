@@ -1,6 +1,6 @@
-import setItemsMock from "@/mocks/itemList.mock"
 import SetItem from "@/types/SetItemInteface.type"
 import { FlatList, Text, View } from "react-native"
+import useSetStore from "../store/useSet.store"
 
 const ItemForVisitedUser = ({
     title
@@ -23,15 +23,18 @@ const ItemForVisitedUser = ({
 }
 
 export default function SetInfoItemsForVisitor() {
+
+    const items = useSetStore(state => state.items)
+
     return (
         <FlatList
-            data={setItemsMock}
+            data={items}
             showsVerticalScrollIndicator={false}
-            keyExtractor={i => i.id}
+            keyExtractor={i => i.itemID.toString()}
             ItemSeparatorComponent={() => <View className="h-[1px] bg-primary-100" />}
             renderItem={({ item }) =>
                 <ItemForVisitedUser
-                    key={item.id}
+                    key={item.itemID}
                     {...item}
                 />}
         />

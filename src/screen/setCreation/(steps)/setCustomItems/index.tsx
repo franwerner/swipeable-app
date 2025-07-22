@@ -10,9 +10,10 @@ import ViewAddedItems from "./components/ViewAddedItems.component"
 
 const Button = () => {
     const itemsLength = useSetManagerStore(state => state.setDraft.items.length)
+    //Colocar el id del set generado al momento de hacer la peticion
     return <NextButton
         nextStepAllowed={itemsLength > 0}
-        onPress={() => router.dismissTo("/user/1/setInfo/1")}
+        onPress={() => router.dismissTo("/set/1/info")}
         text={"Finalizar"} />
 }
 

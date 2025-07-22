@@ -9,7 +9,7 @@ import SetCardInfo from "./components/SetCardInfo.component"
 import SetInfoItems from "./components/SetInfoItems.component"
 import SetInfoItemsForVisitor from "./components/SetInfoItemsForVisitor.component"
 import useIsUserSet from "./hooks/useIsUserSet.hook"
-import useSetInfoStore from "./store/useSetInfo.store"
+import useSetInfoStore from "./store/useSet.store"
 
 const HeartComponent = () => {
     return (
@@ -38,7 +38,7 @@ export default function SetInfo() {
     const isUserSet = useIsUserSet()
 
     return (
-        <View className="p-6 flex-1 gap-8">
+        <View className="p-6  flex-1 gap-6">
             <BackHeader
                 style={{
                     marginRight: isUserSet ? 60 : 0
@@ -48,7 +48,7 @@ export default function SetInfo() {
             <View className="gap-6 flex-1">
                 <SetCardInfo />
                 {isUserSet && <SetActionBar />}
-                <View className="flex-1">
+                <View className="flex-1 ">
                     {isUserSet ? <SetInfoItems /> : <SetInfoItemsForVisitor />}
                 </View>
             </View>

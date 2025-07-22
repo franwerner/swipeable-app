@@ -11,10 +11,9 @@ import { Text, View } from "react-native";
 function PerfilAvatar() {
     const {
         avatarUrl,
-        userID
     } = useSafeStoreValue(useUserStore, (state) => state.user)
     return (
-        <AnimatedTap onPress={() => router.navigate(`/user/${userID}/setInfo/1`)}>
+        <AnimatedTap onPress={() => router.navigate(`/set/1/info`)}>
             <Avatar source={{ uri: avatarUrl }} />
         </AnimatedTap>
     )
