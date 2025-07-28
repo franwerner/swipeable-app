@@ -35,7 +35,7 @@ const initialState: State = {
         visibility: "private",
         colors: Array.from<string>({ length: 2 }).fill(colorPalette.secondary[200]),
         description: "Description tesing",
-        emojis: Array.from<string>({ length: 3 }).fill("🤮"),
+        emojis: Array.from<string>({ length: 3 }).fill(""),
         userBy: {
             avatarUrl: "",
             nickname: "",

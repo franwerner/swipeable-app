@@ -1,31 +1,23 @@
 import useSetManagerStore from "@/store/useSetManagerStore.store"
-import SetItem from "@/types/SetItemInteface.type"
 import { nanoid } from "nanoid/non-secure"
 import { useEffect, useState } from "react"
 
 export type ItemStage = "edit" | "create" | "none"
 
-const emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/g
 
 
-function useSetItem(defaultSetItem: Pick<SetItem, "emoji" | "title"> = { emoji: "", title: "" }) {
+function useSetItem() {
 
-    const [item, setItem] = useState(defaultSetItem)
+    const [item, setItem] = useState({ emoji: "", title: "" })
 
-    const onChangeTitle = (value: string) => {
-        const emojiMatch = value.match(emojiRegex)
-        if (emojiMatch) {
-            setItem(prev => ({ ...prev, emoji: emojiMatch[0] }))
-        }
-        setItem(prev => ({ ...prev, title: value.replace(emojiRegex, "") }))
+    const onChangeTitle = (title: string) => {
+        setItem(prev => ({ ...prev, title }))
     }
 
-    const onChangeEmoji = (value: string) => {
-        const emojiMatch = value.length == 0 ? value : (value.match(emojiRegex)?.[0])
-        if (emojiMatch !== undefined) {
-            setItem(prev => ({ ...prev, emoji: emojiMatch }))
-        }
+    const onChangeEmoji = (emoji: string) => {
+        setItem(prev => ({ ...prev, emoji }))
     }
+
     return {
         item,
         onChangeEmoji,

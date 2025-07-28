@@ -1,9 +1,12 @@
+import AnimatedTap from "@/components/AnimatedTap.component";
 import Checkbox from "@/components/Checkbox.component";
+import colorPalette from "@/constant/colorPalette.constant";
 import { router } from "expo-router";
-import { memo } from "react";
-import { Modal, SafeAreaView, Text, View } from "react-native";
-import EmojiModal from "react-native-emoji-modal";
-import useSetCreationStore from "../../../store/useSetManagerStore.store";
+import { SmilePlus } from "lucide-react-native";
+import { useState } from "react";
+import { SafeAreaView, Text, View } from "react-native";
+import EmojiPicker from 'rn-emoji-keyboard';
+import useSetManagerStore from "../../../store/useSetManagerStore.store";
 import NextButton from "../components/NextButton.component";
 import SetImageBackground from "../components/SetImageBackground.component";
 import SetInput from "../components/SetInput.component";
@@ -11,8 +14,8 @@ import { SetManagerWrapperWithSafeKeyboard } from "../components/SetManagerWrapp
 
 const NameInput = () => {
 
-    const name = useSetCreationStore((store) => store.setConfig.name)
-    const updateSet = useSetCreationStore((store) => store.updateSet)
+    const name = useSetManagerStore((store) => store.setConfig.name)
+    const updateSet = useSetManagerStore((store) => store.updateSet)
 
     return (
         <SetInput
@@ -25,84 +28,60 @@ const NameInput = () => {
     )
 }
 
-type EmojiOutput = string | null
-
-interface EmojiSelectorProps {
-    idx: number
-    onEmojiSelect: (e: EmojiOutput, idx: number) => void
-    emoji: EmojiOutput
-}
-
-
-const EmojiSelector = memo(({
-    emoji,
-    idx
-}: EmojiSelectorProps) => {
-
-    const onEmojiSelectWithIdx = useSetCreationStore(state => state.updateSet)
-
-    return (
-        <SafeAreaView>
-            <Modal
-                visible={true}
-                animationType="slide"
-                transparent={true}>
-                <EmojiModal
-                    containerStyle={{
-                        width: "100%",
-                        alignItems: "center",
-                        margin: "auto",
-                        gap: "8px",
-                        borderRadius: 0,
-                    }}
-                    scrollStyle={{
-                        width: "100%",
-                    }}
-                    searchStyle={{
-                        display: "none"
-                    }}
-
-                    modalStyle={{
-                        position: "absolute",
-                        bottom: "0%",
-                        width: "100%",
-                    }}
-                    emojiSize={35}
-                    columns={8}
-                    onEmojiSelected={(e) => {
-                    }}
-                />
-            </Modal>
-        </SafeAreaView>
-    )
-})
-
 const EmojiSelectors = () => {
+    const emojis = useSetManagerStore(state => state.setConfig.emojis)
+    const updateSet = useSetManagerStore(state => state.updateSet)
 
-    const emojis = useSetCreationStore(state => state.setConfig.emojis)
+    const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+
+    const onEmojiSelected = ({ emoji }: { emoji: string }) => {
+        if (selectedIndex === null) return
+        const copied = [...emojis]
+        copied.splice(selectedIndex, 1, emoji)
+        updateSet({ emojis: copied })
+        setSelectedIndex(null)
+    }
 
     return (
-        <View className="gap-2">
+        <>
+            <SafeAreaView>
+                <EmojiPicker
+                    onEmojiSelected={onEmojiSelected}
+                    open={selectedIndex !== null}
+                    onClose={() => setSelectedIndex(null)}
+                    selectedEmojis={emojis}
+                    emojiSize={28}
+                />
+            </SafeAreaView>
             <View className="flex-row gap-4">
-                {/* {
-                    emojis.map((i, idx) =>
-                        <EmojiSelector
-                            key={idx}
-                            idx={idx}
-                            emoji={i}
-                        />
-                    )
-                } */}
+                {emojis.map((emoji, index) => (
+                    <AnimatedTap
+                        key={index}
+                        onPress={() => setSelectedIndex(index)}>
+                        <View
+                            className={`rounded-full justify-center items-center border-1  bg-white border`}
+                            style={{
+                                width: 48,
+                                height: 48,
+                                borderColor: emoji ? colorPalette.primary[500] : colorPalette.secondary[500]
+                            }}
+                        >
+                            {emoji ?
+                                <Text className="text-[24px]">{emoji}</Text> :
+                                <SmilePlus size={24} color={colorPalette.secondary[600]} />
+                            }
+                        </View>
+                    </AnimatedTap>
+                ))}
             </View>
-        </View>
+        </>
     )
 }
-
 
 const SetVisilibity = () => {
 
-    const visibility = useSetCreationStore((store) => store.setConfig.visibility)
-    const toggleVisibility = useSetCreationStore((store) => store.toggleVisibility)
+    const visibility = useSetManagerStore((store) => store.setConfig.visibility)
+    const toggleVisibility = useSetManagerStore((store) => store.toggleVisibility)
     const isPublic = visibility == "public"
 
     return (
@@ -117,8 +96,10 @@ const SetVisilibity = () => {
 
 const Button = () => {
 
-    const name = useSetCreationStore((store) => store.setConfig.name)
-    const nextStepAllowed = !!name
+    const name = useSetManagerStore((store) => store.setConfig.name)
+    const emojis = useSetManagerStore((store) => store.setConfig.emojis.every(Boolean))
+
+    const nextStepAllowed = !!name && emojis
 
     return <NextButton
         nextStepAllowed={nextStepAllowed}

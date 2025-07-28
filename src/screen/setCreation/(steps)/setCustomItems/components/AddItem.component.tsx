@@ -3,10 +3,11 @@ import Container from "@/components/Container.component"
 import Input from "@/components/Input.component"
 import colorPalette from "@/constant/colorPalette.constant"
 import clsx from "clsx"
-import { ListTodo, LucideIcon, Pencil, Plus } from "lucide-react-native"
-import { memo } from "react"
-import { Text, TextInput, View } from "react-native"
+import { ListTodo, LucideIcon, Pencil, Plus, SmilePlus } from "lucide-react-native"
+import { memo, useState } from "react"
+import { SafeAreaView, Text, View } from "react-native"
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated"
+import EmojiPicker from "rn-emoji-keyboard"
 import useItemStage, { ItemStage } from "../hooks/useItemStage.hook"
 
 const AnimatedInput = Animated.createAnimatedComponent(Input)
@@ -54,6 +55,37 @@ const AddItemButton = memo(({
 })
 
 
+interface EmojiItemPickerProps {
+    onChangeEmoji: (s: string) => void
+    emoji: string
+}
+
+const EmojiItemPicker = ({
+    onChangeEmoji,
+    emoji
+}: EmojiItemPickerProps) => {
+
+    const [isOpen, setOpen] = useState(false)
+
+    return (
+        <>
+            <SafeAreaView>
+                <EmojiPicker
+                    open={isOpen}
+                    onClose={() => setOpen(false)}
+                    onEmojiSelected={(e) => onChangeEmoji(e.emoji)}
+                />
+            </SafeAreaView>
+            <AnimatedTap className="px-3 items-center justify-center h-full" onPress={() => setOpen(true)}>
+                {emoji ?
+                    <Text className="text-[24px]">{emoji}</Text> :
+                    <SmilePlus size={24} color={colorPalette.primary[800]} />
+                }
+            </AnimatedTap>
+        </>
+    )
+}
+
 export default function AddItem() {
 
     const {
@@ -88,12 +120,9 @@ export default function AddItem() {
                         placeholder: "¡Prueba con texto y un emoji!",
                     }}
                     endComponent={
-                        <TextInput
-                            className="px-3 text-2xl"
-                            placeholder="❓"
-                            value={emoji}
-                            onChangeText={onChangeEmoji}
-                        />
+                        <EmojiItemPicker
+                            emoji={emoji}
+                            onChangeEmoji={onChangeEmoji} />
                     }
                 />
             }
