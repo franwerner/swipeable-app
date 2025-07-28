@@ -1,4 +1,4 @@
-import useSetManagerStore from "@/screen/setCreation/store/useSetManagerStore.store"
+import useSetManagerStore from "@/store/useSetManagerStore.store"
 import SetItem from "@/types/SetItemInteface.type"
 import { nanoid } from "nanoid/non-secure"
 import { useEffect, useState } from "react"

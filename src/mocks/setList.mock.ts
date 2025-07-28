@@ -1,4 +1,4 @@
-import ISet from "@/types/SetInfoInterface.type";
+import ISet from "@/types/SetInterface.type";
 
 const setList: ISet[] = [
     {

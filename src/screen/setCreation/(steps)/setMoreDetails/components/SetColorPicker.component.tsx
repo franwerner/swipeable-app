@@ -1,6 +1,6 @@
 import AnimatedTap from "@/components/AnimatedTap.component";
 import SetCard from "@/components/SetCard.component";
-import ISet from "@/types/SetInfoInterface.type";
+import ISet from "@/types/SetInterface.type";
 import User from "@/types/UserInterface.type";
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetModalProps, BottomSheetView } from "@gorhom/bottom-sheet";
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";

@@ -2,7 +2,7 @@ import Accordion from "@/components/Accordion.component"
 import AnimatedTap from "@/components/AnimatedTap.component"
 import Checkbox from "@/components/Checkbox.component"
 import colorPalette from "@/constant/colorPalette.constant"
-import useSetCreationStore from "@/screen/setCreation/store/useSetManagerStore.store"
+import useSetCreationStore from "@/store/useSetManagerStore.store"
 import SetItem from "@/types/SetItemInteface.type"
 import clsx from "clsx"
 import { ChevronDown } from "lucide-react-native"
@@ -46,15 +46,16 @@ const SetItemCard = (item: SetItem) => {
 
     const animatedStyles = useAnimatedStyle(() => {
         const progress = Math.min(Math.abs(offset.value) / THRESHOLD, 1)
-        const backgroundColor = interpolateColor(progress, [0, 2], ['white', '#ff9ea2'])
+        const progressBg = Math.abs(offset.value) >= THRESHOLD ? Math.abs(offset.value) / THRESHOLD : 0
+        const backgroundColor = interpolateColor(progressBg, [0, 2], ['white', '#ff9ea2'])
         const scale = interpolate(progress, [0, 1], [1, 0.8])
-        const backgroundColorInEdit = isInEdit &&  Math.abs(offset.value) < (THRESHOLD / 2)
+        const backgroundColorInEdit = isInEdit && Math.abs(offset.value) < THRESHOLD
         return {
             transform: [
                 { translateX: offset.value },
                 { scale }
             ],
-            backgroundColor : backgroundColorInEdit ? colorPalette.primary[50] : backgroundColor
+            backgroundColor: backgroundColorInEdit ? colorPalette.primary[50] : backgroundColor
         }
     })
 
@@ -98,7 +99,7 @@ const SetItemCard = (item: SetItem) => {
 
 export default function ViewAddedItems() {
 
-    const items = useSetCreationStore(store => store.setDraft.items)
+    const items = useSetCreationStore(store => store.items)
     const reverseItems = [...items].reverse()
 
     return (

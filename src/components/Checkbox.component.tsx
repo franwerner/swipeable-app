@@ -52,7 +52,6 @@ export default function Checkbox({
     className,
     onPress,
     isActive = false,
-    activeClassName = "",
     ...props
 }: CheckboxProps) {
     return (
@@ -60,7 +59,6 @@ export default function Checkbox({
             className={clsx(
                 'border rounded-[7px] justify-center items-center border-primary-200 h-[32px] w-[32px]',
                 isActive && 'bg-secondary-900 border-secondary-500',
-                isActive && activeClassName,
                 className,
             )}
             onPress={onPress}

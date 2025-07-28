@@ -3,15 +3,15 @@ import { router } from "expo-router";
 import { memo } from "react";
 import { Modal, SafeAreaView, Text, View } from "react-native";
 import EmojiModal from "react-native-emoji-modal";
+import useSetCreationStore from "../../../store/useSetManagerStore.store";
 import NextButton from "../components/NextButton.component";
 import SetImageBackground from "../components/SetImageBackground.component";
 import SetInput from "../components/SetInput.component";
 import { SetManagerWrapperWithSafeKeyboard } from "../components/SetManagerWrapper.component";
-import useSetCreationStore from "../store/useSetManagerStore.store";
 
 const NameInput = () => {
 
-    const name = useSetCreationStore((store) => store.setDraft.name)
+    const name = useSetCreationStore((store) => store.setConfig.name)
     const updateSet = useSetCreationStore((store) => store.updateSet)
 
     return (
@@ -79,7 +79,7 @@ const EmojiSelector = memo(({
 
 const EmojiSelectors = () => {
 
-    const emojis = useSetCreationStore(state => state.setDraft.emojis)
+    const emojis = useSetCreationStore(state => state.setConfig.emojis)
 
     return (
         <View className="gap-2">
@@ -101,7 +101,7 @@ const EmojiSelectors = () => {
 
 const SetVisilibity = () => {
 
-    const visibility = useSetCreationStore((store) => store.setDraft.visibility)
+    const visibility = useSetCreationStore((store) => store.setConfig.visibility)
     const toggleVisibility = useSetCreationStore((store) => store.toggleVisibility)
     const isPublic = visibility == "public"
 
@@ -117,7 +117,7 @@ const SetVisilibity = () => {
 
 const Button = () => {
 
-    const name = useSetCreationStore((store) => store.setDraft.name)
+    const name = useSetCreationStore((store) => store.setConfig.name)
     const nextStepAllowed = !!name
 
     return <NextButton

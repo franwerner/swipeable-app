@@ -1,5 +1,5 @@
 import SetCardGradient from "@/components/SetCardGradient.component"
-import { ISetBase } from "@/types/SetInfoInterface.type"
+import { ISetBase } from "@/types/SetInterface.type"
 import User from "@/types/UserInterface.type"
 import clsx from "clsx"
 import { Text, View, ViewProps } from "react-native"

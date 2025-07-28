@@ -1,5 +1,5 @@
 import colorPalette from "@/constant/colorPalette.constant"
-import ISet, { ISetBase } from "@/types/SetInfoInterface.type"
+import ISet, { ISetBase } from "@/types/SetInterface.type"
 import User from "@/types/UserInterface.type"
 import clsx from "clsx"
 import { Share2 } from "lucide-react-native"

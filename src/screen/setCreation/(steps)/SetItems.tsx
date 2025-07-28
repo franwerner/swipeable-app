@@ -1,14 +1,15 @@
 import AnimatedTap from "@/components/AnimatedTap.component";
 import Checkbox from "@/components/Checkbox.component";
 import Container from "@/components/Container.component";
+import colorPalette from "@/constant/colorPalette.constant";
 import SetItem from "@/types/SetItemInteface.type";
 import { router } from "expo-router";
 import { FlatList, Text, View } from "react-native";
 import setItemsMock from "../../../mocks/itemList.mock";
+import useSetManagerStore from "../../../store/useSetManagerStore.store";
 import NextButton from "../components/NextButton.component";
 import SetImageBackground from "../components/SetImageBackground.component";
 import SetManagerWrapper from "../components/SetManagerWrapper.component";
-import useSetManagerStore from "../store/useSetManagerStore.store";
 
 const SetItemCard = (item: SetItem) => {
     const {
@@ -18,7 +19,7 @@ const SetItemCard = (item: SetItem) => {
     } = item
 
     const toggleItem = useSetManagerStore(store => store.toggleItem)
-    const isSelected = useSetManagerStore(store => store.setDraft.items.some(i => i.itemID == itemID))
+    const isSelected = useSetManagerStore(store => store.items.some(i => i.itemID == itemID))
 
     return (
         <AnimatedTap
@@ -36,7 +37,10 @@ const SetItemCard = (item: SetItem) => {
                     {title}
                 </Text>
                 <Checkbox
-                    activeClassName="bg-primary-500 border-primary-500"
+                    style={{
+                        backgroundColor: isSelected ? colorPalette.primary[500] : "white",
+                        borderColor: isSelected ? colorPalette.primary[500] : colorPalette.secondary[400]
+                    }}
                     pointerEvents="none"
                     isActive={isSelected} />
             </Container>

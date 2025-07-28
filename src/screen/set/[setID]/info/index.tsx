@@ -9,7 +9,7 @@ import SetCardInfo from "./components/SetCardInfo.component"
 import SetInfoItems from "./components/SetInfoItems.component"
 import SetInfoItemsForVisitor from "./components/SetInfoItemsForVisitor.component"
 import useIsUserSet from "./hooks/useIsUserSet.hook"
-import useSetInfoStore from "./store/useSet.store"
+import useSetStore from "./store/useSet.store"
 
 const HeartComponent = () => {
     return (
@@ -33,7 +33,7 @@ const HeartComponent = () => {
 
 export default function SetInfo() {
 
-    useResetStore(useSetInfoStore)
+    useResetStore(useSetStore)
 
     const isUserSet = useIsUserSet()
 

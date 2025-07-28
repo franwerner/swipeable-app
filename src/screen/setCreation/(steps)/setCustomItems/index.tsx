@@ -1,15 +1,15 @@
 
 import { router } from "expo-router"
 import { Keyboard, TouchableWithoutFeedback, View } from "react-native"
+import useSetManagerStore from "../../../../store/useSetManagerStore.store"
 import NextButton from "../../components/NextButton.component"
 import SetImageBackground from "../../components/SetImageBackground.component"
 import SetManagerWrapper from "../../components/SetManagerWrapper.component"
-import useSetManagerStore from "../../store/useSetManagerStore.store"
 import AddItem from "./components/AddItem.component"
 import ViewAddedItems from "./components/ViewAddedItems.component"
 
 const Button = () => {
-    const itemsLength = useSetManagerStore(state => state.setDraft.items.length)
+    const itemsLength = useSetManagerStore(state => state.items.length)
     //Colocar el id del set generado al momento de hacer la peticion
     return <NextButton
         nextStepAllowed={itemsLength > 0}

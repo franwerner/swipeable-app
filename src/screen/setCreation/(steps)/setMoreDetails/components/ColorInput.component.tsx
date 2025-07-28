@@ -1,9 +1,7 @@
 import AnimatedTap from "@/components/AnimatedTap.component"
 import Container from "@/components/Container.component"
 import colorPalette from "@/constant/colorPalette.constant"
-import { useSafeStoreValue } from "@/hook/useSafeStoreValue.hook"
-import useSetCreationStore from "@/screen/setCreation/store/useSetManagerStore.store"
-import useUserStore from "@/store/useUser.store"
+import useSetCreationStore from "@/store/useSetManagerStore.store"
 import { BottomSheetModal } from "@gorhom/bottom-sheet"
 import { ChevronRight } from "lucide-react-native"
 import { useRef } from "react"
@@ -15,14 +13,12 @@ export default function ColorInput() {
     const {
         colors,
         emojis,
-        items,
         name,
-    } = useSetCreationStore((store) => store.setDraft)
+    } = useSetCreationStore((store) => store.setConfig)
 
+    const items_count = useSetCreationStore((store) => store.items.length)
     const updateSet = useSetCreationStore((store) => store.updateSet)
-
-    const { avatarUrl, nickname } = useSafeStoreValue(useUserStore, (state) => state.user)
-
+    const user = useSetCreationStore((store) => store.setConfig.userBy)
     const bottomSheetModalRef = useRef<BottomSheetModal>(null)
     const handleOpen = () => {
         bottomSheetModalRef.current?.present()
@@ -54,10 +50,10 @@ export default function ColorInput() {
                 <SetColorPicker.Body
                     cardProps={{
                         emojis,
-                        avatarUrl,
-                        nickname,
+                        avatarUrl: user.avatarUrl,
+                        nickname: user.nickname,
                         name,
-                        items_count: items.length
+                        items_count
                     }}
                     colors={colors}
                     onChangeColor={(e) => updateSet({ colors: e })}

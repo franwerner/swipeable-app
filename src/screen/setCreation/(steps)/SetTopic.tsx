@@ -1,15 +1,15 @@
 
 import { router } from "expo-router";
 import { View } from "react-native";
+import useSetCreationStore from "../../../store/useSetManagerStore.store";
 import NextButton from "../components/NextButton.component";
 import SetImageBackground from "../components/SetImageBackground.component";
 import SetInput from "../components/SetInput.component";
 import { SetManagerWrapperWithSafeKeyboard } from "../components/SetManagerWrapper.component";
-import useSetCreationStore from "../store/useSetManagerStore.store";
 
 
 const Content = () => {
-    const topic = useSetCreationStore((store) => store.setDraft.topic)
+    const topic = useSetCreationStore((store) => store.setConfig.topic)
     const setTopic = useSetCreationStore((store) => store.updateSet)
 
     return (
