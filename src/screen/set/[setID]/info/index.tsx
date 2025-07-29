@@ -1,7 +1,7 @@
 import BackHeader from "@/components/BackHeader.component"
 import SetHeart from "@/components/SetHeart.component"
 import colorPalette from "@/constant/colorPalette.constant"
-import useResetStore from "@/hook/useResetStore.hook"
+import useSetManagerStore from "@/store/useSetManagerStore.store"
 import CircleDecoration from "@/ui-components/CircleDecoration.ui-component"
 import { View } from "react-native"
 import SetActionBar from "./components/SetActionBar.component"
@@ -9,7 +9,6 @@ import SetCardInfo from "./components/SetCardInfo.component"
 import SetInfoItems from "./components/SetInfoItems.component"
 import SetInfoItemsForVisitor from "./components/SetInfoItemsForVisitor.component"
 import useIsUserSet from "./hooks/useIsUserSet.hook"
-import useSetStore from "./store/useSet.store"
 
 const HeartComponent = () => {
     return (
@@ -33,9 +32,9 @@ const HeartComponent = () => {
 
 export default function SetInfo() {
 
-    useResetStore(useSetStore)
-
     const isUserSet = useIsUserSet()
+
+    useSetManagerStore(store => store.items)
 
     return (
         <View className="p-6  flex-1 gap-6">

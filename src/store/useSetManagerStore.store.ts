@@ -1,18 +1,16 @@
 import colorPalette from "@/constant/colorPalette.constant";
-import setItemsMock from "@/mocks/itemList.mock";
 import ISet from "@/types/SetInterface.type";
 import SetItem from "@/types/SetItemInteface.type";
 import { create } from "zustand";
 
 
-type setConfig = Pick<ISet, "colors" | "description" | "emojis" | "name" | "visibility" | "topic" | "userBy">
+type setConfig = ISet
 
 interface Methods {
-    addItem: (item: SetItem) => void
-    removeItem: (itemID: SetItem["itemID"]) => void
     addDescription: (description: string) => void
     toggleVisibility: () => void
     reset: () => void
+    loadItems: (i: Array<SetItem>) => void
     updateSet: (v: Partial<setConfig>) => void
     toggleItemEdit: (i: SetItem) => void
     updateItem: (i: Partial<Omit<SetItem, "itemID">> & { itemID: SetItem["itemID"] }) => void
@@ -30,19 +28,22 @@ type Store = State & Methods
 
 const initialState: State = {
     setConfig: {
-        topic: "Topico de test",
-        name: "Peliculas de disney",
+        setID: 0,
+        topic: "",
+        name: "",
         visibility: "private",
         colors: Array.from<string>({ length: 2 }).fill(colorPalette.secondary[200]),
-        description: "Description tesing",
+        description: "",
         emojis: Array.from<string>({ length: 3 }).fill(""),
+        items_count: 0,
+        likeStatus: false,
         userBy: {
             avatarUrl: "",
             nickname: "",
-            userID: 0
+            userID: 1
         }
     },
-    items: setItemsMock.slice(0, 5),
+    items: [],
     itemInEdit: null
 }
 
@@ -79,28 +80,29 @@ const useSetManagerStore = create<Store>((set, get) => ({
     _removeItemEdit() {
         set({ itemInEdit: null })
     },
+    loadItems(items: Array<SetItem>) {
+        set({ items })
+    },
     updateItem(payload) {
         const { items, _removeItemEdit } = get()
         const updateItems = items.map(i => (i.itemID === payload.itemID) ? { ...i, ...payload } : i)
         _removeItemEdit()
         set({ items: updateItems })
     },
-    removeItem(itemID) {
-        const { items, _removeItemEdit } = get()
-        _removeItemEdit()
-        set({ items: items.filter(i => i.itemID !== itemID) })
-    },
-    addItem(item) {
-        const { items } = get()
-        set({ items: [...items, item] })
-    },
     toggleItem(item) {
-        const { items, addItem, removeItem } = get()
+        const { items, _removeItemEdit, updateSet, setConfig } = get()
         const some = items.some(i => i.itemID == item.itemID)
         if (some) {
-            removeItem(item.itemID)
+            set({ items: items.filter(i => i.itemID !== item.itemID) })
+            _removeItemEdit()
+            updateSet({
+                items_count: setConfig.items_count - 1
+            })
         } else {
-            addItem(item)
+            set({ items: [...items, item] })
+            updateSet({
+                items_count: setConfig.items_count + 1
+            })
         }
     },
     reset: () => set(initialState),

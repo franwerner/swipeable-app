@@ -28,7 +28,7 @@ function useSetItem() {
 
 export default function useItemStage() {
 
-    const addItem = useSetManagerStore(store => store.addItem)
+    const toggleItem = useSetManagerStore(store => store.toggleItem)
     const updateItem = useSetManagerStore(store => store.updateItem)
     const itemInEdit = useSetManagerStore(store => store.itemInEdit)
 
@@ -58,7 +58,7 @@ export default function useItemStage() {
 
     const create = () => {
         if (!hasValues) return
-        addItem({
+        toggleItem({
             itemID: nanoid(),
             emoji,
             title,

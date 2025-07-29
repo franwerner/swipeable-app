@@ -1,13 +1,12 @@
 import SetCard from "@/components/SetCard.component"
-import setListMock from "@/mocks/setList.mock"
+import useSetManagerStore from "@/store/useSetManagerStore.store"
 import { View } from "react-native"
 
-const setInfoMock = setListMock[2]
 
 export default function SetStatisticCard() {
 
-    const { avatarUrl, nickname } = setInfoMock.userBy
-    const { items_count, colors, name } = setInfoMock
+    const { userBy, colors, name, items_count } = useSetManagerStore(store => store.setConfig)
+    const { avatarUrl, nickname } = userBy
 
     return (
         <View className="px-6">

@@ -1,6 +1,6 @@
+import useSetManagerStore from "@/store/useSetManagerStore.store"
 import SetItem from "@/types/SetItemInteface.type"
 import { FlatList, Text, View } from "react-native"
-import useSetStore from "../store/useSet.store"
 
 const ItemForVisitedUser = ({
     title
@@ -24,7 +24,7 @@ const ItemForVisitedUser = ({
 
 export default function SetInfoItemsForVisitor() {
 
-    const items = useSetStore(state => state.items)
+    const items = useSetManagerStore(state => state.items)
 
     return (
         <FlatList

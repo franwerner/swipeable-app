@@ -1,31 +1,24 @@
 import useResetStore from "@/hook/useResetStore.hook";
+import setItemsMock from "@/mocks/itemList.mock";
+import setListMock from "@/mocks/setList.mock";
 import useSetManagerStore from "@/store/useSetManagerStore.store";
-import useUserStore from "@/store/useUser.store";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
 
-export default function SetCreationLayout() {
+export default function SetLayout() {
 
     useResetStore(useSetManagerStore)
     const updateSet = useSetManagerStore(store => store.updateSet)
+    const loadItems = useSetManagerStore(store => store.loadItems)
 
     useEffect(() => {
         /**
-         * Se inyecta el userBy al set para mantener la consistencia en la logica del manejo de la store.
+         * Solo carga para prueba.
          */
-        const user = useUserStore.getState().user
-        if (user) {
-            const { avatarUrl, nickname, userID } = user
-            updateSet({
-                userBy: {
-                    avatarUrl,
-                    nickname,
-                    userID
-                }
-            })
-        }
-
+        updateSet(setListMock[0])
+        loadItems(setItemsMock)
     }, [])
+
 
     return <Stack
         screenOptions={{

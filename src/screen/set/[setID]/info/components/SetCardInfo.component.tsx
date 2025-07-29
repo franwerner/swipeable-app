@@ -1,11 +1,10 @@
 import SetCard from "@/components/SetCard.component";
+import useSetManagerStore from "@/store/useSetManagerStore.store";
 import { View } from "react-native";
-import useSetStore from "../store/useSet.store";
 
 
 export default function SetCardInfo() {
-    useSetStore(state => state.setData?.colors)
-    const { colors, userBy, items_count, name } = useSetStore((state) => state.setData)
+    const { colors, userBy, name, items_count } = useSetManagerStore((state) => state.setConfig)
     return (
         <View className="gap-4">
             <SetCard
