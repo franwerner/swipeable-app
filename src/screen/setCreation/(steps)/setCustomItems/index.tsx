@@ -1,7 +1,8 @@
 
+import Accordion from "@/components/Accordion.component"
+import useSetManagerStore from "@/store/useSetManagerStore.store"
 import { router } from "expo-router"
 import { Keyboard, TouchableWithoutFeedback, View } from "react-native"
-import useSetManagerStore from "../../../../store/useSetManagerStore.store"
 import NextButton from "../../components/NextButton.component"
 import SetImageBackground from "../../components/SetImageBackground.component"
 import SetManagerWrapper from "../../components/SetManagerWrapper.component"
@@ -22,8 +23,10 @@ const Content = () => {
     return (
         <View className="flex-1 gap-3">
             <View className="gap-3 justify-between flex-1">
-                <AddItem />
-                <ViewAddedItems />
+                <Accordion>
+                    <AddItem />
+                    <ViewAddedItems />
+                </Accordion>
             </View>
             <Button />
         </View>
@@ -36,7 +39,7 @@ export default function SetCustomItem() {
             <SetManagerWrapper >
                 <SetImageBackground
                     className="h-[100px]"
-                    source={require("@/assets/images/itemCustom.png")} />
+                    source={require("@/assets/images/itemCustom.jpg")} />
                 <Content />
             </SetManagerWrapper>
         </TouchableWithoutFeedback>

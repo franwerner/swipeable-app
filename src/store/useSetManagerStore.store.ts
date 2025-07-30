@@ -99,7 +99,7 @@ const useSetManagerStore = create<Store>((set, get) => ({
                 items_count: setConfig.items_count - 1
             })
         } else {
-            set({ items: [...items, item] })
+            set({ items: [item, ...items] }) //Se coloca al inicio para seguir mostrar del mas nuevo al mas viejo
             updateSet({
                 items_count: setConfig.items_count + 1
             })

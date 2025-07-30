@@ -1,12 +1,12 @@
 import AnimatedTap from "@/components/AnimatedTap.component"
 import Container from "@/components/Container.component"
+import SetColorPicker from "@/components/SetColorPicker.component"
 import colorPalette from "@/constant/colorPalette.constant"
 import useSetCreationStore from "@/store/useSetManagerStore.store"
 import { BottomSheetModal } from "@gorhom/bottom-sheet"
 import { ChevronRight } from "lucide-react-native"
 import { useRef } from "react"
 import { Text, View } from "react-native"
-import SetColorPicker from "./SetColorPicker.component"
 
 
 export default function ColorInput() {
@@ -46,18 +46,22 @@ export default function ColorInput() {
                     </View>
                 </Container>
             </AnimatedTap>
-            <SetColorPicker ref={bottomSheetModalRef}>
-                <SetColorPicker.Body
-                    cardProps={{
-                        emojis,
-                        avatarUrl: user.avatarUrl,
-                        nickname: user.nickname,
-                        name,
-                        items_count
-                    }}
-                    colors={colors}
-                    onChangeColor={(e) => updateSet({ colors: e })}
-                />
+            <SetColorPicker
+                colors={colors}
+                ref={bottomSheetModalRef}>
+                <SetColorPicker.Body>
+                    <SetColorPicker.Toggle />
+                    <SetColorPicker.Preview
+                        cardProps={{
+                            emojis,
+                            avatarUrl: user.avatarUrl,
+                            nickname: user.nickname,
+                            name,
+                            items_count
+                        }}
+                    />
+                    <SetColorPicker.Color onChangeColor={(e) => updateSet({ colors: e })} />
+                </SetColorPicker.Body>
             </SetColorPicker>
         </>
     )

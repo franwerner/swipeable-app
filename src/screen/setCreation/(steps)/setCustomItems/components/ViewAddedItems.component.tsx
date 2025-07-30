@@ -23,7 +23,7 @@ const SetItemCard = (item: SetItem) => {
 
     const width = Dimensions.get("window").width
 
-    const removeItem = useSetCreationStore(store => store.removeItem)
+    const toggleItem = useSetCreationStore(store => store.toggleItem)
     const toggleItemEdit = useSetCreationStore(store => store.toggleItemEdit)
     const isInEdit = useSetCreationStore(store => store.itemInEdit?.itemID === itemID)
     const offset = useSharedValue<number>(0)
@@ -38,7 +38,7 @@ const SetItemCard = (item: SetItem) => {
             const distance = Math.abs(offset.value)
             if (distance > THRESHOLD) {
                 const OUT = offset.value < 0 ? -width : width
-                offset.value = withSpring(OUT, { duration: 150 }, () => runOnJS(removeItem)(itemID))
+                offset.value = withSpring(OUT, { duration: 150 }, () => runOnJS(toggleItem)(item))
             } else {
                 offset.value = withSpring(0)
             }
@@ -100,37 +100,34 @@ const SetItemCard = (item: SetItem) => {
 export default function ViewAddedItems() {
 
     const items = useSetCreationStore(store => store.items)
-    const reverseItems = [...items].reverse()
 
     return (
-        <Accordion>
-            <View>
-                <Accordion.Header
-                    className="flex-row py-2 justify-between border-b pb-5 border-b-primary-200"
-                    endComponent={
-                        <ChevronDown
-                            color={colorPalette.primary["800"]}
-                            size={24} />
-                    } >
-                    <Text className="text-[16px] font-semibold">
-                        Ver items agregados
-                    </Text>
-                </Accordion.Header>
-                <Accordion.Body>
-                    <FlatList
-                        data={reverseItems}
-                        keyExtractor={(item) => item.itemID.toString()}
-                        ItemSeparatorComponent={() => <View className="bg-secondary-200 h-[1px] w-full" />}
-                        showsVerticalScrollIndicator={false}
-                        style={{ maxHeight: 255 }}
-                        renderItem={({ item }) => (
-                            <SetItemCard
-                                {...item}
-                            />
-                        )}
-                    />
-                </Accordion.Body>
-            </View>
-        </Accordion>
+        <View>
+            <Accordion.Header
+                className="flex-row py-2 justify-between border-b pb-5 border-b-primary-200"
+                endComponent={
+                    <ChevronDown
+                        color={colorPalette.primary["800"]}
+                        size={24} />
+                } >
+                <Text className="text-[16px] font-semibold">
+                    Ver items agregados
+                </Text>
+            </Accordion.Header>
+            <Accordion.Body>
+                <FlatList
+                    data={items}
+                    keyExtractor={(item) => item.itemID.toString()}
+                    ItemSeparatorComponent={() => <View className="bg-secondary-200 h-[1px] w-full" />}
+                    showsVerticalScrollIndicator={false}
+                    style={{ maxHeight: 255 }}
+                    renderItem={({ item }) => (
+                        <SetItemCard
+                            {...item}
+                        />
+                    )}
+                />
+            </Accordion.Body>
+        </View>
     )
 }

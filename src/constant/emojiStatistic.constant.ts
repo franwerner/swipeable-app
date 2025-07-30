@@ -1,9 +1,9 @@
 import StaticsticType from "@/types/StaticsticType.type"
 
 const emojiStatistic: Record<StaticsticType, string> = {
-    like: "😍",
+    dislike: "🤮",
     normal: "👍",
-    dislike: "🤮"
+    like: "😍",
 }
 
 export default emojiStatistic

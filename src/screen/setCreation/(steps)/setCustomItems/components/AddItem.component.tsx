@@ -72,6 +72,7 @@ const EmojiItemPicker = ({
             <SafeAreaView>
                 <EmojiPicker
                     open={isOpen}
+                    hideHeader
                     onClose={() => setOpen(false)}
                     onEmojiSelected={(e) => onChangeEmoji(e.emoji)}
                 />

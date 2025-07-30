@@ -80,27 +80,33 @@ const DropdownMenu = ({
 
     const { position, setOpen, isOpen } = useDropdown()
     const menuRef = useRef<View>(null)
-    const [containerDimesions, setWidthContainerDimesion] = useState({
+    const [menuDimensions, setMenuDimensions] = useState({
         width: 0,
         height: 0
     })
 
-    const screenHeight = Dimensions.get("window").height
-
+    const { height: sh, width: wh } = Dimensions.get("window")
 
     const endX = position.x + position.width
     const endY = position.y + position.height
 
-    const isExceedingScreenBottom = (endY + containerDimesions.height) > screenHeight
-    const isExceedingScreenWidth = (endX - containerDimesions.width) < 0
-    const top = isExceedingScreenBottom ? (position.y - containerDimesions.height) : endY
-    const left = isExceedingScreenWidth ? endX : (endX - containerDimesions.width)
+    const isExceedingScreenBottom = endY + menuDimensions.height > sh
+    const top = isExceedingScreenBottom
+        ? position.y - menuDimensions.height
+        : endY
 
+    const centeredLeft = position.x + (position.width / 2) - (menuDimensions.width / 2)
+
+    let left = centeredLeft
+
+    if (centeredLeft + menuDimensions.width > wh) {
+        left = endX - menuDimensions.width
+    }
 
     useLayoutEffect(() => {
         if (menuRef.current && isOpen) {
             menuRef.current.measureInWindow((_fx, _fy, width, height) => {
-                setWidthContainerDimesion({
+                setMenuDimensions({
                     height,
                     width
                 })
@@ -114,6 +120,7 @@ const DropdownMenu = ({
             visible={isOpen}
             transparent
             animationType="none"
+
         >
             <TouchableWithoutFeedback
                 onPress={() => {

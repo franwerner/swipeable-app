@@ -79,7 +79,7 @@ export default function SetItems() {
         <SetManagerWrapper>
             <SetImageBackground
                 className="h-[100px] "
-                source={require("@/assets/images/itemList.png")} />
+                source={require("@/assets/images/itemList.jpg")} />
             <Content />
         </SetManagerWrapper>
     )

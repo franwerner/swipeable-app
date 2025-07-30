@@ -1,3 +1,4 @@
+import { useAccordion } from "@/components/Accordion.component"
 import useSetManagerStore from "@/store/useSetManagerStore.store"
 import { nanoid } from "nanoid/non-secure"
 import { useEffect, useState } from "react"
@@ -31,6 +32,7 @@ export default function useItemStage() {
     const toggleItem = useSetManagerStore(store => store.toggleItem)
     const updateItem = useSetManagerStore(store => store.updateItem)
     const itemInEdit = useSetManagerStore(store => store.itemInEdit)
+    const { setOpen } = useAccordion()
 
     const [stage, setStage] = useState<ItemStage>("none")
 
@@ -65,6 +67,7 @@ export default function useItemStage() {
             visibility: "public",
             source: "user",
         })
+        setOpen(true)
         restart()
     }
 

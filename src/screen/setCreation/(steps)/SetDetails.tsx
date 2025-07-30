@@ -43,10 +43,11 @@ const EmojiSelectors = () => {
     }
 
     return (
-        <>
+        <View>
             <SafeAreaView>
                 <EmojiPicker
                     onEmojiSelected={onEmojiSelected}
+                    hideHeader
                     open={selectedIndex !== null}
                     onClose={() => setSelectedIndex(null)}
                     selectedEmojis={emojis}
@@ -74,7 +75,7 @@ const EmojiSelectors = () => {
                     </AnimatedTap>
                 ))}
             </View>
-        </>
+        </View>
     )
 }
 
@@ -125,7 +126,7 @@ export default function SetDetails() {
         <SetManagerWrapperWithSafeKeyboard>
             <SetImageBackground
                 className="h-[360px]"
-                source={require("@/assets/images/setName.png")} />
+                source={require("@/assets/images/setDetails.jpg")} />
             <Content />
         </SetManagerWrapperWithSafeKeyboard>
     )

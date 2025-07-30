@@ -1,15 +1,13 @@
-import Button from "@/components/Button.component";
 import Dropdown from "@/components/Dropdown.component";
-import Input from "@/components/Input.component";
 import colorPalette from "@/constant/colorPalette.constant";
 import useSetManagerStore from "@/store/useSetManagerStore.store";
 import SetItem from "@/types/SetItemInteface.type";
 import { EllipsisVertical, Eye, EyeOff, GripHorizontal, LucideIcon, Pencil, Trash } from "lucide-react-native";
-import { memo, ReactNode, useEffect, useState } from "react";
-import { Modal, Pressable, SafeAreaView, Text, TouchableWithoutFeedback, View } from "react-native";
+import { memo, ReactNode } from "react";
+import { Pressable, Text, View } from "react-native";
 import { LinearTransition } from "react-native-reanimated";
 import ReorderableList, { ReorderableListReorderEvent, reorderItems, useIsActive, useReorderableDrag } from "react-native-reorderable-list";
-import { EmojiKeyboard } from "rn-emoji-keyboard";
+import ModalItemHandler from "./ModalItemHandler.component";
 
 const DropdownSetItem = ({ children }: { children: ReactNode }) => {
     return (
@@ -67,7 +65,7 @@ const Item = memo(({
         })
     }
 
-    const isPrivate = visibility == "public"
+    const isPrivate = visibility == "private"
     const drag = useReorderableDrag()
     const isDrag = useIsActive()
 
@@ -125,93 +123,40 @@ const ItemSeparator = () => {
 }
 
 const ModalItemEdit = () => {
-    const itemInEdit = useSetManagerStore(state => state.itemInEdit)
-    const toggleItemEdit = useSetManagerStore(state => state.toggleItemEdit)
-    const updateItem = useSetManagerStore(state => state.updateItem)
-    const [value, setValue] = useState({
-        emoji: "",
-        title: ""
-    })
+    const toggleItemEdit = useSetManagerStore(store => store.toggleItemEdit);
+    const updateItem = useSetManagerStore(store => store.updateItem);
+    const itemInEdit = useSetManagerStore(store => store.itemInEdit);
 
-    const onChangeValue = (values: Partial<{ emoji: string, title: string }>) => {
-        setValue(prev => ({ ...prev, ...values }))
-    }
-
-    const hasValues = !!(value.emoji && value.title)
-
-    const applyChanges = () => {
-        if (!itemInEdit || !hasValues) return
-        updateItem({
-            itemID: itemInEdit?.itemID,
-            ...value
-        })
-    }
-
-    useEffect(() => {
+    const handleClose = () => {
         if (itemInEdit) {
-            setValue({
-                emoji: itemInEdit.emoji,
-                title: itemInEdit.title
-            })
+            toggleItemEdit(itemInEdit);
         }
-    }, [itemInEdit])
+    }
 
+    const handleUpdate = (values: { emoji: string; title: string }) => {
+        if (itemInEdit) {
+            updateItem({
+                itemID: itemInEdit.itemID,
+                ...values,
+            });
+        }
+    }
 
-    return (
-        <SafeAreaView className="flex-1">
-            <Modal
-                visible={!!itemInEdit}
-                animationType="fade"
-                transparent>
-                <TouchableWithoutFeedback
-                    className="flex-1"
-                    onPress={() => {
-                        if (itemInEdit) toggleItemEdit(itemInEdit)
-                    }}
-                >
-                    <View className="flex-1 justify-center items-center gap-6 bg-black/40 px-6">
-                        <EmojiKeyboard
-                            onEmojiSelected={({ emoji }) => onChangeValue({ emoji })}
-                            styles={{
-                                container: {
-                                    maxHeight: 250
-                                }
-                            }}
-                        />
-                        <View className=" rounded-2xl w-full bg-white p-6 gap-6">
+    const getDefaultItem = () => {
+        if (!itemInEdit) return
 
-                            <View className="bg-white flex-row gap-3 items-center">
-                                <Input
-                                    isActive={hasValues}
-                                    className="flex-1"
-                                    inputProps={{
-                                        onChangeText: (title) => onChangeValue({ title }),
-                                        value: value.title,
-                                    }}
-                                    endComponent={
-                                        <Text className="text-2xl">{value.emoji}</Text>
-                                    }
-                                />
-                            </View>
-                            <Button
-                                style={{
-                                    opacity: hasValues ? 1 : 0.5,
-                                }}
-                                disabled={!hasValues}
-                                onPress={applyChanges}
-                                className=" py-3"
-                            >
-                                <Text className="text-white text-center font-semibold text-base">
-                                    Guardar cambios
-                                </Text>
-                            </Button>
-                        </View>
-                    </View>
-                </TouchableWithoutFeedback>
-            </Modal>
-        </SafeAreaView>
+        return {
+            emoji: itemInEdit.emoji,
+            title: itemInEdit.title,
+        }
+    }
 
-    )
+    return itemInEdit && <ModalItemHandler
+        handleClose={handleClose}
+        mode="edit"
+        handleItemChange={handleUpdate}
+        defaultItem={getDefaultItem()}
+    />
 }
 
 export default function SetInfoItems() {

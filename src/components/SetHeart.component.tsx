@@ -9,6 +9,7 @@ interface SetHeartProps extends PressableProps {
         active?: LucideProps
         inactive?: LucideProps
     }
+    onChangeStatus?: (status: boolean) => void
 
 }
 const AnimatedHeart = Animated.createAnimatedComponent(Heart)
@@ -16,6 +17,7 @@ const AnimatedHeart = Animated.createAnimatedComponent(Heart)
 export default function SetHeart({
     likeStatus: defaultLikeStatus,
     hearthProps = {},
+    onChangeStatus,
     ...props
 }: SetHeartProps) {
 
@@ -34,7 +36,7 @@ export default function SetHeart({
     const handlePress = () => {
         const newValue = !liked
         setLiked(newValue)
-
+        onChangeStatus && onChangeStatus(newValue)
         scale.value = 1
 
         if (newValue) {

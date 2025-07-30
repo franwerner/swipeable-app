@@ -1,4 +1,3 @@
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet"
 import { router } from "expo-router"
 import { View } from "react-native"
 import NextButton from "../../components/NextButton.component"
@@ -25,13 +24,11 @@ const Content = () => {
 
 export default function setMoreDetails() {
     return (
-        <BottomSheetModalProvider>
-            <SetManagerWrapperWithSafeKeyboard>
-                <SetImageBackground
-                    className="h-[360px]"
-                    source={require("@/assets/images/setName.png")} />
-                <Content />
-            </SetManagerWrapperWithSafeKeyboard>
-        </BottomSheetModalProvider>
+        <SetManagerWrapperWithSafeKeyboard>
+            <SetImageBackground
+                className="h-[360px]"
+                source={require("@/assets/images/setDetails.jpg")} />
+            <Content />
+        </SetManagerWrapperWithSafeKeyboard>
     )
 }

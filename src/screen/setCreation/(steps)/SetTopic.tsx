@@ -36,7 +36,7 @@ export default function SetTopic() {
         <SetManagerWrapperWithSafeKeyboard>
             <SetImageBackground
                 className="h-[360px]"
-                source={require("@/assets/images/setTopic.png")} />
+                source={require("@/assets/images/setCreation.jpg")} />
             <Content />
         </SetManagerWrapperWithSafeKeyboard>
     )
