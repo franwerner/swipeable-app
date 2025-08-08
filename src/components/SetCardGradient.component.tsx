@@ -1,4 +1,4 @@
-import { BlurView } from "expo-blur"
+// import { BlurView } from "expo-blur"
 import { LinearGradient, LinearGradientProps } from "expo-linear-gradient"
 
 interface SetCardGradientProps extends Omit<LinearGradientProps, "colors"> {
@@ -13,12 +13,12 @@ export default function SetCardGradient({ colors, children, ...props }: SetCardG
             className="flex-1"
             {...props}
             colors={[...colors,] as any}>
-            <BlurView
+            {/* <BlurView
                 intensity={100}
                 className="flex-1"
-            >
+            > */}
                 {children}
-            </BlurView>
+            {/* </BlurView> */}
         </LinearGradient>
 
     )
