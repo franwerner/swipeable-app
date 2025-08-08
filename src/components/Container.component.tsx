@@ -15,7 +15,7 @@ export default function Container({
     return (
         <View
             className={clsx(
-                "border px-6 rounded-[16px] flex-row items-center justify-between h-[64px]",
+                "border px-6 rounded-[16px] flex-row items-center justify-between h-[64px] bg-white",
                 className
             )}
             style={[
