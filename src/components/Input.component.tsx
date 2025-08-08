@@ -24,7 +24,7 @@ export default function Input({
                 placeholderTextColor={colorPalette.primary[800]}
                 {...inputProps}
                 className={clsx(
-                    "flex-1 text-[16px] font-semibold",
+                    "flex-1 text-[16px] font-semibold h-full",
                     inputProps.className
                 )}
             />
