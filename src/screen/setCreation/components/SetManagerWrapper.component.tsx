@@ -1,6 +1,6 @@
 import BackHeader from "@/components/BackHeader.component";
 import clsx from "clsx";
-import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, ScrollViewProps, TouchableWithoutFeedback, View, ViewProps } from "react-native";
+import { Keyboard, ScrollViewProps, TouchableWithoutFeedback, View, ViewProps } from "react-native";
 
 export function SetManagerWrapperWithSafeKeyboard({
     contentContainerClassName,
@@ -10,19 +10,16 @@ export function SetManagerWrapperWithSafeKeyboard({
     return (
         <View className="flex-1 gap-4 p-6 pb-3">
             <BackHeader titleClassName="mr-[60px] " />
-            <KeyboardAvoidingView
-                className="flex-1"
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <ScrollView
-                        showsVerticalScrollIndicator={false}
-                        contentContainerClassName={clsx(
-                            "gap-8 flex-1",
-                            contentContainerClassName
-                        )}
-                        {...props} />
-                </TouchableWithoutFeedback>
-            </KeyboardAvoidingView>
+            <TouchableWithoutFeedback
+                onPress={Keyboard.dismiss}>
+                <View
+                    className={clsx(
+                        "gap-8 flex-1 ",
+                        contentContainerClassName
+                    )}
+                    {...props}
+                />
+            </TouchableWithoutFeedback>
         </View>
     )
 }

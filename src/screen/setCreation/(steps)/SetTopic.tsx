@@ -1,6 +1,6 @@
 
 import { router } from "expo-router";
-import { View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import useSetCreationStore from "../../../store/useSetManagerStore.store";
 import NextButton from "../components/NextButton.component";
 import SetImageBackground from "../components/SetImageBackground.component";
@@ -13,7 +13,10 @@ const Content = () => {
     const setTopic = useSetCreationStore((store) => store.updateSet)
 
     return (
-        <View className="justify-between flex-1">
+        <KeyboardAwareScrollView
+            bottomOffset={22}
+            className="pt-[360px]"
+            contentContainerClassName="flex-grow justify-between">
             <SetInput
                 inputProps={{
                     value: topic,
@@ -26,7 +29,7 @@ const Content = () => {
                 text={"Empezar"}
                 nextStepAllowed={topic.length > 0}
             />
-        </View>
+        </KeyboardAwareScrollView>
     )
 }
 
@@ -35,7 +38,7 @@ export default function SetTopic() {
     return (
         <SetManagerWrapperWithSafeKeyboard>
             <SetImageBackground
-                className="h-[360px]"
+                className="h-[360px] absolute"
                 source={require("@/assets/images/setCreation.jpg")} />
             <Content />
         </SetManagerWrapperWithSafeKeyboard>

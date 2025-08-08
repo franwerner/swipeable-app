@@ -4,7 +4,6 @@ import NextButton from "../../components/NextButton.component"
 import SetImageBackground from "../../components/SetImageBackground.component"
 import { SetManagerWrapperWithSafeKeyboard } from "../../components/SetManagerWrapper.component"
 import ColorInput from "./components/ColorInput.component"
-import DescriptionInput from "./components/DescriptionInput.component"
 
 
 
@@ -12,7 +11,7 @@ const Content = () => {
     return (
         <View className="gap-4 flex-1 justify-between">
             <ColorInput />
-            <DescriptionInput />
+            {/* <DescriptionInput /> */}
             <NextButton
                 nextStepAllowed
                 onPress={() => router.navigate("./SetItems")}

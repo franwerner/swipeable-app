@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import { SmilePlus } from "lucide-react-native";
 import { useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import EmojiPicker from 'rn-emoji-keyboard';
 import useSetManagerStore from "../../../store/useSetManagerStore.store";
 import NextButton from "../components/NextButton.component";
@@ -110,14 +111,17 @@ const Button = () => {
 
 const Content = () => {
     return (
-        <View className="flex-1 justify-between ">
-            <View className="gap-3">
+        <KeyboardAwareScrollView
+            bottomOffset={22}
+            className="pt-[360px]"
+            contentContainerClassName="flex-grow justify-between">
+            <View className="gap-4">
                 <NameInput />
                 <EmojiSelectors />
                 <SetVisilibity />
             </View>
             <Button />
-        </View>
+        </KeyboardAwareScrollView>
     )
 }
 
@@ -125,7 +129,7 @@ export default function SetDetails() {
     return (
         <SetManagerWrapperWithSafeKeyboard>
             <SetImageBackground
-                className="h-[360px]"
+                className="h-[360px] absolute"
                 source={require("@/assets/images/setDetails.jpg")} />
             <Content />
         </SetManagerWrapperWithSafeKeyboard>
