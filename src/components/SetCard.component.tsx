@@ -23,7 +23,7 @@ export default function SetCard({
     return (
         <View
             className={clsx(
-                "overflow-hidden w-[360px] h-[150px] rounded-2xl",
+                "overflow-hidden w-[360px] rounded-2xl",
                 className
             )}
             {...props}>

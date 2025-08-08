@@ -19,7 +19,7 @@ export default function NewSets() {
                     const { emojis, userBy } = item
                     return (
                         <SetSimpleCard
-                            className="h-[160px] w-[300px]"
+                            className="w-[300px]"
                             HeaderComponent={
                                 <View className="p-5">
                                     <Text className="text-3xl" >{emojis.join((" "))}</Text>

@@ -8,7 +8,7 @@ import { SlidersIcon } from "lucide-react-native";
 import { memo, useRef } from "react";
 import { Text, View } from "react-native";
 import useFilter from "../hooks/useFilter.hook";
-import setFilters from "../mocks/SetFilters.mocks";
+import setFilters from "../mocks/setFilters.mocks";
 
 interface FilterOptionsProps extends ISetFilter {
     selectedOptions?: Array<string>,

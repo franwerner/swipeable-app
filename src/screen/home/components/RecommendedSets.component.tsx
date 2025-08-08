@@ -25,7 +25,7 @@ export default function RecommendedSets() {
                                 nickname: userBy.nickname,
                                 userID: userBy.userID
                             }}
-                            className="min-w-full h-[130px]"
+                            className="min-w-full"
                             HeaderComponent={
                                 <View className="p-5">
                                     <SetHeart
